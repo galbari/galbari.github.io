@@ -32,16 +32,18 @@
     <![endif]-->
 
 <!-- CS -->
-<script type="text/javascript">
-    window._cshq = window._cshq || [];
-    window._cshq.push(["_reportConversion", // the event being reported
-      "oid9383", // order number
-      "20.3", // total price
-      "USD", // denomination
-      "customer@email.com"] // customer email
-   );
+<script type='text/javascript'>
+(function(){
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = ((document.location.protocol == 'https:') ? 'https://' : 'http://') +
+            'p.app.cdn-cs.com/b/lOzRV0/VkqFAB/l/cs_all.js';
+    document.getElementsByTagName('head')[0].appendChild(script);
+})();
 </script>
 <!-- end CS -->
+
 
 
 
