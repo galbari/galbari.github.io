@@ -678,13 +678,13 @@
     ================================================== -->
     <script>
       $( document ).ready(function() {
-          function addToCart({
+          function addToCart() {
             console.log("adding ball to cart");
-          });
-          
-          function removeFromCart({
+          }
+          function removeFromCart(){
             console.log("remove ball from cart");
-          });
+          }
+          
           $('.addToCart').click(addToCart);
           $('.removeFromCart').click(removeFromCart);
       });
