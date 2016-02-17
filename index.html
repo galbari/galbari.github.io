@@ -105,8 +105,8 @@
         <h1>Cart Buttons</h1>
       </div>
       <p>
-        <button type="button" class="btn btn-lg btn-success">Add to cart</button>
-        <button type="button" class="btn btn-lg btn-danger">Remove from cart</button>
+        <button type="button" class="addToCart btn btn-lg btn-success">Add to cart</button>
+        <button type="button" class="removeFromCart btn btn-lg btn-danger">Remove from cart</button>
       </p>
       
       
@@ -673,6 +673,22 @@
     <script src="http://getbootstrap.com/assets/js/docs.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+    
+     <!-- My JavaScript
+    ================================================== -->
+    <script>
+      $( document ).ready(function() {
+          function addToCart({
+            console.log("adding ball to cart");
+          });
+          
+          function removeFromCart({
+            console.log("remove ball from cart");
+          });
+          $('.addToCart').click(addToCart);
+          $('.removeFromCart').click(removeFromCart);
+      });
+    </script>
   </body>
 </html>
 
