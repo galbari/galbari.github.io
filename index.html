@@ -688,6 +688,9 @@
      <!-- My JavaScript
     ================================================== -->
     <script>
+    function runMyFunc(){
+      alert("this is my func");
+    }
       $( document ).ready(function() {
         var productDetails = {
                                 "ProductId" : "123456",
@@ -707,9 +710,7 @@
           $('.addToCart').click(addToCart);
           $('.removeFromCart').click(removeFromCart);
           
-          function runMyFunc(){
-            alert("this is my func");
-          }
+          
       });
     </script>
   </body>
