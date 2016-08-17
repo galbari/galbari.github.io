@@ -685,6 +685,7 @@
     
     <!--My Javascript-->
     $( document ).ready(function() {
+    debugger;
         var productDetails = {
                                 "ProductId" : "123456",
                                 "Quantity" : 1,
@@ -692,6 +693,7 @@
                                 "Denomination" : "USD"
                              };
           function addToCart() {
+          debugger;
             window._cshq.push([ "_addToCart", productDetails ]);
             console.log("adding ball to cart");
           }
