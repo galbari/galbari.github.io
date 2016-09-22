@@ -111,6 +111,7 @@
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
+        <h2>scroll position is: <span id="sp"></span></h2>
         <h1>Theme example</h1>
         <p>This is a template showcasing the optional theme stylesheet included in Bootstrap. Use it as a starting point to create something more unique by building on or modifying it.</p>
       </div>
@@ -713,6 +714,9 @@
           $('.addToCart').click(addToCart);
           $('.removeFromCart').click(removeFromCart);
           
+          jq(window).on("scroll", function(){
+            $("#sp").html($(window).scrollTop());
+          });
           
       });
     </script>
