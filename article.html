@@ -1796,7 +1796,8 @@
 		
 		<script>
 			(function () {
-				var articleContainer = document.getElementsByClassName("storyfull__container-content");
+				var articleContainerClass = "storyfull__container";
+				var articleContainer = [].slice.call(document.getElementsByClassName(articleContainerClass))[0];
 				console.log(articleContainer);
 			})();
 		</script>
