@@ -1866,27 +1866,27 @@
 
 				function injectStyleSheet(cssText, id) {
 			        var styleNodeId = id || 'kortWidgetCssStyle',
-			            node = doc.querySelector("#" + styleNodeId);
+			            node = document.querySelector("#" + styleNodeId);
 
 			        // remove previous node (in cases we load more than once)
 			        if (node) {
 			            node.parentNode.removeChild(node);
 			        }
 
-			        node = doc.createElement('div');
+			        node = document.createElement('div');
 
 			        // make sure we have someting printable in the div
 			        // or IE will refuse to load the style ( '&shy;' is soft hyphen which is considered by IE
 			        // as content but does not produce any visual output)
 			        node.id = styleNodeId;
 			        node.innerHTML = ['&shy;', '<style>', cssText, '</style>'].join('');
-			        doc.documentElement.appendChild(node);
+			        document.Element.appendChild(node);
 			    }
 
 				function getReadMoreBox(options, id) {
 					id = id || "123";
 					var buttonId = "aaa";
-			        var div = doc.createElement('div');
+			        var div = document.createElement('div');
 
 			        div.className = "tbl-read-more-box";
 			        div.innerHTML = "<a id ='" + buttonId + "_" + id + "' class='tbl-read-more-btn' href='#'>" +
@@ -1897,7 +1897,7 @@
 			    }
 
 				function removeReadMore(event) {
-			        var articleContent = doc.querySelector('.' +ARTICLE_MAIN_CLASS);
+			        var articleContent = document.querySelector('.' +ARTICLE_MAIN_CLASS);
 
 			        event.preventDefault();
 			        event.stopPropagation();
@@ -1920,8 +1920,8 @@
 				};
 				
 				debugger;
-				var articleContent = doc.querySelector(options.boxSelector);
-				if (doc.querySelector('.' + ARTICLE_MAIN_CLASS) !== articleContent ) {
+				var articleContent = document.querySelector(options.boxSelector);
+				if (document.querySelector('.' + ARTICLE_MAIN_CLASS) !== articleContent ) {
 					injectStyleSheet(createStyleSheet(options));
 					articleContent.className += ARTICLE_CLASSES;
 					articleContent.appendChild(getReadMoreBox(options));
