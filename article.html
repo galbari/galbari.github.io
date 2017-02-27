@@ -1865,7 +1865,6 @@
 				}
 
 				function injectStyleSheet(cssText, id) {
-					debugger;
 			        var styleNodeId = id || 'kortWidgetCssStyle',
 			            node = document.querySelector("#" + styleNodeId);
 
@@ -1912,7 +1911,7 @@
 				var articleContainerClass = "storyfull__container";
 				var options = {
 					boxSelector: ".storyfull__container",
-					minimizeSize: 200,
+					minimizedSize: 200,
 					buttonTop: 10,
 					buttonBottom: 10,
 					backgroundColor: "rgba(41,137,216,1)",
@@ -1920,7 +1919,6 @@
 					caption: "Read More"
 				};
 				
-				debugger;
 				var articleContent = document.querySelector(options.boxSelector);
 				if (document.querySelector('.' + ARTICLE_MAIN_CLASS) !== articleContent ) {
 					injectStyleSheet(createStyleSheet(options));
