@@ -1796,9 +1796,139 @@
 		
 		<script>
 			(function () {
+				function createStyleSheet(options) {
+					var color = options.backgroundColor;
+					
+					return "." + ARTICLE_MAIN_CLASS + " {" +
+			            "max-height:inherit" +
+		            "}" +
+
+					"." + ARTICLE_MAIN_CLASS + ".tbl-forkorts-article-active  {" +
+			            "max-height:" + options.minimizedSize + "px;" +
+			            "overflow: hidden;" +
+			            "position: relative;" +
+		            "}" +
+
+
+		            ".tbl-read-more-btn {" +
+			            "display: inline-block!important;" +
+			                //"padding: 6px 12px;" +
+			            "margin: " + options.buttonTop + "px 0 " + options.buttonBottom + "px !important;" +
+			            "line-height: 38px!important;" +
+			            "text-align: center!important;" +
+			            "white-space: nowrap!important;" +
+			            "vertical-align: middle!important;" +
+			            "-ms-touch-action: manipulation;" +
+			            "touch-action: manipulation;" +
+			            "cursor: pointer!important;" +
+			            "-webkit-user-select: none;" +
+			            "-moz-user-select: none;" +
+			            "-ms-user-select: none;" +
+			            "user-select: none;" +
+			            "background-image: none!important;" +
+			            "border: 1px solid #93abbc!important;" +
+			            "color: #326891!important;" +
+			            "background-color: #edf2f5!important;" +
+			            "border-color: #2e6da4;" +
+			            "height: 38px!important;" +
+			            "width: 250px!important;" +
+			            "font-size: 15px!important;" +
+			            "font-weight: bold!important;" +
+			            "border-radius: 3px!important;" +
+			            "font-family: sans-serif!important;" +
+		            "}" +
+
+		            "." + readMoreButtonClassName + ":hover {" +
+			            "background-color: #bed0dc!important;" +
+			            "border-color: #7399b3!important;" +
+			            "color: #326891!important;" +
+		            "}" +
+
+		            ".tbl-read-more-box {" +
+			            "position: absolute;" +
+			            "z-index: 4;" +
+			            "left: 0;" +
+			            "right:0;" +
+			            "bottom: 0;" +
+			            "display: none;" +
+			            "text-align: center;" +
+			            "padding: 10px 12px 12px;" +
+			            "background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%,  " + color + "  " + options.gradient+ "%,  " + color + "  100%);" +
+			            "background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(50%, " + color + " ), color-stop(100%, " + color + " ));" +
+			            "background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%, " + color + "  " + options.gradient+ "%, " + color + "  100%);" +
+			            "background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%, " + color + "  " + options.gradient+ "%, " + color + "  100%);" +
+			            "background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%, " + color + "  " + options.gradient+ "%, " + color + "  100%);" +
+			            "background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%, " + color + "  " + options.gradient+ "%, " + color + "  100%);" +
+			            "filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='" + color + "',GradientType=0 );" +
+		            "}" +
+					"." + ARTICLE_MAIN_CLASS + "-active .tbl-read-more-box{display:block;}";
+				}
+
+				function injectStyleSheet(cssText, id) {
+			        var styleNodeId = id || 'kortWidgetCssStyle',
+			            node = doc.querySelector("#" + styleNodeId);
+
+			        // remove previous node (in cases we load more than once)
+			        if (node) {
+			            node.parentNode.removeChild(node);
+			        }
+
+			        node = doc.createElement('div');
+
+			        // make sure we have someting printable in the div
+			        // or IE will refuse to load the style ( '&shy;' is soft hyphen which is considered by IE
+			        // as content but does not produce any visual output)
+			        node.id = styleNodeId;
+			        node.innerHTML = ['&shy;', '<style>', cssText, '</style>'].join('');
+			        doc.documentElement.appendChild(node);
+			    }
+
+				function getReadMoreBox(options, id) {
+					id = id || "123";
+					var buttonId = "aaa";
+			        var div = doc.createElement('div');
+
+			        div.className = "tbl-read-more-box";
+			        div.innerHTML = "<a id ='" + buttonId + "_" + id + "' class='tbl-read-more-btn' href='#'>" +
+			            				options.caption +
+			            			"</a>";
+
+					return div;
+			    }
+
+				function removeReadMore(event) {
+			        var articleContent = doc.querySelector('.' +ARTICLE_MAIN_CLASS);
+
+			        event.preventDefault();
+			        event.stopPropagation();
+			        articleContainerClass.classList.remove(ARTICLE_MAIN_CLASS + '-active');
+			    }
+
+				var ARTICLE_MAIN_CLASS = 'tbl-forkorts-article',
+			        ARTICLE_CLASSES = " " + ARTICLE_MAIN_CLASS + " " + ARTICLE_MAIN_CLASS + "-active",
+			        BUTTON_ID = "tbl-read-more-box-btn";
+				
 				var articleContainerClass = "storyfull__container";
-				var articleContainer = [].slice.call(document.getElementsByClassName(articleContainerClass))[0];
-				console.log(articleContainer);
+				var options = {
+					boxSelector: ".storyfull__container",
+					buttonClassName: readMoreButtonClassName,
+					minimizeSize: 200,
+					buttonTop: 10,
+					buttonBottom: 10,
+					backgroundColor: "rgba(41,137,216,1)",
+					gradient: 50,
+					caption: "Read More"
+				};
+				
+				debugger;
+				var articleContent = doc.querySelector(options.boxSelector);
+				if (doc.querySelector('.' + ARTICLE_MAIN_CLASS) !== articleContent ) {
+					injectStyleSheet(createStyleSheet(options));
+					articleContent.className += ARTICLE_CLASSES;
+					articleContent.appendChild(getReadMoreBox(options));
+
+					document.querySelector("#aaa_123").addEventLisner("click", removeReadMore);
+				}
 			})();
 		</script>
 	</div>
