@@ -1881,7 +1881,7 @@
 			        // as content but does not produce any visual output)
 			        node.id = styleNodeId;
 			        node.innerHTML = ['&shy;', '<style>', cssText, '</style>'].join('');
-			        document.Element.appendChild(node);
+			        document.documentElement.appendChild(node);
 			    }
 
 				function getReadMoreBox(options, id) {
