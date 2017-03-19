@@ -225,10 +225,12 @@
             _taboola.push({listenTo: 'visible', handler :widgetIsVisible});
 		  
 		  function widgetRendered (){
+			  debugger;
                 window.widgetRendered = true;
             };
 
             function widgetIsVisible() {
+		    debugger;
                 console.log(window.widgetIsVisible);
                 window.widgetIsVisible = true;
             };
