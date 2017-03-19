@@ -37,15 +37,15 @@
 	  
 	<!-- Taboola widget -->
 	  <script type="text/javascript">
-	  window._taboola = window._taboola || [];
-	  _taboola.push({article:'auto'});
-	  !function (e, f, u) {
-	    e.async = 1;
-	    e.src = u;
-	    f.parentNode.insertBefore(e, f);
-	  }(document.createElement('script'),
-	  document.getElementsByTagName('script')[0],
-	  'http://cdn.taboola.com/libtrc/ndtv/loader.js');
+	  
+ window._taboola = window._taboola || [];
+_taboola.push({article:'auto'}); 
+!function (e, f, u) {
+    e.async = 1;
+    e.src = u;
+    f.parentNode.insertBefore(e, f);
+}(document.createElement('script'), document.getElementsByTagName('script')[0], 'http://cdn.taboola.com/libtrc/betterbytheminute/loader.js');
+
 	</script>
 	<!-- End Taboola-->
 	  
@@ -213,13 +213,12 @@
 	  
 	  
 	  <script type="text/javascript">
-  window._taboola = window._taboola || [];
-  _taboola.push({
-    mode: 'thumbnails-a',
-    container: 'taboola-container',
-    placement: 'Below Article Thumbnails Orig',
-    target_type: 'video'
-  });
+  
+window._taboola = window._taboola || [];
+_taboola.push({mode:'thumbs-1r', 
+	       container:'taboola-bottomofarticle', 
+	       placement:'Bottom of Article'
+	      });
 		  _taboola.push({listenTo: 'render', handler :widgetRendered});
             _taboola.push({listenTo: 'visible', handler :widgetIsVisible});
 		  
