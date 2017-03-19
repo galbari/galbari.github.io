@@ -218,8 +218,20 @@
     mode: 'thumbnails-a-readMore',
     container: 'taboola-container',
     placement: 'Below Article Thumbnails Orig',
-    target_type: 'video'
+    target_type: 'video',
+	  listento
   });
+		  _taboola.push({listenTo: 'render', handler :widgetRendered});
+            _taboola.push({listenTo: 'visible', handler :widgetIsVisible});
+		  
+		  function widgetRendered (){
+                window.widgetRendered = true;
+            };
+
+            function widgetIsVisible() {
+                console.log(window.widgetIsVisible);
+                window.widgetIsVisible = true;
+            };
 </script>
   </body>
 </html>
