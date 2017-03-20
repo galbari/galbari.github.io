@@ -222,14 +222,14 @@ _taboola.push({mode:'thumbs-1r',
 		  _taboola.push({listenTo: 'render', handler :widgetRendered});
             _taboola.push({listenTo: 'visible', handler :widgetIsVisible});
 		  
-		  function widgetRendered (){
-			  debugger;
+		  function widgetRendered (data){
+			  console.log(data)
                 window.widgetRendered = true;
             };
 
-            function widgetIsVisible() {
+            function widgetIsVisible(data) {
 		    debugger;
-                console.log(window.widgetIsVisible);
+                console.log(data);
                 window.widgetIsVisible = true;
             };
 </script>
