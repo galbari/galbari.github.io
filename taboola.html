@@ -37,21 +37,27 @@
 	  
 	<!-- Taboola widget -->
 	  <script type="text/javascript">
-	  
- window._taboola = window._taboola || [];
-_taboola.push({article:'auto'}); 
-!function (e, f, u) {
-    e.async = 1;
-    e.src = u;
-    f.parentNode.insertBefore(e, f);
-}(document.createElement('script'), document.getElementsByTagName('script')[0], 'http://cdn.taboola.com/libtrc/betterbytheminute/loader.js');
-
-	</script>
+  window._taboola = window._taboola || [];
+  _taboola.push({article:'auto'});
+  !function (e, f, u, i) {
+    if (!document.getElementById(i)){
+      e.async = 1;
+      e.src = u;
+      e.id = i;
+      f.parentNode.insertBefore(e, f);
+    }
+  }(document.createElement('script'),
+  document.getElementsByTagName('script')[0],
+  '//cdn.taboola.com/libtrc/taboola-training/loader.js',
+  'tb_loader_script');
+  if(window.performance && typeof window.performance.mark == 'function')
+    {window.performance.mark('tbl_ic');}
+</script>
 	<!-- End Taboola-->
 	  
 	  
 	  <!-- CS -->
-<!-- 	<script type='text/javascript'>
+	<script type='text/javascript'>
 	(function(){
 	    var script = document.createElement('script');
 	    script.type = 'text/javascript';
@@ -60,7 +66,7 @@ _taboola.push({article:'auto'});
 		    'local.cdn-cs.com/b/aZkdOj/bHzgct/l/cs_all.js';
 	    document.getElementsByTagName('head')[0].appendChild(script);
 	})();
-	</script> -->
+	</script>
 	<!-- end CS -->
 
 	  
@@ -210,16 +216,16 @@ _taboola.push({article:'auto'});
     <script src="../../dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-	  
-	  
-	  <script type="text/javascript">
-  
-window._taboola = window._taboola || [];
-_taboola.push({mode:'thumbnails-a', 
-	       container:'taboola-container', 
-	       placement:'Bottom of Article'
-	      });
-		  _taboola.push({listenTo: 'render', handler :widgetRendered});
+    
+     <script type="text/javascript">
+	  window._taboola = window._taboola || [];
+	  _taboola.push({
+	    mode: 'organic-thumbnails-gb',
+	    container: 'taboola-container',
+	    placement: 'Below Article Thumbnails',
+	    target_type: 'mix'
+	  });
+	   _taboola.push({listenTo: 'render', handler :widgetRendered});
             _taboola.push({listenTo: 'visible', handler :widgetIsVisible});
 		  
 		  function widgetRendered (data){
@@ -231,7 +237,8 @@ _taboola.push({mode:'thumbnails-a',
                 console.log(data);
                 window.widgetIsVisible = true;
             };
-</script>
+</script>  
+	  
   </body>
 </html>
 
