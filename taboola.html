@@ -48,7 +48,7 @@
     }
   }(document.createElement('script'),
   document.getElementsByTagName('script')[0],
-  '//cdn.taboola.com/libtrc/taboola-training/loader.js',
+  '//cdn.taboola.com/libtrc/betterbytheminute/loader.js',
   'tb_loader_script');
   if(window.performance && typeof window.performance.mark == 'function')
     {window.performance.mark('tbl_ic');}
@@ -218,13 +218,14 @@
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     
      <script type="text/javascript">
-	  window._taboola = window._taboola || [];
-	  _taboola.push({
-	    mode: 'organic-thumbnails-gb',
-	    container: 'taboola-container',
-	    placement: 'Below Article Thumbnails',
-	    target_type: 'mix'
-	  });
+	     window._taboola = window._taboola || [];
+		  _taboola.push({
+		    mode: 'organic-thumbnails-a-gal',
+		    container: 'taboola-container',
+		    placement: 'Below Article Thumbnails',
+		    target_type: 'mix'
+		  });
+	     
 	   _taboola.push({listenTo: 'render', handler :widgetRendered});
             _taboola.push({listenTo: 'visible', handler :widgetIsVisible});
 		  
