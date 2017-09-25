@@ -1,4 +1,10 @@
 function transitionBanner() {
+    if (TRCImpl.boxes) {
+        executed = true;
+    } else {
+        return;
+    }
+
     function createOrganicCardObj(cardData) {
         var container = cardData.container;
         var card = cardData.boxes[0];
@@ -19,5 +25,7 @@ function transitionBanner() {
     var cardsData = getCardsData();
     console.log(cardsData);
 }
-
-transitionBanner();
+var executed = false;
+while (!executed) {
+    transitionBanner();
+}
