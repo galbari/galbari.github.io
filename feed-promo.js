@@ -12,7 +12,13 @@ function transitionBanner() {
 
     function getCardsData() {
         var allCards = TRCImpl.boxes;
-        var organicCards = allCards.filter(function(card){return card.mode.indexOf('organic');});
+        var cardsArray = [];
+        for (var card in allCards) {
+            if (allCards[card].mode.indexOf('organic')) {
+                cardsArray.push(allCards[card]);
+            }
+        }
+        var organicCards = cardsArray.filter(function(card){return card.mode.indexOf('organic');});
         return organicCards.map(createOrganicCardObj);
     }
 
