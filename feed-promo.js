@@ -1,5 +1,5 @@
 function transitionBanner() {
-    if (TRCImpl) {
+    if (window.TRCImpl) {
         executed = true;
     } else {
         return false;
