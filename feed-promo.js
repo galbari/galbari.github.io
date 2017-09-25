@@ -1,5 +1,5 @@
 function transitionBanner() {
-    if (TRCImpl.boxes) {
+    if (TRCImpl && TRCImpl.boxes) {
         executed = true;
     } else {
         return;
