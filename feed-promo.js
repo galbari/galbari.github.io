@@ -2,7 +2,7 @@ function transitionBanner() {
     if (TRCImpl) {
         executed = true;
     } else {
-        return;
+        return false;
     }
 
     function createOrganicCardObj(cardData) {
