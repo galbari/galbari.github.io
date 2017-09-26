@@ -26,18 +26,26 @@ function transitionBanner() {
         return organicCards.map(createOrganicCardObj);
     }
 
-    function createSlider() {
+    function createSlider(cardsData) {
         var slider = document.createElement('div');
         var itemsContainer = document.createElement('ul');
         slider.setAttribute('id', 'tbl-slider');
         slider.appendChild(itemsContainer);
-        cardsData.forEach(function(card, index) {
-            var items = '<li class="item">' +
+        var items = cardsData.reduce(function(html, card) {
+            return html + '<li class="item">' +
                             '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
                             '<div class="header">Up next:</div>' +
                             '<div class="content">' + card.content + '</div>' +
                         '</li>';
-        });
+        }, "");
+        // var items;
+        // cardsData.forEach(function(card, index) {
+        //     var items = '<li class="item">' +
+        //                     '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
+        //                     '<div class="header">Up next:</div>' +
+        //                     '<div class="content">' + card.content + '</div>' +
+        //                 '</li>';
+        // });
         itemsContainer.innerHTML = items;
         console.log(slider);
     }
