@@ -39,7 +39,10 @@ function transitionBanner() {
         var itemsContainer = document.createElement('ul');
         slider.setAttribute('id', 'tbl-slider');
         slider.appendChild(itemsContainer);
-        var items = cardsData.reduce(getItmesAsHtmlString);
+        var items = cardsData.reduce(function(html, getItmesAsHtmlString){
+            return getItmesAsHtmlString(html);
+        }, "");
+
         // var items = cardsData.reduce(function(html, card) {
         //     return html + '<li class="item">' +
         //                     '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
