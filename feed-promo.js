@@ -51,7 +51,7 @@ function transitionBanner() {
     var cardsData = getCardsData();
     var slider = createSlider(cardsData);
 
-    document.body.appendChild('slider');
+    document.body.appendChild(slider);
 }
 
 setTimeout(function(){
