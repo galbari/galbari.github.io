@@ -62,8 +62,8 @@ function transitionBanner() {
         styleDiv.innerHTML = '<style>' +
             '.tbl-cards-slider {position: fixed; left: 25px; bottom: 45px; width: 525px; height: 130px; overflow: hidden; border-radius: 10px;}' +
             '.tbl-cards-slider .item {list-style: none;}' +
-            '.tbl-cards-slider .img {display: inline-block; width: 162px; height: 100%; background-size: cover;}' +
-            '.tbl-cards-slider .content-container {display: inline-block; width: 363px; height: 100%; padding: 15px;}' +
+            '.tbl-cards-slider .img {display: inline-block; width: 50%; height: 130px; background-size: cover; vertical-align: middle}' +
+            '.tbl-cards-slider .content-container {display: inline-block; width: 50%; height: 100%; padding: 15px; vertical-align: middle}' +
             '.tbl-cards-slider .header {font-weight: bold; font-size: 16px;}' +
             '.tbl-cards-slider .content {width: 245px; font-size: 14px; overflow: hidden; text-overflow: ellipsis;}' +
             '.tbl-cards-slider .arrow {float: right;}' +
