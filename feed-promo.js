@@ -10,19 +10,40 @@ function transitionBanner() {
         };
     }
 
-    function getCardsData() {
-        var allCards = TRCImpl.boxes;
-        var cardsArray = [];
+    function getOrganicCards(allCards) {
+        var organicCards = [];
         for (var card in allCards) {
             if (allCards[card].mode.indexOf('organic')) {
-                cardsArray.push(allCards[card]);
+                organicCards.push(allCards[card]);
             }
         }
-        var organicCards = cardsArray.filter(function(card){return card.mode.indexOf('organic');});
+
+        return organicCards;
+    }
+
+    function getCardsData() {
+        var organicCards = getOrganicCards(TRCImpl.boxes);
         return organicCards.map(createOrganicCardObj);
     }
 
+    function createSlider() {
+        var slider = document.createElement('div');
+        var itemsContainer = document.createElement('ul');
+        slider.setAttribute('id', 'tbl-slider');
+        slider.appendChild(itemsContainer);
+        cardsData.forEach(function(card, index) {
+            var item = '<li class="item">' +
+                            '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
+                            '<div class="header">Up next:</div>' +
+                            '<div class="content">' + card.content + '</div>' +
+                        '</li>';
+
+            itemsContainer.appendChild(item);
+        });
+    }
+
     var cardsData = getCardsData();
+    createSlider(cardsData);
     console.log(cardsData);
 }
 setTimeout(function(){
