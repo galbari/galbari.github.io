@@ -68,6 +68,8 @@ function transitionBanner() {
             '.tbl-cards-slider .content {width: 245px; font-size: 14px; overflow: hidden; text-overflow: ellipsis;}' +
             '.tbl-cards-slider .arrow {float: right;}' +
         '</style>';
+
+        return styleDiv;
     }
 
     var cardsData = getCardsData();
