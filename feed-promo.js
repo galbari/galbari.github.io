@@ -26,36 +26,32 @@ function transitionBanner() {
         return organicCards.map(createOrganicCardObj);
     }
 
-    function getItmesAsHtmlString(html, card) {
-        return html + '<li class="item">' +
-                        '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
-                        '<div class="header">Up next:</div>' +
-                        '<div class="content">' + card.content + '</div>' +
-                    '</li>';
+    function getItmesAsHtmlString(cardsData) {
+        return cardsData.reduce(function(html, card){
+            return html + '<li class="item">' +
+                            '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
+                            '<div class="header">Up next:</div>' +
+                            '<div class="content">' + card.content + '</div>' +
+                        '</li>';
+        }, '');
     }
 
     function createSlider(cardsData) {
         var slider = document.createElement('div');
         var itemsContainer = document.createElement('ul');
+        var items = getItmesAsHtmlString(cardsData);
+
         slider.setAttribute('id', 'tbl-slider');
         slider.appendChild(itemsContainer);
-        var items = cardsData.reduce(function(html, card){
-            return getItmesAsHtmlString(html, card);
-        }, "");
-
-        // var items = cardsData.reduce(function(html, card) {
-        //     return html + '<li class="item">' +
-        //                     '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
-        //                     '<div class="header">Up next:</div>' +
-        //                     '<div class="content">' + card.content + '</div>' +
-        //                 '</li>';
-        // }, '');
         itemsContainer.innerHTML = items;
-        console.log(slider);
+
+        return slider;
     }
 
     var cardsData = getCardsData();
-    createSlider(cardsData);
+    var slider = createSlider(cardsData);
+
+    document.body.appendChild('slider');
 }
 
 setTimeout(function(){
