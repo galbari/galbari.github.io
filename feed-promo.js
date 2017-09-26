@@ -60,7 +60,7 @@ function transitionBanner() {
         var styleDiv = document.createElement('div');
         styleDiv.id = 'tbl-slider-style';
         styleDiv.innerHTML = '<style>' +
-            '.tbl-cards-slider {width: 525px; height: 130px; overflow: hidden; border-radius: 10px;}' +
+            '.tbl-cards-slider {position: fixed; left: 25px; bottom: 45px; width: 525px; height: 130px; overflow: hidden; border-radius: 10px;}' +
             '.tbl-cards-slider .img {display: inline-block; width: 162px; height: 100%; background-size: cover;}' +
             '.tbl-cards-slider .content-container {display: inline-block; width: 363px; height: 100%; padding: 15px;}' +
             '.tbl-cards-slider .header {font-weight: bold; font-size: 16px;}' +
@@ -73,6 +73,7 @@ function transitionBanner() {
     var style = getStyle();
     var slider = createSlider(cardsData);
 
+    document.body.appendChild(style);
     document.body.appendChild(slider);
 }
 
