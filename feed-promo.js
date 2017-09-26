@@ -32,14 +32,14 @@ function transitionBanner() {
         slider.setAttribute('id', 'tbl-slider');
         slider.appendChild(itemsContainer);
         cardsData.forEach(function(card, index) {
-            var item = '<li class="item">' +
+            var items = '<li class="item">' +
                             '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
                             '<div class="header">Up next:</div>' +
                             '<div class="content">' + card.content + '</div>' +
                         '</li>';
-
-            itemsContainer.appendChild(item);
         });
+        itemsContainer.innerHTML = items;
+        console.log(slider);
     }
 
     var cardsData = getCardsData();
