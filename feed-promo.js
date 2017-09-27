@@ -21,7 +21,7 @@ function transitionBanner() {
     function getOrganicCards(allCards) {
         var organicCards = [];
         for (var card in allCards) {
-            if (allCards[card].mode.indexOf('organic')) {
+            if (allCards[card].mode.indexOf('organic') > -1) {
                 organicCards.push(allCards[card]);
             }
         }
