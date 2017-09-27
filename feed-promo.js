@@ -4,16 +4,14 @@ function transitionBanner() {
     }
 
     function createOrganicCardObj(cardData) {
-        var container = cardData.container;
         var card = cardData.boxes[0];
         var textContent = card.textContent;
-        var maxContentLength = 70;
+        var maxContentLength = 65;
 
         textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
         return {
-            title: card.title,
             content: textContent,
-            container: container,
+            container: cardData.container,
             img: card.video_data.thumbnail
         };
     }
