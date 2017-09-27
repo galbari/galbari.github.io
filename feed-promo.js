@@ -6,7 +6,7 @@ function transitionBanner() {
     function createOrganicCardObj(cardData) {
         var card = cardData.boxes[0];
         var textContent = card.textContent;
-        var maxContentLength = 65;
+        var maxContentLength = 60;
 
         textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
         return {
@@ -72,7 +72,7 @@ function transitionBanner() {
             '.tbl-cards-slider .img {display: table-cell; width: 160px; height: 100%; background-size: cover; background-position: center;}' +
             '.tbl-cards-slider .content-container {display: table-cell; width: 275px; height: 100%; padding: 0 15px; vertical-align: middle}' +
             '.tbl-cards-slider .header {font-weight: bold; font-size: 16px;}' +
-            '.tbl-cards-slider .content {width: 260px; font-size: 14px;}' +
+            '.tbl-cards-slider .content {width: 260px; font-size: 16px;}' +
             '.tbl-cards-slider .arrow {display: table-cell; vertical-align: middle;}' +
         '</style>';
 
