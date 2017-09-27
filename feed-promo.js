@@ -83,16 +83,38 @@ function transitionBanner() {
         return styleDiv;
     }
 
+    function showNextItem() {
+        var allShownItems = document.querySelectorAll('#tbl-slider .item.show');
+        var lastShownItem = allShownItems[allShownItems.length - 1];
+        var nextItem = lastShownItem.nextSibling;
+
+        if (nextItem) {
+            newxItem.classList.add("show");
+            console.log("show next item");
+        } else {
+            stopSlider();
+        }
+    }
+
+    function stopSlider() {
+        clearInterval(activeSlider);
+        console.log('clear interval acomplished!');
+    }
+
     var cardsData = getCardsData();
     var style = getStyle();
     var slider = createSlider(cardsData);
 
     document.body.appendChild(style);
     document.body.appendChild(slider);
+    var activeSlider = setInterval(function () {
+        console.log("executing interval");
+        showNextItem();
+    }, 3000);
 }
 
 setTimeout(function(){
     transitionBanner();
-}, 3000);
+}, 5000);
 
 
