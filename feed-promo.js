@@ -89,7 +89,7 @@ function transitionBanner() {
         var nextItem = lastShownItem.nextSibling;
 
         if (nextItem) {
-            newxItem.classList.add("show");
+            nextItem.classList.add("show");
             console.log("show next item");
         } else {
             stopSlider();
