@@ -1,10 +1,18 @@
 function transitionBanner() {
+    function cutTextContent(string, endPosition) {
+        return string.slice(0, endPosition) + '...';
+    }
+
     function createOrganicCardObj(cardData) {
         var container = cardData.container;
+        var textContent = card.textContent;
         var card = cardData.boxes[0];
+        var maxContentLength = 60;
+
+        textContent = textContent.lenght >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
         return {
             title: card.title,
-            content: card.textContent,
+            content: textContent,
             container: container,
             img: card.video_data.thumbnail
         };
@@ -66,9 +74,7 @@ function transitionBanner() {
             '.tbl-cards-slider .img {display: inline-block; width: 160px; height: 130px; background-size: cover; vertical-align: top}' +
             '.tbl-cards-slider .content-container {display: inline-block; width: 275px; height: 100%; padding: 35px 10px; vertical-align: top}' +
             '.tbl-cards-slider .header {font-weight: bold; font-size: 16px;}' +
-            '.tbl-cards-slider .content {width: 260px; font-size: 14px; overflow: hidden; position: relative; line-height: 1.2em; max-height: 2.4em; text-align: justify; margin-right: -1em; padding-right: 1em;}' +
-            '.tbl-cards-slider .content:before {content: "..."; position: absolute; bottom: 0; right: 0;}' +
-            '.tbl-cards-slider .content:after {content: ""; position: absolute; right: 0; width: 1em; height: 1em; margin-top: 0.2em; background: #f7f7f7;}' +
+            '.tbl-cards-slider .content {width: 260px; font-size: 14px;}' +
             '.tbl-cards-slider .arrow {float: right;}' +
         '</style>';
 
