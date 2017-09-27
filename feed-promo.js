@@ -33,8 +33,8 @@ function transitionBanner() {
     }
 
     function getItmesAsHtmlString(cardsData) {
-        return cardsData.reduce(function(html, card){
-            return html + '<li class="item">' +
+        return cardsData.reduce(function(html, card, index){
+            return html + '<li class="item ' + index === 0 ? 'show' : 'hide' + '" style="z-index:'+ index + ';">' +
                             '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
                             '<div class="content-container">' +
                                 '<div class="header">Up next:</div>' +
@@ -68,7 +68,8 @@ function transitionBanner() {
         styleDiv.innerHTML = '<style>' +
             '.tbl-cards-slider {position: fixed; background: #f7f7f7; left: 25px; bottom: 45px; width: 525px; height: 130px; overflow: hidden; border-radius: 10px; border: 1px solid rgb(203, 203, 203); box-shadow: 2px 2px 1px 1px rgba(144, 144, 144, 0.7); }' +
             '.tbl-cards-slider ul {margin: 0; padding: 0; width: 100%; height: 100%;}' +
-            '.tbl-cards-slider .item {list-style: none; display: table; width: 100%; height: 100%;}' +
+            '.tbl-cards-slider .item {list-style: none; display: table; width: 100%; height: 100%; position: absolute; top: 140px; left: 0; transition: 0.3s ease;}' +
+            '.tbl-cards-slider .item.show {top: 0;}' +
             '.tbl-cards-slider .img {display: table-cell; width: 160px; height: 100%; background-size: cover; background-position: center;}' +
             '.tbl-cards-slider .content-container {display: table-cell; width: 275px; height: 100%; padding: 0 15px; vertical-align: middle}' +
             '.tbl-cards-slider .header {font-weight: bold; font-size: 16px;}' +
