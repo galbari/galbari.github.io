@@ -7,7 +7,7 @@ function transitionBanner() {
         var container = cardData.container;
         var card = cardData.boxes[0];
         var textContent = card.textContent;
-        var maxContentLength = 60;
+        var maxContentLength = 70;
 
         textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
         return {
