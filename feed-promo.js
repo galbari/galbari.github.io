@@ -56,7 +56,7 @@ function transitionBanner() {
         var items = getItmesAsHtmlString(cardsData);
 
         slider.id = 'tbl-slider';
-        slider.className += ' tbl-cards-slider';
+        slider.className += ' tbl-cards-slider outside-viewport';
         slider.appendChild(itemsContainer);
         itemsContainer.innerHTML = items;
 
@@ -67,7 +67,8 @@ function transitionBanner() {
         var styleDiv = document.createElement('div');
         styleDiv.id = 'tbl-slider-style';
         styleDiv.innerHTML = '<style>' +
-            '.tbl-cards-slider {position: fixed; background: #f7f7f7; left: 25px; bottom: 45px; width: 525px; height: 130px; overflow: hidden; border-radius: 10px; border: 1px solid rgb(203, 203, 203); box-shadow: 2px 2px 1px 1px rgba(144, 144, 144, 0.7); }' +
+            '.tbl-cards-slider {position: fixed; background: #f7f7f7; left: 25px; bottom: 45px; transition: bottom 0.4s ease; width: 525px; height: 130px; overflow: hidden; border-radius: 10px; border: 1px solid rgb(203, 203, 203); box-shadow: 2px 2px 1px 1px rgba(144, 144, 144, 0.7); }' +
+            '.tbl-cards-slider.outside-viewport{bottom: -500px}' +
             '.tbl-cards-slider ul {margin: 0; padding: 0; width: 100%; height: 100%;}' +
             '.tbl-cards-slider .item {list-style: none; display: table; width: 100%; height: 100%; position: absolute; top: 140px; left: 0;}' +
             '.tbl-cards-slider .item.show {top: 0;}' +
@@ -107,10 +108,15 @@ function transitionBanner() {
 
     document.body.appendChild(style);
     document.body.appendChild(slider);
-    var activeSlider = setInterval(function () {
-        console.log("executing interval");
-        showNextItem();
-    }, 3000);
+    slider.classList.remove('outside-viewport');
+
+    setTimeout(function(){
+        var activeSlider = setInterval(function () {
+            console.log("executing interval");
+            showNextItem();
+        }, 3000);
+    }, 2000);
+
 }
 
 setTimeout(function(){
