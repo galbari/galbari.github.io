@@ -109,14 +109,16 @@ function transitionBanner() {
 
     document.body.appendChild(style);
     document.body.appendChild(slider);
-    slider.classList.add('in-viewport');
+    setTimeout(function() {
+        slider.classList.add('in-viewport');
+    },1000);
 
     setTimeout(function(){
         activeSlider = setInterval(function () {
             console.log("executing interval");
             showNextItem();
-        }, 3000);
-    }, 2000);
+        }, 5000);
+    }, 5000);
 
 }
 
