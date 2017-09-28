@@ -105,13 +105,14 @@ function transitionBanner() {
     var cardsData = getCardsData();
     var style = getStyle();
     var slider = createSlider(cardsData);
+    var activeSlider;
 
     document.body.appendChild(style);
     document.body.appendChild(slider);
     slider.classList.add('in-viewport');
 
     setTimeout(function(){
-        var activeSlider = setInterval(function () {
+        activeSlider = setInterval(function () {
             console.log("executing interval");
             showNextItem();
         }, 3000);
