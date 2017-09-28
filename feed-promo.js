@@ -6,7 +6,7 @@ function transitionBanner() {
     function createOrganicCardObj(cardData) {
         var card = cardData.boxes[0];
         var textContent = card.textContent;
-        var maxContentLength = 55;
+        var maxContentLength = 57;
 
         textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
         return {
@@ -117,7 +117,7 @@ function transitionBanner() {
         activeSlider = setInterval(function () {
             console.log("executing interval");
             showNextItem();
-        }, 5000);
+        }, 3500);
     }, 5000);
 
 }
