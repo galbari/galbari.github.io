@@ -1,272 +1,131 @@
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
-
-    <title>Blog Template for Bootstrap</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="http://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-	  
-    <!-- Custom styles for this template -->
-    <link href="blog.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
-	  
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-	  
-	 
-	  
-	 
-	  
-	<!-- Taboola widget -->
-	  <script type="text/javascript">
-  window._taboola = window._taboola || [];
-  _taboola.push({article:'auto'});
-  !function (e, f, u, i) {
-    if (!document.getElementById(i)){
-      e.async = 1;
-      e.src = u;
-      e.id = i;
-      f.parentNode.insertBefore(e, f);
+function transitionBanner() {
+    function cutTextContent(string, endPosition) {
+        return string.slice(0, endPosition) + '...';
     }
-  }(document.createElement('script'),
-  document.getElementsByTagName('script')[0],
-  '//cdn.taboola.com/libtrc/proceso/loader.js',
-  'tb_loader_script');
-  if(window.performance && typeof window.performance.mark == 'function')
-    {window.performance.mark('tbl_ic');}
-</script>
-	<!-- End Taboola-->
-	  
-	  
-	  <!-- CS -->
-	<script type='text/javascript'>
-	(function(){
-	    var script = document.createElement('script');
-	    script.type = 'text/javascript';
-	    script.async = true;
-	    script.src = ((document.location.protocol == 'https:') ? 'https://' : 'http://') +
-		    'local.cdn-cs.com/b/aZkdOj/bHzgct/l/cs_all.js';
-	    document.getElementsByTagName('head')[0].appendChild(script);
-	})();
-	</script>
-	<!-- end CS -->
 
-	  
-  </head>
+    function createOrganicCardObj(cardData) {
+        var card = cardData.boxes[0];
+        var textContent = card.textContent;
+        var maxContentLength = 57;
 
-  <body>
+        textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
+        return {
+            content: textContent,
+            container: cardData.container,
+            img: card.video_data.thumbnail
+        };
+    }
 
-    <div class="blog-masthead">
-      <div class="container">
-        <nav class="blog-nav">
-          <a class="blog-nav-item active" href="#">Home</a>
-          <a class="blog-nav-item" href="#">New features</a>
-          <a class="blog-nav-item" href="#">Press</a>
-          <a class="blog-nav-item" href="#">New hires</a>
-          <a class="blog-nav-item" href="#">About</a>
-        </nav>
-      </div>
-    </div>
+    function getOrganicCards(allCards) {
+        var organicCards = [];
+        for (var card in allCards) {
+            if (allCards[card].mode.indexOf('organic') > -1) {
+                organicCards.push(allCards[card]);
+            }
+        }
 
-    <div class="container">
+        return organicCards;
+    }
 
-      <div class="blog-header">
-        <h1 class="blog-title">My Demo Blog</h1>
-        <p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
-      </div>
+    function getCardsData() {
+        var organicCards = getOrganicCards(TRCImpl.boxes);
+        return organicCards.map(createOrganicCardObj);
+    }
 
-      <div class="row">
+    function getItmesAsHtmlString(cardsData) {
+        return cardsData.reduce(function(html, card, index){
+            var showClass = index === 0 ? 'show' : '';
+            return html + '<li class="item ' + showClass + '" style="z-index:'+ index + ';">' +
+                            '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
+                            '<div class="content-container">' +                                
+                                '<div class="content">' + card.content + '</div>' +
+                            '</div>' +
+                            '<div class="arrow">' +
+                                '<svg height="32" viewBox="0 0 1792 1792" width="32" ' +
+                                    '<path d="M1412 897q0-27-18-45l-91-91q-18-18-45-18t-45 18l-189 189v-502q0-26-19-45t-45-19h-128q-26 0-45 19t-19 45v502l-189-189q-19-19-45-19t-45 19l-91 91q-18 18-18 45t18 45l362 362 91 91q18 18 45 18t45-18l91-91 362-362q18-18 18-45zm252-1q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/>' +
+                                '</svg>' +
+                            '</div>' +
+                        '</li>';
+        }, '');
+    }
 
-        <div class="col-sm-8 blog-main">
+    function createSlider(cardsData) {
+        var slider = document.createElement('div');
+        var header = document.createElement('div');
+        var itemsContainer = document.createElement('ul');
+        var items = getItmesAsHtmlString(cardsData);
 
-          <div class="blog-post">
-            <h2 class="blog-post-title">Sample blog post</h2>
-            <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
+        slider.id = 'tbl-slider';
+        slider.className += ' tbl-cards-slider';
+        header.className += 'tbl-slider-header';
+        slider.appendChild(itemsContainer);
+        itemsContainer.innerHTML = items;
 
-            <p>This blog post shows a few different types of content that's supported and styled with Bootstrap. Basic typography, images, and code are all supported.</p>
-            <hr>
-            <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-            <blockquote>
-              <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            </blockquote>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-            <h2>Heading</h2>
-            <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <h3>Sub-heading</h3>
-            <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-            <pre><code>Example code block</code></pre>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
-            <h3>Sub-heading</h3>
-            <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <ul>
-              <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-              <li>Donec id elit non mi porta gravida at eget metus.</li>
-              <li>Nulla vitae elit libero, a pharetra augue.</li>
-            </ul>
-            <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
-            <ol>
-              <li>Vestibulum id ligula porta felis euismod semper.</li>
-              <li>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</li>
-              <li>Maecenas sed diam eget risus varius blandit sit amet non magna.</li>
-            </ol>
-            <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
-	    <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-            <blockquote>
-              <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            </blockquote>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-            <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <ul>
-              <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-              <li>Donec id elit non mi porta gravida at eget metus.</li>
-              <li>Nulla vitae elit libero, a pharetra augue.</li>
-            </ul>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-            <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
-          
-          </div><!-- /.blog-post -->
+        return slider;
+    }
 
-          
-		
-		
-		
-	<div id="taboola-container"></div>
-		
-		
-		
-		
-		
-          <nav>
-            <ul class="pager">
-              <li><a href="#">Previous</a></li>
-              <li><a href="#">Next</a></li>
-            </ul>
-          </nav>
+    function getStyle() {
+        var styleDiv = document.createElement('div');
+        styleDiv.id = 'tbl-slider-style';
+        styleDiv.innerHTML = '<style>' +
+            '.tbl-cards-slider {position: fixed; background: #f7f7f7; left: 25px; bottom: -500px; transition: bottom 0.4s ease 2s; width: 525px; height: 130px; overflow: hidden; border-radius: 10px; border: 1px solid rgb(203, 203, 203); box-shadow: 2px 2px 1px 1px rgba(144, 144, 144, 0.7); }' +
+            '.tbl-cards-slider.in-viewport{bottom: 45px}' +
+            '.tbl-cards-slider .tbl-slider-header {position: relative; padding: 15px 0 0px 175px; z-index: 999999;}' +
+            '.tbl-cards-slider ul {margin: 0; padding: 0; width: 100%; height: 100%;}' +
+            '.tbl-cards-slider .item {list-style: none; display: table; width: 100%; height: 100%; position: absolute; top: 140px; left: 0;}' +
+            '.tbl-cards-slider .item.show {top: 0;}' +
+            '.tbl-cards-slider .img {display: table-cell; width: 160px; height: 100%; background-size: cover; background-position: center; transform: translateY(140px); transition: transform 0.2s ease;}' +
+            '.tbl-cards-slider .item.show .img {transform: translateY(0);}' +
+            '.tbl-cards-slider .content-container {display: table-cell; width: 275px; height: 100%; padding: 0 15px; vertical-align: middle}' +
+            '.tbl-cards-slider .header {font-weight: bold; font-size: 16px;}' +
+            '.tbl-cards-slider .content {width: 260px; font-size: 16px; background: #f7f7f7; transform: translateY(140px); transition: transform 0.35s ease;}' +
+            '.tbl-cards-slider .item.show .content {transform: translateY(0);}' +
+            '.tbl-cards-slider .arrow {display: table-cell; vertical-align: middle;}' +
+        '</style>';
 
-        </div><!-- /.blog-main -->
+        return styleDiv;
+    }
 
-        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-          <div class="sidebar-module sidebar-module-inset">
-            <h4>About</h4>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-          </div>
-          <div class="sidebar-module">
-            <h4>Archives</h4>
-            <ol class="list-unstyled">
-              <li><a href="#">March 2014</a></li>
-              <li><a href="#">February 2014</a></li>
-              <li><a href="#">January 2014</a></li>
-              <li><a href="#">December 2013</a></li>
-              <li><a href="#">November 2013</a></li>
-              <li><a href="#">October 2013</a></li>
-              <li><a href="#">September 2013</a></li>
-              <li><a href="#">August 2013</a></li>
-              <li><a href="#">July 2013</a></li>
-              <li><a href="#">June 2013</a></li>
-              <li><a href="#">May 2013</a></li>
-              <li><a href="#">April 2013</a></li>
-            </ol>
-          </div>
-          <div class="sidebar-module">
-            <h4>Elsewhere</h4>
-            <ol class="list-unstyled">
-              <li><a href="#">GitHub</a></li>
-              <li><a href="#">Twitter</a></li>
-              <li><a href="#">Facebook</a></li>
-            </ol>
-          </div>
-        </div><!-- /.blog-sidebar -->
+    function showNextItem() {
+        var allShownItems = document.querySelectorAll('#tbl-slider .item.show');
+        var lastShownItem = allShownItems[allShownItems.length - 1];
+        var nextItem = lastShownItem.nextSibling;
 
-      </div><!-- /.row -->
+        if (nextItem) {
+            nextItem.classList.add("show");
+            console.log("show next item");
+        } else {
+            stopSlider();
+        }
+    }
 
-    </div><!-- /.container -->
+    function stopSlider() {
+        clearInterval(activeSlider);
+        console.log('clear interval acomplished!');
+    }
 
-    <footer class="blog-footer">
-      <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-      <p>
-        <a href="#">Back to top</a>
-      </p>
-    </footer>
+    var cardsData = getCardsData();
+    var style = getStyle();
+    var slider = createSlider(cardsData);
+    var activeSlider;
 
+    document.body.appendChild(style);
+    document.body.appendChild(slider);
+    setTimeout(function() {
+        slider.classList.add('in-viewport');
+    },1000);
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-    
-<!-- FEED -->
-	  
-	  <script type="text/javascript">
-	  window._taboola = window._taboola || [];
-	  _taboola.push({
-	    mode: 'thumbnails-a',
-	    container: 'taboola-container',
-	    placement: 'Below Article Thumbnails',
-	    target_type: 'mix'
-	  });
-	</script>
-	  
-	  
-	  
-	  
-<!-- OLD WIDGET  -->
-<!--      <script type="text/javascript">
-	     window._taboola = window._taboola || [];
-		  _taboola.push({
-		    mode: 'thumbnails-a-gal',
-		    container: 'taboola-container',
-		    placement: 'Below Article Thumbnails',
-		    target_type: 'mix'
-		  });
-	     
-	   _taboola.push({listenTo: 'render', handler :widgetRendered});
-            _taboola.push({listenTo: 'visible', handler :widgetIsVisible});
-		  
-		  function widgetRendered (data){
-			  console.log(data)
-                window.widgetRendered = true;
-            };
+    setTimeout(function(){
+        activeSlider = setInterval(function () {
+            console.log("executing interval");
+            showNextItem();
+        }, 3500);
+    }, 5000);
 
-            function widgetIsVisible(data) {
-                console.log(data);
-                window.widgetIsVisible = true;
-            };
-</script>   -->
-	  <script src="/feed-promo.js"></script>
-  </body>
-</html>
+}
 
-
-
-
-
-
-	
-    
-	
-	
+setTimeout(function(){
+    transitionBanner();
+}, 5000);
 
 
