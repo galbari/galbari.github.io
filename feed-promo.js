@@ -61,7 +61,8 @@ function transitionBanner() {
         var closeBtn = document.createElement('div');
         closeBtn.className += 'tbl-slider-closeBtn';
         closeBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20">' +
-                                '<path d="M10 1.6c-4.639 0-8.4 3.761-8.4 8.4s3.761 8.4 8.4 8.4 8.4-3.761 8.4-8.4c0-4.639-3.761-8.4-8.4-8.4zM14.789 13.061l-1.729 1.729-3.060-3.061-3.061 3.060-1.729-1.729 3.062-3.060-3.061-3.061 1.729-1.728 3.060 3.060 3.061-3.061 1.729 1.729-3.062 3.061 3.061 3.061z"></path>' +
+                                '<path ng-repeat="path in glyph.paths" class="path0" mi-d="M512 81.92c-237.517 0-430.080 192.563-430.080 430.080s192.563 430.080 430.080 430.080 430.080-192.563 430.080-430.080c0-237.517-192.563-430.080-430.080-430.080zM757.197 668.723l-88.525 88.525-156.672-156.723-156.723 156.672-88.525-88.525 156.774-156.672-156.723-156.723 88.525-88.474 156.672 156.672 156.723-156.723 88.525 88.525-156.774 156.723 156.723 156.723z" mi-fill="inherit" mi-stroke="inherit"' + 'mi-stroke-width="" mi-stroke-linecap="" mi-stroke-linejoin="" mi-stroke-miterlimit="" mi-opacity="1" fill="inherit" stroke="inherit" d="M512 81.92c-237.517 0-430.080 192.563-430.080 430.080s192.563 430.080 430.080 430.080 430.080-192.563 430.080-430.080c0-237.517-192.563-430.080-430.080-430.080zM757.197 668.723l-88.525 88.525-156.672-156.723-156.723 156.672-88.525-88.525 156.774-156.672-156.723-156.723 88.525-88.474 156.672 156.672 156.723-156.723 88.525 88.525-156.774 156.723 156.723 156.723z" ' + 
+                                'opacity="1"></path>' +
                              '</svg>';
 
         return closeBtn;
@@ -135,7 +136,7 @@ function transitionBanner() {
 
     function stopSlider() {
         clearInterval(activeSlider);
-        console.log('clear interval acomplished!');
+        console.log('clear interval accomplished!');
     }
 
     var cardsData = getCardsData();
