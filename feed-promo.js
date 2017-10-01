@@ -58,6 +58,8 @@ function transitionBanner() {
         slider.id = 'tbl-slider';
         slider.className += ' tbl-cards-slider';
         header.className += 'tbl-slider-header';
+
+        slider.appendChild(header);
         slider.appendChild(itemsContainer);
         itemsContainer.innerHTML = items;
 
