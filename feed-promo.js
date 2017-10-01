@@ -80,7 +80,7 @@ function transitionBanner() {
             '.tbl-cards-slider .item.show .img {transform: translateY(0);}' +
             '.tbl-cards-slider .content-container {display: table-cell; width: 275px; height: 100%; padding: 0 15px; vertical-align: middle}' +
             '.tbl-cards-slider .header {font-weight: bold; font-size: 16px;}' +
-            '.tbl-cards-slider .content {width: 260px; font-size: 16px; background: #f7f7f7; transform: translateY(140px); transition: transform 0.35s ease;}' +
+            '.tbl-cards-slider .content {width: 260px; position: relative; top: 5px; font-size: 16px; background: #f7f7f7; transform: translateY(140px); transition: transform 0.35s ease;}' +
             '.tbl-cards-slider .item.show .content {transform: translateY(0);}' +
             '.tbl-cards-slider .arrow {display: table-cell; vertical-align: middle;}' +
         '</style>';
