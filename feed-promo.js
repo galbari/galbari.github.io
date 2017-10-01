@@ -104,6 +104,16 @@ function transitionBanner() {
         return styleDiv;
     }
 
+    function addEventsListners() {
+        var items = document.querySelectorAll('.tbl-cards-slider .item');
+
+        items.addEventListener('click', afterItemClick);
+    }
+
+    function afterItemClick(e) {
+        console.log(e);
+    }
+
     function showNextItem() {
         var allShownItems = document.querySelectorAll('#tbl-slider .item.show');
         var lastShownItem = allShownItems[allShownItems.length - 1];
@@ -126,6 +136,8 @@ function transitionBanner() {
     var style = getStyle();
     var slider = createSlider(cardsData);
     var activeSlider;
+
+    addEventsListners();
 
     document.body.appendChild(style);
     document.body.appendChild(slider);
