@@ -137,10 +137,11 @@ function transitionBanner() {
     var slider = createSlider(cardsData);
     var activeSlider;
 
-    addEventsListners();
+
 
     document.body.appendChild(style);
     document.body.appendChild(slider);
+    addEventsListners();
     setTimeout(function() {
         slider.classList.add('in-viewport');
     },1000);
