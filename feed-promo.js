@@ -49,16 +49,31 @@ function transitionBanner() {
         }, '');
     }
 
+    function createHeader() {
+        var header = document.createElement('div');
+        header.className += 'tbl-slider-header';
+        header.innerText = "Up next";
+
+        return header;
+    }
+
+    function createCloseBtn() {
+        var closeBtn = document.createElement('div');
+        closeBtn.className += 'tbl-slider-closeBtn';
+
+        return closeBtn;
+    }
+
     function createSlider(cardsData) {
         var slider = document.createElement('div');
-        var header = document.createElement('div');
+        var header = createHeader();
+        var closeBtn = createCloseBtn();
         var itemsContainer = document.createElement('ul');
         var items = getItmesAsHtmlString(cardsData);
 
         slider.id = 'tbl-slider';
         slider.className += ' tbl-cards-slider';
-        header.className += 'tbl-slider-header';
-        header.innerText = "Up next"
+
 
         slider.appendChild(header);
         slider.appendChild(itemsContainer);
@@ -73,7 +88,7 @@ function transitionBanner() {
         styleDiv.innerHTML = '<style>' +
             '.tbl-cards-slider {position: fixed; background: #f7f7f7; left: 25px; bottom: -500px; transition: bottom 0.4s ease 2s; width: 525px; height: 130px; overflow: hidden; border-radius: 10px; border: 1px solid rgb(203, 203, 203); box-shadow: 2px 2px 1px 1px rgba(144, 144, 144, 0.7); }' +
             '.tbl-cards-slider.in-viewport{bottom: 45px}' +
-            '.tbl-cards-slider .tbl-slider-header {position: relative; padding: 15px 0 0px 175px; z-index: 999999; font-weight: bold; font-size: 16px;}' +
+            '.tbl-cards-slider .tbl-slider-header {position: absolute; top: 15px; left: 175px; font-weight: bold; font-size: 16px;}' +
             '.tbl-cards-slider ul {margin: 0; padding: 0; width: 100%; height: 100%;}' +
             '.tbl-cards-slider .item {list-style: none; display: table; width: 100%; height: 100%; position: absolute; top: 140px; left: 0;}' +
             '.tbl-cards-slider .item.show {top: 0;}' +
