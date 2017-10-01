@@ -61,7 +61,7 @@ function transitionBanner() {
         var closeBtn = document.createElement('div');
         closeBtn.className += 'tbl-slider-closeBtn';
         closeBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20">' +
-                                '<path ng-repeat="path in glyph.paths" class="path0" mi-d="M512 81.92c-237.517 0-430.080 192.563-430.080 430.080s192.563 430.080 430.080 430.080 430.080-192.563 430.080-430.080c0-237.517-192.563-430.080-430.080-430.080zM757.197 668.723l-88.525 88.525-156.672-156.723-156.723 156.672-88.525-88.525 156.774-156.672-156.723-156.723 88.525-88.474 156.672 156.672 156.723-156.723 88.525 88.525-156.774 156.723 156.723 156.723z" mi-fill="inherit" mi-stroke="inherit"' + 'mi-stroke-width="" mi-stroke-linecap="" mi-stroke-linejoin="" mi-stroke-miterlimit="" mi-opacity="1" fill="inherit" stroke="inherit" d="M512 81.92c-237.517 0-430.080 192.563-430.080 430.080s192.563 430.080 430.080 430.080 430.080-192.563 430.080-430.080c0-237.517-192.563-430.080-430.080-430.080zM757.197 668.723l-88.525 88.525-156.672-156.723-156.723 156.672-88.525-88.525 156.774-156.672-156.723-156.723 88.525-88.474 156.672 156.672 156.723-156.723 88.525 88.525-156.774 156.723 156.723 156.723z" ' + 
+                                '<path ng-repeat="path in glyph.paths" class="path0" mi-d="M512 81.92c-237.517 0-430.080 192.563-430.080 430.080s192.563 430.080 430.080 430.080 430.080-192.563 430.080-430.080c0-237.517-192.563-430.080-430.080-430.080zM757.197 668.723l-88.525 88.525-156.672-156.723-156.723 156.672-88.525-88.525 156.774-156.672-156.723-156.723 88.525-88.474 156.672 156.672 156.723-156.723 88.525 88.525-156.774 156.723 156.723 156.723z" mi-fill="inherit" mi-stroke="inherit"' + 'mi-stroke-width="" mi-stroke-linecap="" mi-stroke-linejoin="" mi-stroke-miterlimit="" mi-opacity="1" fill="inherit" stroke="inherit" d="M512 81.92c-237.517 0-430.080 192.563-430.080 430.080s192.563 430.080 430.080 430.080 430.080-192.563 430.080-430.080c0-237.517-192.563-430.080-430.080-430.080zM757.197 668.723l-88.525 88.525-156.672-156.723-156.723 156.672-88.525-88.525 156.774-156.672-156.723-156.723 88.525-88.474 156.672 156.672 156.723-156.723 88.525 88.525-156.774 156.723 156.723 156.723z" ' +
                                 'opacity="1"></path>' +
                              '</svg>';
 
@@ -104,6 +104,7 @@ function transitionBanner() {
             '.tbl-cards-slider .content {width: 260px; position: relative; top: 5px; font-size: 16px; background: #f7f7f7; transform: translateY(140px); transition: transform 0.35s ease;}' +
             '.tbl-cards-slider .item.show .content {transform: translateY(0);}' +
             '.tbl-cards-slider .arrow {display: table-cell; vertical-align: middle;}' +
+            '.tbl-cards-slider .tbl-slider-closeBtn {position: absolute; top: -30px; right: -25px; width: 20px; height: 20px;}' +
         '</style>';
 
         return styleDiv;
