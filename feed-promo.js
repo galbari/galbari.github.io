@@ -107,11 +107,13 @@ function transitionBanner() {
     function addEventsListners() {
         var items = document.querySelectorAll('.tbl-cards-slider .item');
 
-        items.addEventListener('click', afterItemClick);
+        for(var item of items) {
+            item.addEventListener('click', navigateToItem);
+        }
     }
 
-    function afterItemClick(e) {
-        console.log(e);
+    function navigateToItem(e) {
+        console.log(e.target);
     }
 
     function showNextItem() {
@@ -142,6 +144,7 @@ function transitionBanner() {
     document.body.appendChild(style);
     document.body.appendChild(slider);
     addEventsListners();
+
     setTimeout(function() {
         slider.classList.add('in-viewport');
     },1000);
