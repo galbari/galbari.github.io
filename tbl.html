@@ -37,7 +37,8 @@ function transitionBanner() {
             var showClass = index === 0 ? 'show' : '';
             return html + '<li class="item ' + showClass + '" style="z-index:'+ index + ';">' +
                             '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
-                            '<div class="content-container">' +                                
+                            '<div class="content-container">' +
+                                '<div class="header">Up next:</div>' +
                                 '<div class="content">' + card.content + '</div>' +
                             '</div>' +
                             '<div class="arrow">' +
@@ -127,4 +128,5 @@ function transitionBanner() {
 setTimeout(function(){
     transitionBanner();
 }, 5000);
+
 
