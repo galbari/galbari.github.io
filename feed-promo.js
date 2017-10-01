@@ -41,7 +41,7 @@ function transitionBanner() {
                                 '<div class="content">' + card.content + '</div>' +
                             '</div>' +
                             '<div class="arrow">' +
-                                '<svg height="32" viewBox="0 0 1792 1792" width="32" ' +
+                                '<svg height="32" viewBox="0 0 1792 1792" width="32"' +
                                     '<path d="M1412 897q0-27-18-45l-91-91q-18-18-45-18t-45 18l-189 189v-502q0-26-19-45t-45-19h-128q-26 0-45 19t-19 45v502l-189-189q-19-19-45-19t-45 19l-91 91q-18 18-18 45t18 45l362 362 91 91q18 18 45 18t45-18l91-91 362-362q18-18 18-45zm252-1q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/>' +
                                 '</svg>' +
                             '</div>' +
@@ -60,6 +60,9 @@ function transitionBanner() {
     function createCloseBtn() {
         var closeBtn = document.createElement('div');
         closeBtn.className += 'tbl-slider-closeBtn';
+        closeBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20">' +
+                                '<path d="M10 1.6c-4.639 0-8.4 3.761-8.4 8.4s3.761 8.4 8.4 8.4 8.4-3.761 8.4-8.4c0-4.639-3.761-8.4-8.4-8.4zM14.789 13.061l-1.729 1.729-3.060-3.061-3.061 3.060-1.729-1.729 3.062-3.060-3.061-3.061 1.729-1.728 3.060 3.060 3.061-3.061 1.729 1.729-3.062 3.061 3.061 3.061z"></path>' +
+                             '</svg>';
 
         return closeBtn;
     }
@@ -77,6 +80,7 @@ function transitionBanner() {
 
         slider.appendChild(header);
         slider.appendChild(itemsContainer);
+        slider.appendChild(closeBtn);
         itemsContainer.innerHTML = items;
 
         return slider;
@@ -113,7 +117,7 @@ function transitionBanner() {
     }
 
     function navigateToItem(e) {
-        console.log(e.target);
+        console.log(e.currentTarget);
     }
 
     function showNextItem() {
