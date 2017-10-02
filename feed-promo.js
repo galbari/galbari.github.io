@@ -142,15 +142,15 @@ function transitionBanner() {
 
     function showNextItem() {
         var allShownItems = document.querySelectorAll('#tbl-slider .item.show');
-        var firstItem = allShownItems[0];
         var lastShownItem = allShownItems[allShownItems.length - 1];
         var nextItem = lastShownItem.nextSibling;
 
         if (nextItem) {
             nextItem.classList.add("show");
-            firstItem.classList.remove('show');
             console.log("show next item");
         } else {
+            var firstItem = allShownItems[0];
+            firstItem.classList.remove('show');
             firstItem.style.zIndex = 99;
             firstItem.classList.add("show");
             stopSlider();
