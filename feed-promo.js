@@ -116,6 +116,7 @@ function transitionBanner() {
             '.tbl-cards-slider .content {position: relative; top: 5px; font-size: 12px; background: #f7f7f7; transform: translateY(140px); transition: transform 0.35s ease;}' +
             '.tbl-cards-slider .item.show .content {transform: translateY(0);}' +
             '.tbl-cards-slider .arrow {display: table-cell; vertical-align: middle;}' +
+            '.tbl-cards-slider .arrow svg {position: relative; top: 3px;}' +
             '.tbl-cards-slider .tbl-slider-closeBtn {position: absolute; top: -30px; right: -25px; width: 20px; height: 20px;}' +
         '</style>';
 
