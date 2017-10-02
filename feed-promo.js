@@ -41,8 +41,15 @@ function transitionBanner() {
                                 '<div class="content">' + card.content + '</div>' +
                             '</div>' +
                             '<div class="arrow">' +
-                                '<svg height="32" viewBox="0 0 1792 1792" width="32"' +
-                                    '<path d="M1412 897q0-27-18-45l-91-91q-18-18-45-18t-45 18l-189 189v-502q0-26-19-45t-45-19h-128q-26 0-45 19t-19 45v502l-189-189q-19-19-45-19t-45 19l-91 91q-18 18-18 45t18 45l362 362 91 91q18 18 45 18t45-18l91-91 362-362q18-18 18-45zm252-1q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/>' +
+                                '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
+                                    '<title>Desktop arrow initial</title>' +
+                                    '<desc>Created with Sketch.</desc>' +
+                                    '<defs></defs>' +
+                                    '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                                        '<g id="icons" transform="translate(-18.000000, -20.000000)" fill="#4472C4">' +
+                                            '<path d="M34.4775,29.751875 L28.2275,36.3925 L28,36.634375 L27.771875,36.3925 L21.521875,29.751875 L21.2775,29.49125 L21.568125,29.28375 L22.4125,28.679375 L22.635,28.52 L22.8225,28.719375 L27.14125,33.308125 L27.14125,23.67875 L27.14125,23.36625 L27.45375,23.36625 L28.54625,23.36625 L28.85875,23.36625 L28.85875,23.67875 L28.85875,33.308125 L33.1775,28.719375 L33.365,28.52 L33.586875,28.679375 L34.431875,29.28375 L34.7225,29.49125 L34.4775,29.751875 Z M28,20 C22.476875,20 18,24.4775 18,30 C18,35.523125 22.476875,40 28,40 C33.5225,40 38,35.523125 38,30 C38,24.4775 33.5225,20 28,20 L28,20 Z" id="Desktop-arrow-initial"></path>' +
+                                        '</g>' +
+                                    '</g>' +
                                 '</svg>' +
                             '</div>' +
                         '</li>';
@@ -60,10 +67,16 @@ function transitionBanner() {
     function createCloseBtn() {
         var closeBtn = document.createElement('div');
         closeBtn.className += 'tbl-slider-closeBtn';
-        closeBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20">' +
-                                '<path ng-repeat="path in glyph.paths" class="path0" mi-d="M512 81.92c-237.517 0-430.080 192.563-430.080 430.080s192.563 430.080 430.080 430.080 430.080-192.563 430.080-430.080c0-237.517-192.563-430.080-430.080-430.080zM757.197 668.723l-88.525 88.525-156.672-156.723-156.723 156.672-88.525-88.525 156.774-156.672-156.723-156.723 88.525-88.474 156.672 156.672 156.723-156.723 88.525 88.525-156.774 156.723 156.723 156.723z" mi-fill="inherit" mi-stroke="inherit"' + 'mi-stroke-width="" mi-stroke-linecap="" mi-stroke-linejoin="" mi-stroke-miterlimit="" mi-opacity="1" fill="inherit" stroke="inherit" d="M512 81.92c-237.517 0-430.080 192.563-430.080 430.080s192.563 430.080 430.080 430.080 430.080-192.563 430.080-430.080c0-237.517-192.563-430.080-430.080-430.080zM757.197 668.723l-88.525 88.525-156.672-156.723-156.723 156.672-88.525-88.525 156.774-156.672-156.723-156.723 88.525-88.474 156.672 156.672 156.723-156.723 88.525 88.525-156.774 156.723 156.723 156.723z" ' +
-                                'opacity="1"></path>' +
-                             '</svg>';
+        closeBtn.innerHTML = '<svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
+                                '<title>Desktop Close initial</title>' +
+                                '<desc>Created with Sketch.</desc>' +
+                                '<defs></defs>' +
+                                '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                                    '<g id="icons" transform="translate(-23.000000, -130.000000)" fill="#FFFFFF">' +
+                                        '<polygon id="Desktop-Close-initial" points="33 131.208868 31.7911325 130 28 133.791132 24.2088675 130 23 131.208868 26.7911325 135 23 138.791132 24.2088675 140 28 136.208868 31.7911325 140 33 138.791132 29.2088675 135"></polygon>' +
+                                    '</g>' +
+                                '</g>' +
+                            '</svg>';
 
         return closeBtn;
     }
@@ -77,12 +90,11 @@ function transitionBanner() {
 
         slider.id = 'tbl-slider';
         slider.className += ' tbl-cards-slider';
-
+        itemsContainer.innerHTML = items;
 
         slider.appendChild(header);
         slider.appendChild(itemsContainer);
         slider.appendChild(closeBtn);
-        itemsContainer.innerHTML = items;
 
         return slider;
     }
