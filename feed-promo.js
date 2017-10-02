@@ -6,7 +6,7 @@ function transitionBanner() {
     function createOrganicCardObj(cardData) {
         var card = cardData.boxes[0];
         var textContent = card.textContent;
-        var maxContentLength = 35;
+        var maxContentLength = 30;
 
         textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
         return {
@@ -40,18 +40,6 @@ function transitionBanner() {
                             '<div class="content-container">' +
                                 '<div class="content">' + card.content + '</div>' +
                             '</div>' +
-                            '<div class="arrow">' +
-                                '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
-                                    '<title>Desktop arrow initial</title>' +
-                                    '<desc>Created with Sketch.</desc>' +
-                                    '<defs></defs>' +
-                                    '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                                        '<g id="icons" transform="translate(-18.000000, -20.000000)" fill="#4472C4">' +
-                                            '<path d="M34.4775,29.751875 L28.2275,36.3925 L28,36.634375 L27.771875,36.3925 L21.521875,29.751875 L21.2775,29.49125 L21.568125,29.28375 L22.4125,28.679375 L22.635,28.52 L22.8225,28.719375 L27.14125,33.308125 L27.14125,23.67875 L27.14125,23.36625 L27.45375,23.36625 L28.54625,23.36625 L28.85875,23.36625 L28.85875,23.67875 L28.85875,33.308125 L33.1775,28.719375 L33.365,28.52 L33.586875,28.679375 L34.431875,29.28375 L34.7225,29.49125 L34.4775,29.751875 Z M28,20 C22.476875,20 18,24.4775 18,30 C18,35.523125 22.476875,40 28,40 C33.5225,40 38,35.523125 38,30 C38,24.4775 33.5225,20 28,20 L28,20 Z" id="Desktop-arrow-initial"></path>' +
-                                        '</g>' +
-                                    '</g>' +
-                                '</svg>' +
-                            '</div>' +
                         '</li>';
         }, '');
     }
@@ -81,9 +69,29 @@ function transitionBanner() {
         return closeBtn;
     }
 
+    function createArrowIcon() {
+        var arrowIcon = document.createElement('div');
+        arrowIcon.className += 'arrow';
+        arrowIcon.innerHTML = '<div class="arrow">' +
+                                    '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
+                                        '<title>Desktop arrow initial</title>' +
+                                        '<desc>Created with Sketch.</desc>' +
+                                        '<defs></defs>' +
+                                        '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                                            '<g id="icons" transform="translate(-18.000000, -20.000000)" fill="#4472C4">' +
+                                                '<path d="M34.4775,29.751875 L28.2275,36.3925 L28,36.634375 L27.771875,36.3925 L21.521875,29.751875 L21.2775,29.49125 L21.568125,29.28375 L22.4125,28.679375 L22.635,28.52 L22.8225,28.719375 L27.14125,33.308125 L27.14125,23.67875 L27.14125,23.36625 L27.45375,23.36625 L28.54625,23.36625 L28.85875,23.36625 L28.85875,23.67875 L28.85875,33.308125 L33.1775,28.719375 L33.365,28.52 L33.586875,28.679375 L34.431875,29.28375 L34.7225,29.49125 L34.4775,29.751875 Z M28,20 C22.476875,20 18,24.4775 18,30 C18,35.523125 22.476875,40 28,40 C33.5225,40 38,35.523125 38,30 C38,24.4775 33.5225,20 28,20 L28,20 Z" id="Desktop-arrow-initial"></path>' +
+                                            '</g>' +
+                                        '</g>' +
+                                    '</svg>' +
+                                '</div>';
+
+        return arrowIcon;
+    }
+
     function createSlider(cardsData) {
         var slider = document.createElement('div');
         var header = createHeader();
+        var arrowIcon = createArrowIcon();
         var closeBtn = createCloseBtn();
         var itemsContainer = document.createElement('ul');
         var items = getItmesAsHtmlString(cardsData);
@@ -93,6 +101,7 @@ function transitionBanner() {
         itemsContainer.innerHTML = items;
 
         slider.appendChild(header);
+        slider.appendChild(arrowIcon);
         slider.appendChild(itemsContainer);
         slider.appendChild(closeBtn);
 
