@@ -35,7 +35,7 @@ function transitionBanner() {
     function getItmesAsHtmlString(cardsData) {
         return cardsData.reduce(function(html, card, index){
             var showClass = index === 0 ? 'show' : '';
-            return html + '<li class="item card-' + index+1 + ' ' + showClass + '" style="z-index:'+ index + ';">' +
+            return html + '<li class="item card-' + index + ' ' + showClass + '" style="z-index:'+ index + ';">' +
                             '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
                             '<div class="content-container">' +
                                 '<div class="content">' + card.content + '</div>' +
@@ -143,7 +143,7 @@ function transitionBanner() {
     function showNextItem() {
         var allShownItems = document.querySelectorAll('#tbl-slider .item.show');
         var lastShownItem = allShownItems[allShownItems.length - 1];
-        var firstItem = document.querySelector('#tbl-slider .card-1');
+        var firstItem = document.querySelector('#tbl-slider .card-0');
         var nextItem = lastShownItem.nextSibling;
 
         if (nextItem) {
