@@ -111,11 +111,11 @@ function transitionBanner() {
             '.tbl-cards-slider .item.show {top: 0;}' +
             '.tbl-cards-slider .img {display: table-cell; width: 81px; height: 100%; background-size: cover; background-position: center; transform: translateY(140px); transition: transform 0.2s ease;}' +
             '.tbl-cards-slider .item.show .img {transform: translateY(0);}' +
-            '.tbl-cards-slider .content-container {display: table-cell; width: 139px; height: 100%; padding-top: 12px padding-left: 12px; vertical-align: middle}' +
+            '.tbl-cards-slider .content-container {display: table-cell; width: 139px; height: 100%; padding-top: 12px; padding-left: 12px; vertical-align: middle}' +
             '.tbl-cards-slider .header {font-weight: bold; font-size: 12px;}' +
             '.tbl-cards-slider .content {position: relative; top: 5px; font-size: 12px; background: #f7f7f7; transform: translateY(140px); transition: transform 0.35s ease;}' +
             '.tbl-cards-slider .item.show .content {transform: translateY(0);}' +
-            '.tbl-cards-slider .arrow {display: table-cell; vertical-align: middle;}' +
+            '.tbl-cards-slider .arrow {display: table-cell; vertical-align: middle; text-align: center;}' +
             '.tbl-cards-slider .arrow svg {position: relative; top: 3px;}' +
             '.tbl-cards-slider .tbl-slider-closeBtn {position: absolute; top: -30px; right: -25px; width: 20px; height: 20px;}' +
         '</style>';
