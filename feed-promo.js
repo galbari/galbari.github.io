@@ -35,7 +35,7 @@ function transitionBanner() {
     function getItmesAsHtmlString(cardsData) {
         return cardsData.reduce(function(html, card, index){
             var showClass = index === 0 ? 'show' : '';
-            return html + '<li class="item card-'index+1 + ' ' + showClass + '" style="z-index:'+ index + ';">' +
+            return html + '<li class="item card-' + index+1 + ' ' + showClass + '" style="z-index:'+ index + ';">' +
                             '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
                             '<div class="content-container">' +
                                 '<div class="content">' + card.content + '</div>' +
