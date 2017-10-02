@@ -6,7 +6,7 @@ function transitionBanner() {
     function createOrganicCardObj(cardData) {
         var card = cardData.boxes[0];
         var textContent = card.textContent;
-        var maxContentLength = 25;
+        var maxContentLength = 35;
 
         textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
         return {
