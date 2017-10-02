@@ -6,7 +6,7 @@ function transitionBanner() {
     function createOrganicCardObj(cardData) {
         var card = cardData.boxes[0];
         var textContent = card.textContent;
-        var maxContentLength = 57;
+        var maxContentLength = 20;
 
         textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
         return {
@@ -105,13 +105,13 @@ function transitionBanner() {
         styleDiv.innerHTML = '<style>' +
             '.tbl-cards-slider {position: fixed; background: #f7f7f7; left: 25px; bottom: -500px; transition: bottom 0.4s ease 2s; width: 264px; height: 64px; overflow: hidden; border-radius: 10px; border: 1px solid rgb(203, 203, 203); box-shadow: 2px 2px 1px 1px rgba(144, 144, 144, 0.7); }' +
             '.tbl-cards-slider.in-viewport{bottom: 45px}' +
-            '.tbl-cards-slider .tbl-slider-header {position: absolute; top: 15px; left: 175px; font-weight: bold; font-size: 12px;}' +
+            '.tbl-cards-slider .tbl-slider-header {position: absolute; top: 11px; left: 93px; font-weight: bold; font-size: 12px;}' +
             '.tbl-cards-slider ul {margin: 0; padding: 0; width: 100%; height: 100%;}' +
             '.tbl-cards-slider .item {list-style: none; display: table; width: 100%; height: 100%; position: absolute; top: 140px; left: 0;}' +
             '.tbl-cards-slider .item.show {top: 0;}' +
             '.tbl-cards-slider .img {display: table-cell; width: 81px; height: 100%; background-size: cover; background-position: center; transform: translateY(140px); transition: transform 0.2s ease;}' +
             '.tbl-cards-slider .item.show .img {transform: translateY(0);}' +
-            '.tbl-cards-slider .content-container {display: table-cell; width: 183px; height: 100%; padding: 0 15px; vertical-align: middle}' +
+            '.tbl-cards-slider .content-container {display: table-cell; width: 183px; height: 100%; padding: 0 12px; vertical-align: middle}' +
             '.tbl-cards-slider .header {font-weight: bold; font-size: 12px;}' +
             '.tbl-cards-slider .content {width: 127px; position: relative; top: 5px; font-size: 12px; background: #f7f7f7; transform: translateY(140px); transition: transform 0.35s ease;}' +
             '.tbl-cards-slider .item.show .content {transform: translateY(0);}' +
