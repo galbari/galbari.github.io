@@ -1,6 +1,6 @@
 function transitionBanner() {
     function cutTextContent(string, endPosition) {
-        return string.slice(0, endPosition) + '...';
+        return string.slice(0, endPosition).trim() + '...';
     }
 
     function createOrganicCardObj(cardData) {
