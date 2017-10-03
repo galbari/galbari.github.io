@@ -176,7 +176,9 @@ function transitionBanner() {
             var now = 'now' in window.performance ? performance.now() : new Date().getTime();
             var time = Math.min(1, ((now - startTime) / duration));
             var timeFunction = easings[easing](time);
-            window.scrollTo(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
+            var scrollYPosition = Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start);
+            console.log(scrollYPosition);
+            window.scrollTo(0, scrollYPosition);
 
             if (window.pageYOffset === destinationOffsetToScroll) {
                 if (callback) {
