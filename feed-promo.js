@@ -125,7 +125,7 @@ function transitionBanner() {
             '.tbl-cards-slider.in-viewport{bottom: 25px}' +
             '.tbl-cards-slider .tbl-slider-header {position: absolute; top: 11px; left: 93px; line-height: 15px; font-weight: bold; font-size: 12px;}' +
             '.tbl-cards-slider .clickAction { width: 225px; height: 100%; position: absolute; top: 0px; left: 0px; text-align: center; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; visibility: hidden; opacity: 0; z-index: 99;}' +
-            '.tbl-cards-slider:hover .clickActionr {visibility: visible; opacity: 1;}' +
+            '.tbl-cards-slider:hover .clickAction {visibility: visible; opacity: 1;}' +
             '.tbl-cards-slider ul {margin: 0; padding: 0; width: 100%; height: 100%;}' +
             '.tbl-cards-slider .item {list-style: none; width: 100%; height: 100%; position: absolute; top: 140px; left: 0;}' +
             '.tbl-cards-slider .item.show {top: 0;}' +
