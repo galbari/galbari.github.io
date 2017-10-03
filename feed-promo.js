@@ -173,7 +173,7 @@ function transitionBanner() {
         var destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
 
         if ('requestAnimationFrame' in window === false) {
-        window.scroll(0, destinationOffsetToScroll);
+            window.scroll(0, destinationOffsetToScroll);
             if (callback) {
                 callback();
             }
@@ -185,7 +185,6 @@ function transitionBanner() {
             var time = Math.min(1, ((now - startTime) / duration));
             var timeFunction = easings[easing](time);
             var scrollYPosition = Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start);
-            console.log(scrollYPosition);
             window.scrollTo(0, scrollYPosition);
 
             if (window.pageYOffset === destinationOffsetToScroll) {
@@ -207,9 +206,12 @@ function transitionBanner() {
         var firstItem = document.querySelector('#tbl-slider .card-0');
         var nextItem = lastShownItem.nextSibling;
 
+        if (nextItem.classList.containes('card-3')){
+            firstItem.classList.remove('show');
+        }
+
         if (nextItem) {
             nextItem.classList.add("show");
-            firstItem.classList.remove('show');
         } else {
             //show first Item agian when no organic items left
             firstItem.style.zIndex = 99;
