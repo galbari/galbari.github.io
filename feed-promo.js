@@ -142,10 +142,10 @@ function transitionBanner() {
             '.tbl-cards-slider .arrow svg{transition: 0.2s ease;}' +
             '.tbl-cards-slider:hover .arrow svg {transform: scale(1.4);}' +
             '.tbl-cards-slider .tbl-slider-closeBtn-wrapper {position: absolute; top: -25px; right: -25px; width: 27px; height: 27px;}' +
-            '.tbl-cards-slider .tbl-slider-closeBtn {position: absolute; top: 0; right: 0; width: 20px; height: 20px; border-radius: 50%; border: 1px solid #000000; background: #000000; visibility: hidden; opacity:0; transition: 0.2s ease;}' +
+            '.tbl-cards-slider .tbl-slider-closeBtn {position: absolute; top: 0; right: 0; width: 20px; height: 20px; border-radius: 50%; background: #000000; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); visibility: hidden; opacity:0; transition: 0.2s ease;}' +
             '.tbl-cards-slider .tbl-slider-closeBtn svg {display: block; height: 100%; margin: auto; fill: #ffffff; transition: 0.2s ease;}' +
             '.tbl-cards-slider:hover .tbl-slider-closeBtn {visibility: visible; opacity: 1}' +
-            '.tbl-cards-slider .tbl-slider-closeBtn:hover {background: #ffffff;}' +
+            '.tbl-cards-slider .tbl-slider-closeBtn:hover {background: #EEEEEE;}' +
             '.tbl-cards-slider .tbl-slider-closeBtn:hover svg{fill: #000000;}' +
         '</style>';
 
