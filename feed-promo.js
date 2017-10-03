@@ -59,8 +59,8 @@ function transitionBanner() {
                                 '<svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                                     '<desc>Created with Sketch.</desc>' +
                                     '<defs></defs>' +
-                                    '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                                        '<g id="icons" transform="translate(-23.000000, -130.000000)" fill="#FFFFFF">' +
+                                    '<g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd">' +
+                                        '<g id="icons" transform="translate(-23.000000, -130.000000)">' +
                                             '<polygon id="Desktop-Close-initial" points="33 131.208868 31.7911325 130 28 133.791132 24.2088675 130 23 131.208868 26.7911325 135 23 138.791132 24.2088675 140 28 136.208868 31.7911325 140 33 138.791132 29.2088675 135"></polygon>' +
                                         '</g>' +
                                     '</g>' +
@@ -142,7 +142,7 @@ function transitionBanner() {
             '.tbl-cards-slider .arrow svg{transition: 0.2s ease;}' +
             '.tbl-cards-slider:hover .arrow svg {transform: scale(1.4);}' +
             '.tbl-cards-slider .tbl-slider-closeBtn-wrapper {position: absolute; top: -25px; right: -25px; width: 27px; height: 27px;}' +
-            '.tbl-cards-slider .tbl-slider-closeBtn {position: absolute; top: 0; right: 0; width: 20px; height: 20px; border-radius: 50%; background: #000000; visibility: hidden; opacity:0; transition: 0.2s ease;}' +
+            '.tbl-cards-slider .tbl-slider-closeBtn {position: absolute; top: 0; right: 0; width: 20px; height: 20px; border-radius: 50%; border: 1px solid #000000; background: #000000; visibility: hidden; opacity:0; transition: 0.2s ease;}' +
             '.tbl-cards-slider .tbl-slider-closeBtn svg {display: block; height: 100%; margin: auto; fill: #ffffff; transition: 0.2s ease;}' +
             '.tbl-cards-slider:hover .tbl-slider-closeBtn {visibility: visible; opacity: 1}' +
             '.tbl-cards-slider .tbl-slider-closeBtn:hover {background: #ffffff;}' +
