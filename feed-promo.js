@@ -206,12 +206,11 @@ function transitionBanner() {
         var firstItem = document.querySelector('#tbl-slider .card-0');
         var nextItem = lastShownItem.nextSibling;
 
-        if (nextItem.classList.contains('card-3')){
-            firstItem.classList.remove('show');
-        }
-
         if (nextItem) {
             nextItem.classList.add("show");
+            if (nextItem.classList.contains('card-3')){
+                firstItem.classList.remove('show');
+            }
         } else {
             //show first Item agian when no organic items left
             firstItem.style.zIndex = 99;
