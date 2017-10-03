@@ -96,7 +96,6 @@ function transitionBanner() {
     }
 
     function createSlider(cardsData) {
-        var sliderContainer = document.createElement('div');
         var slider = document.createElement('div');
         var header = createHeader();
         var arrowIcon = createArrowIcon();
@@ -105,19 +104,17 @@ function transitionBanner() {
         var itemsContainer = document.createElement('ul');
         var items = getItmesAsHtmlString(cardsData);
 
-        sliderContainer.id = 'tbl-slider-container';
         slider.id = 'tbl-slider';
         slider.className += ' tbl-cards-slider';
         itemsContainer.innerHTML = items;
 
-        sliderContainer.appendChild(slider);
         slider.appendChild(header);
         slider.appendChild(arrowIcon);
         slider.appendChild(hoverDiv);
         slider.appendChild(itemsContainer);
-        sliderContainer.appendChild(closeBtn);
+        slider.appendChild(closeBtn);
 
-        return sliderContainer;
+        return slider;
     }
 
     function getStyle() {
@@ -143,7 +140,7 @@ function transitionBanner() {
             '.tbl-cards-slider .tbl-slider-closeBtn-wrapper {position: absolute; top: -25px; right: -25px; width: 27px; height: 27px;}' +
             '.tbl-cards-slider .tbl-slider-closeBtn {position: absolute; top: 0; right: 0; width: 20px; height: 20px; border-radius: 50%; background: #000000; visibility: hidden; opacity:0}' +
             '.tbl-cards-slider .tbl-slider-closeBtn svg {display: block; height: 100%; margin: auto; fill: #ffffff;}' +
-            '.tbl-cards-slider:hover ~ .tbl-slider-closeBtn {visibility: visible; opacity: 1}' +
+            '.tbl-cards-slider:hover .tbl-slider-closeBtn {visibility: visible; opacity: 1}' +
             '.tbl-cards-slider:hover .tbl-slider-closeBtn:hover {visibility: visible; opacity: 1; transition: opacity 0.2s ease}' +
         '</style>';
 
@@ -152,7 +149,7 @@ function transitionBanner() {
 
     function addEventsListners() {
         document.querySelector('.tbl-cards-slider').addEventListener('click', handleSliderClick);
-        document.querySelector('#tbl-slider-container .tbl-slider-closeBtn').addEventListener('click', handleCloseClick);
+        document.querySelector('.tbl-cards-slider .tbl-slider-closeBtn').addEventListener('click', handleCloseClick);
     }
 
     function handleCloseClick(e) {
