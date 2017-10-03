@@ -106,8 +106,9 @@ function transitionBanner() {
         var items = getItmesAsHtmlString(cardsData);
 
         slider.id = 'tbl-slider';
-        innerSlider.id = 'tbl-slider-inner';
         slider.className += ' tbl-cards-slider';
+        innerSlider.id = 'tbl-slider-inner';
+        innerSlider.className += 'tbl-cards-slider-inner';
         itemsContainer.innerHTML = items;
 
         innerSlider.appendChild(header);
@@ -126,6 +127,7 @@ function transitionBanner() {
         styleDiv.innerHTML = '<style>' +
             '.tbl-cards-slider {position: fixed; background: #f7f7f7; left: 16px; bottom: -500px; transition: bottom 0.4s ease 2s; width: 264px; height: 64px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.04);; box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); cursor: default;}' +
             '.tbl-cards-slider.in-viewport{bottom: 25px}' +
+            '.tbl-cards-slider .tbl-cards-slider-inner {width: 100%; height: 100%}' +
             '.tbl-cards-slider .tbl-slider-header {position: absolute; top: 11px; left: 93px; line-height: 15px; font-weight: bold; font-size: 12px;}' +
             '.tbl-cards-slider .clickAction { width: 220px; height: 100%; background: #f7f7f7; position: absolute; top: 0px; left: 0px; text-align: center; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; visibility: hidden; opacity: 0; z-index: 99999; transition: opacity 0.2s ease}' +
             '.tbl-cards-slider:hover .clickAction {visibility: visible; opacity: 1;}' +
@@ -151,7 +153,7 @@ function transitionBanner() {
     }
 
     function addEventsListners() {
-        document.querySelector('.tbl-cards-slider').addEventListener('click', handleSliderClick);
+        document.querySelector('#tbl-slider-inner').addEventListener('click', handleSliderClick);
         document.querySelector('.tbl-cards-slider .tbl-slider-closeBtn').addEventListener('click', handleCloseClick);
     }
 
