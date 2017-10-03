@@ -158,7 +158,7 @@ function transitionBanner() {
 
     function handleCloseClick(e) {
         var slider = document.getElementById('tbl-slider');
-        slider
+        slider.classList.remove('in-viewport');
     }
 
     function handleSliderClick(e) {
