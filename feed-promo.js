@@ -54,17 +54,18 @@ function transitionBanner() {
 
     function createCloseBtn() {
         var closeBtn = document.createElement('div');
-        closeBtn.className += 'tbl-slider-closeBtn';
-        closeBtn.innerHTML = '<svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
-                                '<title>Desktop Close initial</title>' +
-                                '<desc>Created with Sketch.</desc>' +
-                                '<defs></defs>' +
-                                '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                                    '<g id="icons" transform="translate(-23.000000, -130.000000)" fill="#FFFFFF">' +
-                                        '<polygon id="Desktop-Close-initial" points="33 131.208868 31.7911325 130 28 133.791132 24.2088675 130 23 131.208868 26.7911325 135 23 138.791132 24.2088675 140 28 136.208868 31.7911325 140 33 138.791132 29.2088675 135"></polygon>' +
+        closeBtn.className += 'tbl-slider-closeBtn-wrapper';
+        closeBtn.innerHTML = '<div class="tbl-slider-closeBtn">' +
+                                '<svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
+                                    '<desc>Created with Sketch.</desc>' +
+                                    '<defs></defs>' +
+                                    '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                                        '<g id="icons" transform="translate(-23.000000, -130.000000)" fill="#FFFFFF">' +
+                                            '<polygon id="Desktop-Close-initial" points="33 131.208868 31.7911325 130 28 133.791132 24.2088675 130 23 131.208868 26.7911325 135 23 138.791132 24.2088675 140 28 136.208868 31.7911325 140 33 138.791132 29.2088675 135"></polygon>' +
+                                        '</g>' +
                                     '</g>' +
-                                '</g>' +
-                            '</svg>';
+                                '</svg>'+
+                            '</div>';
 
         return closeBtn;
     }
@@ -118,11 +119,15 @@ function transitionBanner() {
             '.tbl-cards-slider .item.show {top: 0;}' +
             '.tbl-cards-slider .img {display: inline-block; vertical-align: middle; width: 81px; height: 100%; background-size: cover; background-position: center; transform: translateY(140px); transition: transform 0.2s ease;}' +
             '.tbl-cards-slider .item.show .img {transform: translateY(0);}' +
-            '.tbl-cards-slider .content-container {display: inline-block; width: 130px; height: 100%; padding-top: 26px; padding-left: 12px; vertical-align: middle}' +
+            '.tbl-cards-slider .content-container {display: inline-block; width: 130px; height: 100%; padding-top: 26px; padding-left: 12px; vertical-align: middle; overflow: hidden;}' +
             '.tbl-cards-slider .content {font-size: 12px; background: #f7f7f7; line-height: 15px; transform: translateY(140px); transition: transform 0.35s ease;}' +
             '.tbl-cards-slider .item.show .content {transform: translateY(0);}' +
             '.tbl-cards-slider .arrow {position: absolute; top: 22px; right: 16px}' +
-            '.tbl-cards-slider .tbl-slider-closeBtn {position: absolute; top: -30px; right: -25px; width: 20px; height: 20px;}' +
+            '.tbl-cards-slider .tbl-slider-closeBtn-wrapper {position: absolute; top: -20px; right: -20px; width: 40px; height: 40px;}' +
+            '.tbl-cards-slider .tbl-slider-closeBtn {width: 20px; height: 20px; border-radius: 50%; background: #000000; visibility: hidden; opacity:0}' +
+            '.tbl-cards-slider .tbl-slider-closeBtn svg {display: block; height: 100%; margin: auto; fill: #ffffff;}' +
+            '.tbl-cards-slider:hover .tbl-slider-closeBtn {visibility: visible; opacity: 1}' +
+            '.tbl-cards-slider:hover .tbl-slider-closeBtn:hover {visibility: visible; opacity: 1}' +
         '</style>';
 
         return styleDiv;
@@ -149,10 +154,11 @@ function transitionBanner() {
         if (nextItem) {
             nextItem.classList.add("show");
             firstItem.classList.remove('show');
-            console.log("show next item");
         } else {
+            //show first Item agian when no organic items left
             firstItem.style.zIndex = 99;
             firstItem.classList.add("show");
+
             stopSlider();
         }
     }
