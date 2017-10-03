@@ -117,7 +117,7 @@ function transitionBanner() {
         slider.appendChild(itemsContainer);
         sliderContainer.appendChild(closeBtn);
 
-        return slider;
+        return sliderContainer;
     }
 
     function getStyle() {
