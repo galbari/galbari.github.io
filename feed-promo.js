@@ -172,19 +172,23 @@ function transitionBanner() {
         var destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop;
         var destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
 
-        var now = new Date().getTime();
-        var time = Math.min(1, ((now - startTime) / duration));
-        var timeFunction = easings[easing](time);
-        window.scroll(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
+        function scroll() {
+            var now = 'now' in window.performance ? performance.now() : new Date().getTime();
+            var time = Math.min(1, ((now - startTime) / duration));
+            var timeFunction = easings[easing](time);
+            window.scroll(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
 
-        if (window.pageYOffset === destinationOffsetToScroll) {
-            if (callback) {
-                callback();
+            if (window.pageYOffset === destinationOffsetToScroll) {
+                if (callback) {
+                    callback();
+                }
+                return;
             }
-            return;
+
+            requestAnimationFrame(scroll);
         }
 
-        requestAnimationFrame(scroll);
+        scroll();
     }
 
     function showNextItem() {
