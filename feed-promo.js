@@ -165,7 +165,7 @@ function transitionBanner() {
         };
 
         var start = window.pageYOffset;
-        var startTime = new Date().getTime();
+        var startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
 
         var documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
         var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
