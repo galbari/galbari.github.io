@@ -124,7 +124,7 @@ function transitionBanner() {
             '.tbl-cards-slider {position: fixed; background: #f7f7f7; left: 16px; bottom: -500px; transition: bottom 0.4s ease 2s; width: 264px; height: 64px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.04);; box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); }' +
             '.tbl-cards-slider.in-viewport{bottom: 25px}' +
             '.tbl-cards-slider .tbl-slider-header {position: absolute; top: 11px; left: 93px; line-height: 15px; font-weight: bold; font-size: 12px;}' +
-            '.tbl-cards-slider .clickAction { width: 220px; height: 100%; background: #f7f7f7; position: absolute; top: 0px; left: 0px; text-align: center; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; visibility: hidden; opacity: 0; z-index: 99999; transition: opacity 0.15s ease}' +
+            '.tbl-cards-slider .clickAction { width: 220px; height: 100%; background: #f7f7f7; position: absolute; top: 0px; left: 0px; text-align: center; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; visibility: hidden; opacity: 0; z-index: 99999; transition: opacity 0.2s ease}' +
             '.tbl-cards-slider:hover .clickAction {visibility: visible; opacity: 1;}' +
             '.tbl-cards-slider ul {margin: 0; padding: 0; width: 100%; height: 100%;}' +
             '.tbl-cards-slider .item {list-style: none; width: 100%; height: 100%; position: absolute; top: 140px; left: 0;}' +
@@ -135,13 +135,13 @@ function transitionBanner() {
             '.tbl-cards-slider .content {font-size: 12px; background: #f7f7f7; line-height: 15px; transform: translateY(140px); transition: transform 0.35s ease;}' +
             '.tbl-cards-slider .item.show .content {transform: translateY(0);}' +
             '.tbl-cards-slider .arrow {position: absolute; top: 22px; right: 16px}' +
-            '.tbl-cards-slider .arrow svg{transition: 0.15s ease;}' +
+            '.tbl-cards-slider .arrow svg{transition: 0.2s ease;}' +
             '.tbl-cards-slider:hover .arrow svg {transform: scale(1.4);}' +
             '.tbl-cards-slider .tbl-slider-closeBtn-wrapper {position: absolute; top: -25px; right: -25px; width: 27px; height: 27px;}' +
             '.tbl-cards-slider .tbl-slider-closeBtn {position: absolute; top: 0; right: 0; width: 20px; height: 20px; border-radius: 50%; background: #000000; visibility: hidden; opacity:0}' +
             '.tbl-cards-slider .tbl-slider-closeBtn svg {display: block; height: 100%; margin: auto; fill: #ffffff;}' +
             '.tbl-cards-slider:hover .tbl-slider-closeBtn {visibility: visible; opacity: 1}' +
-            '.tbl-cards-slider:hover .tbl-slider-closeBtn:hover {visibility: visible; opacity: 1; transition: opacity 0.15s ease}' +
+            '.tbl-cards-slider:hover .tbl-slider-closeBtn:hover {visibility: visible; opacity: 1; transition: opacity 0.2s ease}' +
         '</style>';
 
         return styleDiv;
