@@ -154,10 +154,10 @@ function transitionBanner() {
 
     function addEventsListners() {
         document.querySelector('#tbl-slider-inner').addEventListener('click', handleSliderClick);
-        document.querySelector('.tbl-cards-slider .tbl-slider-closeBtn').addEventListener('click', handleCloseClick);
+        document.querySelector('.tbl-cards-slider .tbl-slider-closeBtn').addEventListener('click', hideSlider);
     }
 
-    function handleCloseClick(e) {
+    function hideSlider() {
         var slider = document.getElementById('tbl-slider');
         slider.classList.remove('in-viewport');
     }
@@ -165,7 +165,7 @@ function transitionBanner() {
     function handleSliderClick(e) {
         var feed = document.querySelector('.tbl-feed-container');
         scrollToDestination(feed, 300, 'linear');
-        console.log(e.currentTarget);
+        hideSlider();
     }
 
     function scrollToDestination(destination, duration, easing, callback) {
