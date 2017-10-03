@@ -97,6 +97,7 @@ function transitionBanner() {
 
     function createSlider(cardsData) {
         var slider = document.createElement('div');
+        var innerSlider = document.createElement('div');
         var header = createHeader();
         var arrowIcon = createArrowIcon();
         var closeBtn = createCloseBtn();
@@ -105,13 +106,15 @@ function transitionBanner() {
         var items = getItmesAsHtmlString(cardsData);
 
         slider.id = 'tbl-slider';
+        innerSlider.id = 'tbl-slider-inner';
         slider.className += ' tbl-cards-slider';
         itemsContainer.innerHTML = items;
 
-        slider.appendChild(header);
-        slider.appendChild(arrowIcon);
-        slider.appendChild(hoverDiv);
-        slider.appendChild(itemsContainer);
+        innerSlider.appendChild(header);
+        innerSlider.appendChild(arrowIcon);
+        innerSlider.appendChild(hoverDiv);
+        innerSlider.appendChild(itemsContainer);
+        slider.appendChild(innerSlider);
         slider.appendChild(closeBtn);
 
         return slider;
@@ -249,7 +252,7 @@ function transitionBanner() {
         activeSlider = setInterval(function () {
             console.log("executing interval");
             showNextItem();
-        }, 3500);
+        }, 2500);
     }, 5000);
 
 }
