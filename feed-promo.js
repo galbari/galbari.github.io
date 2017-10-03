@@ -148,14 +148,14 @@ function transitionBanner() {
     }
 
     function addEventsListners() {
-        var items = document.querySelectorAll('.tbl-cards-slider .item');
-
-        for(var item of items) {
-            item.addEventListener('click', navigateToItem);
-        }
+        document.querySelector('.tbl-cards-slider').addEventsListners('click', handleSliderClick);
     }
 
-    function navigateToItem(e) {
+    function handleSliderClick(e) {
+        var feed = document.querySelector('.tbl-feed-container');
+        var feedPosition = feed.offsetTop;
+        window.scrollTo(0, feedPosition);
+        //scrollToFeed(feed);
         console.log(e.currentTarget);
     }
 
