@@ -152,7 +152,7 @@ function transitionBanner() {
 
     function addEventsListners() {
         document.querySelector('.tbl-cards-slider').addEventListener('click', handleSliderClick);
-        document.querySelector('.tbl-cards-slider .tbl-slider-closeBtn').addEventListener('click', handleCloseClick);
+        document.querySelector('#tbl-slider-container .tbl-slider-closeBtn').addEventListener('click', handleCloseClick);
     }
 
     function handleCloseClick(e) {
