@@ -153,8 +153,6 @@ function transitionBanner() {
 
     function handleSliderClick(e) {
         var feed = document.querySelector('.tbl-feed-container');
-        var feedPosition = feed.offsetTop;
-        window.scrollTo(0, feedPosition);
         scrollToDestination(feed, 300, 'linear');
         console.log(e.currentTarget);
     }
