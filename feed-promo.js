@@ -148,7 +148,7 @@ function transitionBanner() {
     }
 
     function addEventsListners() {
-        document.querySelector('.tbl-cards-slider').addEventsListners('click', handleSliderClick);
+        document.querySelector('.tbl-cards-slider').addEventListener('click', handleSliderClick);
     }
 
     function handleSliderClick(e) {
