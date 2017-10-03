@@ -155,8 +155,38 @@ function transitionBanner() {
         var feed = document.querySelector('.tbl-feed-container');
         var feedPosition = feed.offsetTop;
         window.scrollTo(0, feedPosition);
-        //scrollToFeed(feed);
+        scrollToDestination(feed, 300, 'linear');
         console.log(e.currentTarget);
+    }
+
+    function scrollToDestination(destination, duration, easing, callback) {
+        var easings = {
+            linear : function(t){
+                return t;
+            }
+        };
+
+        var start = window.pageYOffset;
+        var startTime = new Date().getTime();
+
+        var documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
+        var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+        var destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop;
+        var destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
+
+        var now = new Date().getTime();
+        var time = Math.min(1, ((now - startTime) / duration));
+        var timeFunction = easings[easing](time);
+        window.scroll(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
+
+        if (window.pageYOffset === destinationOffsetToScroll) {
+            if (callback) {
+                callback();
+            }
+            return;
+        }
+
+        requestAnimationFrame(scroll);
     }
 
     function showNextItem() {
