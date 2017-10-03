@@ -206,7 +206,7 @@ function transitionBanner() {
         var firstItem = document.querySelector('#tbl-slider .card-0');
         var nextItem = lastShownItem.nextSibling;
 
-        if (nextItem.classList.containes('card-3')){
+        if (nextItem.classList.contains('card-3')){
             firstItem.classList.remove('show');
         }
 
