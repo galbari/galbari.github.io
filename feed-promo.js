@@ -126,10 +126,10 @@ function transitionBanner() {
         styleDiv.innerHTML = '<style>' +
             '.tbl-cards-slider {position: fixed; background: #f7f7f7; left: 16px; bottom: -500px; transition: bottom 0.4s ease; width: 264px; height: 64px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.04);; box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); cursor: default;}' +
             '.tbl-cards-slider.in-viewport{bottom: 25px; transition: bottom 0.4s ease 2s;}' +
-            '.tbl-cards-slider .tbl-cards-slider-inner {width: 100%; height: 100%}' +
+            '.tbl-cards-slider .tbl-cards-slider-inner {width: 100%; height: 100%; cursor: pointer;}' +
             '.tbl-cards-slider .tbl-slider-header {position: absolute; top: 11px; left: 93px; line-height: 15px; font-weight: bold; font-size: 12px;}' +
-            '.tbl-cards-slider .clickAction { width: 220px; height: 100%; background: #f7f7f7; position: absolute; top: 0px; left: 0px; text-align: center; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; visibility: hidden; opacity: 0; z-index: 99999; transition: opacity 0.2s ease}' +
-            '.tbl-cards-slider:hover .clickAction {visibility: visible; opacity: 1;}' +
+            '.tbl-cards-slider .clickAction { width: 220px; height: 100%; background: #f7f7f7; position: absolute; top: 0px; left: 0px; text-align: center; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; opacity: 0; z-index: 99999; transition: opacity 0.2s ease}' +
+            '.tbl-cards-slider:hover .clickAction {opacity: 1;}' +
             '.tbl-cards-slider ul {margin: 0; padding: 0; width: 100%; height: 100%;}' +
             '.tbl-cards-slider .item {list-style: none; width: 100%; height: 100%; position: absolute; top: 140px; left: 0;}' +
             '.tbl-cards-slider .item.show {top: 0;}' +
@@ -142,7 +142,7 @@ function transitionBanner() {
             '.tbl-cards-slider .arrow svg{transition: 0.2s ease;}' +
             '.tbl-cards-slider:hover .arrow svg {transform: scale(1.4);}' +
             '.tbl-cards-slider .tbl-slider-closeBtn-wrapper {position: absolute; top: -25px; right: -25px; width: 27px; height: 27px;}' +
-            '.tbl-cards-slider .tbl-slider-closeBtn {position: absolute; top: 0; right: 0; width: 20px; height: 20px; border-radius: 50%; background: #000000; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); visibility: hidden; opacity:0; transition: 0.2s ease;}' +
+            '.tbl-cards-slider .tbl-slider-closeBtn {position: absolute; top: 0; right: 0; width: 20px; height: 20px; border-radius: 50%; background: #000000; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); visibility: hidden; opacity:0; transition: 0.2s ease; cursor: pointer}' +
             '.tbl-cards-slider .tbl-slider-closeBtn svg {display: block; height: 100%; margin: auto; fill: #ffffff; transition: 0.2s ease;}' +
             '.tbl-cards-slider:hover .tbl-slider-closeBtn {visibility: visible; opacity: 1}' +
             '.tbl-cards-slider .tbl-slider-closeBtn:hover {background: #EEEEEE;}' +
