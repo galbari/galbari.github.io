@@ -115,7 +115,7 @@ function transitionBanner() {
         var actionMessageDiv = createElement('div', null, 'actionMessage', 'Click for more content');
 
         var items = getItmesAsHtmlString(cardsData);
-        var itemsContainer = document.createElement('ul', 'tbl-items-container', null, items);
+        var itemsContainer = createElement('ul', 'tbl-items-container', null, items);
 
         innerSlider.appendChild(header);
         innerSlider.appendChild(arrowIcon);
