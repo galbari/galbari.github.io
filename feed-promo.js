@@ -73,9 +73,9 @@ function transitionBanner() {
         }
 
         var domElement = document.createElement(element);
-        domElement.id = id ? id : undefined;
-        domElement.className += classes ? classes : undefined;
-        domElement.innerHTML = innerHTML ? innerHTML : "";
+        domElement.id = id ? id : '';
+        domElement.className += classes ? classes : '';
+        domElement.innerHTML = innerHTML ? innerHTML : '';
 
         return domElement;
     }
