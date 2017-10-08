@@ -1,4 +1,27 @@
 function transitionBanner() {
+    var waitNumOfSecondsBeforeRemoving = 3;
+    var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
+                        '<defs></defs>' +
+                        '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                            '<g id="icons" transform="translate(-18.000000, -20.000000)" fill="#4472C4">' +
+                                '<path d="M34.4775,29.751875 L28.2275,36.3925 L28,36.634375 L27.771875,36.3925 L21.521875,29.751875 L21.2775,29.49125 L21.568125,29.28375 L22.4125,28.679375 L22.635,28.52 L22.8225,28.719375 L27.14125,33.308125 L27.14125,23.67875 L27.14125,23.36625 L27.45375,23.36625 L28.54625,23.36625 L28.85875,23.36625 L28.85875,23.67875 L28.85875,33.308125 L33.1775,28.719375 L33.365,28.52 L33.586875,28.679375 L34.431875,29.28375 L34.7225,29.49125 L34.4775,29.751875 Z M28,20 C22.476875,20 18,24.4775 18,30 C18,35.523125 22.476875,40 28,40 C33.5225,40 38,35.523125 38,30 C38,24.4775 33.5225,20 28,20 L28,20 Z" id="Desktop-arrow-initial"></path>' +
+                            '</g>' +
+                        '</g>' +
+                '</svg>';
+
+    var closeSVG = '<div class="tbl-slider-closeBtn">' +
+                    '<svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
+                        '<desc>Created with Sketch.</desc>' +
+                        '<defs></defs>' +
+                        '<g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd">' +
+                            '<g id="icons" transform="translate(-23.000000, -130.000000)">' +
+                                '<polygon id="Desktop-Close-initial" points="33 131.208868 31.7911325 130 28 133.791132 24.2088675 130 23 131.208868 26.7911325 135 23 138.791132 24.2088675 140 28 136.208868 31.7911325 140 33 138.791132 29.2088675 135"></polygon>' +
+                            '</g>' +
+                        '</g>' +
+                    '</svg>'+
+                '</div>';
+
+
     function cutTextContent(string, endPosition) {
         return string.slice(0, endPosition).trim() + '...';
     }
@@ -44,64 +67,28 @@ function transitionBanner() {
         }, '');
     }
 
-    function createHeader() {
-        var header = document.createElement('div');
-        header.className += 'tbl-slider-header';
-        header.innerText = "Up next";
+    function createDomElement(element, id, classes, innerHTML) {
+        if (!element) {
+            return false;
+        }
 
-        return header;
-    }
+        var domElement = document.createElement(element);
+        domElement.id = id ? id : undefined;
+        domElement.className += classes ? classes : undefined;
+        domElement.innerHTML = innerHTML ? innerHTML : "";
 
-    function createCloseBtn() {
-        var closeBtn = document.createElement('div');
-        closeBtn.className += 'tbl-slider-closeBtn-wrapper';
-        closeBtn.innerHTML = '<div class="tbl-slider-closeBtn">' +
-                                '<svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
-                                    '<desc>Created with Sketch.</desc>' +
-                                    '<defs></defs>' +
-                                    '<g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd">' +
-                                        '<g id="icons" transform="translate(-23.000000, -130.000000)">' +
-                                            '<polygon id="Desktop-Close-initial" points="33 131.208868 31.7911325 130 28 133.791132 24.2088675 130 23 131.208868 26.7911325 135 23 138.791132 24.2088675 140 28 136.208868 31.7911325 140 33 138.791132 29.2088675 135"></polygon>' +
-                                        '</g>' +
-                                    '</g>' +
-                                '</svg>'+
-                            '</div>';
-
-        return closeBtn;
-    }
-
-    function createArrowIcon() {
-        var arrowIcon = document.createElement('div');
-        arrowIcon.className += 'arrow';
-        arrowIcon.innerHTML = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
-                                    '<desc>Created with Sketch.</desc>' +
-                                    '<defs></defs>' +
-                                    '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                                        '<g id="icons" transform="translate(-18.000000, -20.000000)" fill="#4472C4">' +
-                                            '<path d="M34.4775,29.751875 L28.2275,36.3925 L28,36.634375 L27.771875,36.3925 L21.521875,29.751875 L21.2775,29.49125 L21.568125,29.28375 L22.4125,28.679375 L22.635,28.52 L22.8225,28.719375 L27.14125,33.308125 L27.14125,23.67875 L27.14125,23.36625 L27.45375,23.36625 L28.54625,23.36625 L28.85875,23.36625 L28.85875,23.67875 L28.85875,33.308125 L33.1775,28.719375 L33.365,28.52 L33.586875,28.679375 L34.431875,29.28375 L34.7225,29.49125 L34.4775,29.751875 Z M28,20 C22.476875,20 18,24.4775 18,30 C18,35.523125 22.476875,40 28,40 C33.5225,40 38,35.523125 38,30 C38,24.4775 33.5225,20 28,20 L28,20 Z" id="Desktop-arrow-initial"></path>' +
-                                        '</g>' +
-                                    '</g>' +
-                                '</svg>';
-
-        return arrowIcon;
-    }
-
-    function createHoverDiv() {
-        var hoverDiv = document.createElement('div');
-        hoverDiv.className += 'clickAction';
-        hoverDiv.innerText = 'Click for more content';
-
-        return hoverDiv;
+        return domElement;
     }
 
     function createSlider(cardsData) {
         var slider = document.createElement('div');
         var innerSlider = document.createElement('div');
-        var header = createHeader();
-        var arrowIcon = createArrowIcon();
-        var closeBtn = createCloseBtn();
-        var hoverDiv = createHoverDiv();
         var itemsContainer = document.createElement('ul');
+
+        var header = createElement('div', null, 'tbl-slider-header', 'Up next');
+        var arrowIcon = createElement('div', null, 'arrow', arrowSVG);
+        var closeBtn = createElement('div', null, 'tbl-slider-closeBtn-wrapper', closeSVG);
+        var actionMessageDiv = createElement('div', null, 'actionMessage', 'Click for more content');
         var items = getItmesAsHtmlString(cardsData);
 
         slider.id = 'tbl-slider';
@@ -112,7 +99,7 @@ function transitionBanner() {
 
         innerSlider.appendChild(header);
         innerSlider.appendChild(arrowIcon);
-        innerSlider.appendChild(hoverDiv);
+        innerSlider.appendChild(actionMessageDiv);
         innerSlider.appendChild(itemsContainer);
         slider.appendChild(innerSlider);
         slider.appendChild(closeBtn);
@@ -128,8 +115,8 @@ function transitionBanner() {
             '.tbl-cards-slider.in-viewport{bottom: 25px; transition: bottom 0.4s ease 2s;}' +
             '.tbl-cards-slider .tbl-cards-slider-inner {width: 100%; height: 100%; cursor: pointer;}' +
             '.tbl-cards-slider .tbl-slider-header {position: absolute; top: 11px; left: 93px; line-height: 15px; font-weight: bold; font-size: 12px;}' +
-            '.tbl-cards-slider .clickAction { width: 220px; height: 100%; background: #f7f7f7; position: absolute; top: 0px; left: 0px; text-align: center; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; opacity: 0; z-index: 99999; transition: opacity 0.2s ease}' +
-            '.tbl-cards-slider:hover .clickAction {opacity: 1;}' +
+            '.tbl-cards-slider .actionMessage { width: 220px; height: 100%; background: #f7f7f7; position: absolute; top: 0px; left: 0px; text-align: center; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; opacity: 0; z-index: 99999; transition: opacity 0.2s ease}' +
+            '.tbl-cards-slider:hover .actionMessage {opacity: 1;}' +
             '.tbl-cards-slider ul {margin: 0; padding: 0; width: 100%; height: 100%;}' +
             '.tbl-cards-slider .item {list-style: none; width: 100%; height: 100%; position: absolute; top: 140px; left: 0;}' +
             '.tbl-cards-slider .item.show {top: 0;}' +
