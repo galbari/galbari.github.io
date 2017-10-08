@@ -158,7 +158,7 @@ function transitionBanner() {
     }
 
     function hideSlider() {
-        var slider = document.getElementById('tbl-slider');
+        var slider = getSlider();
         slider.classList.remove('in-viewport');
     }
 
@@ -232,14 +232,40 @@ function transitionBanner() {
     }
 
     function stopSlider() {
-        clearInterval(activeSlider);
+        clearInterval(sliderInterval);
+        removeSlider(waitNumOfSecondsBeforeRemoving);
         console.log('clear interval accomplished!');
+    }
+
+    function removeSlider(afterNumOfSeconds) {
+        if (afterNumOfSeconds) {
+            setTimeout(function() {
+                hideSlider();
+            }, afterNumOfSeconds);
+        } else {
+            hideSlider();
+        }
+    }
+
+    function playSlider(sliderInterval) {
+        sliderInterval = setInterval(function () {
+            console.log("executing interval");
+            showNextItem();
+        }, 2000);
+    }
+
+    function showSlider(slider) {
+        slider.classList.add('in-viewport');
+    }
+
+    function getSlider() {
+        return document.getElementById('tbl-slider');
     }
 
     var cardsData = getCardsData();
     var style = getStyle();
     var slider = createSlider(cardsData);
-    var activeSlider;
+    var sliderInterval;
 
 
 
@@ -248,20 +274,10 @@ function transitionBanner() {
     addEventsListners();
 
     setTimeout(function() {
-        slider.classList.add('in-viewport');
-    },1000);
-
-    setTimeout(function(){
-        activeSlider = setInterval(function () {
-            console.log("executing interval");
-            showNextItem();
-        }, 2500);
-    }, 5000);
+        showSlider(slider);
+        playSlider(sliderInterval);
+    },5000);
 
 }
-
-setTimeout(function(){
-    transitionBanner();
-}, 5000);
 
 
