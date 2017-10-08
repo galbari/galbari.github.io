@@ -80,14 +80,15 @@ function transitionBanner() {
     }
 
     function createSlider(cardsData) {
-        var slider = document.createElement('div', 'tbl-slider', ' tbl-cards-slider');
-        var innerSlider = document.createElement('div', 'tbl-slider-inner', 'tbl-cards-slider-inner');
-        var itemsContainer = document.createElement('ul');
+        var slider = createElement('div', 'tbl-slider', ' tbl-cards-slider');
+        var innerSlider = createElement('div', 'tbl-slider-inner', 'tbl-cards-slider-inner');
 
         var header = createElement('div', null, 'tbl-slider-header', 'Up next');
         var arrowIcon = createElement('div', null, 'arrow', arrowSVG);
         var closeBtn = createElement('div', null, 'tbl-slider-closeBtn-wrapper', closeSVG);
         var actionMessageDiv = createElement('div', null, 'actionMessage', 'Click for more content');
+
+        var itemsContainer = document.createElement('ul');
         var items = getItmesAsHtmlString(cardsData);
 
         itemsContainer.innerHTML = items;
