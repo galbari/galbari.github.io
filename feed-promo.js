@@ -219,7 +219,7 @@ function transitionBanner() {
     }
 
     function stopSlider() {
-        clearInterval(sliderInterval);
+        clearInterval(window.sliderInterval);
         removeSlider(waitNumOfMiliSecondsBeforeRemoving);
         console.log('clear interval accomplished!');
     }
@@ -234,9 +234,9 @@ function transitionBanner() {
         }
     }
 
-    function playSlider(sliderInterval) {
+    function playSlider() {
         console.log('start playing slider');
-        sliderInterval = setInterval(function () {
+        window.sliderInterval = setInterval(function () {
             console.log("executing interval");
             showNextItem();
         }, 2000);
@@ -253,7 +253,6 @@ function transitionBanner() {
     var cardsData = getCardsData();
     var style = getStyle();
     var slider = createSlider(cardsData);
-    var sliderInterval;
 
     document.body.appendChild(style);
     document.body.appendChild(slider);
@@ -261,7 +260,7 @@ function transitionBanner() {
 
     setTimeout(function() {
         showSlider(slider);
-        playSlider(sliderInterval);
+        playSlider();
     },5000);
 
 }
