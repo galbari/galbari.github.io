@@ -1,5 +1,5 @@
 function transitionBanner() {
-    var waitNumOfMiliSecondsBeforeRemoving = 4000;
+    var waitNumOfMiliSecondsBeforeRemoving = 10000;
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<defs></defs>' +
                         '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
@@ -8,7 +8,6 @@ function transitionBanner() {
                             '</g>' +
                         '</g>' +
                 '</svg>';
-
     var closeSVG = '<div class="tbl-slider-closeBtn">' +
                     '<svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<desc>Created with Sketch.</desc>' +
@@ -81,8 +80,8 @@ function transitionBanner() {
     }
 
     function createSlider(cardsData) {
-        var slider = document.createElement('div');
-        var innerSlider = document.createElement('div');
+        var slider = document.createElement('div', 'tbl-slider', ' tbl-cards-slider');
+        var innerSlider = document.createElement('div', 'tbl-slider-inner', 'tbl-cards-slider-inner');
         var itemsContainer = document.createElement('ul');
 
         var header = createElement('div', null, 'tbl-slider-header', 'Up next');
@@ -91,10 +90,6 @@ function transitionBanner() {
         var actionMessageDiv = createElement('div', null, 'actionMessage', 'Click for more content');
         var items = getItmesAsHtmlString(cardsData);
 
-        slider.id = 'tbl-slider';
-        slider.className += ' tbl-cards-slider';
-        innerSlider.id = 'tbl-slider-inner';
-        innerSlider.className += 'tbl-cards-slider-inner';
         itemsContainer.innerHTML = items;
 
         innerSlider.appendChild(header);
