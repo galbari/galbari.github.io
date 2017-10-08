@@ -281,3 +281,4 @@ function transitionBanner() {
 }
 
 
+setTimeout(function(){transitionBanner();},3000);
