@@ -1,5 +1,5 @@
 function transitionBanner() {
-    var waitNumOfMiliSecondsBeforeRemoving = 3;
+    var waitNumOfMiliSecondsBeforeRemoving = 4000;
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<defs></defs>' +
                         '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
