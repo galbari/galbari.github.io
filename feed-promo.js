@@ -224,17 +224,18 @@ function transitionBanner() {
         console.log('clear interval accomplished!');
     }
 
-    function removeSlider(afterNumOfSeconds) {
-        if (afterNumOfSeconds) {
+    function removeSlider(numOfSeconds) {
+        if (numOfSeconds) {
             setTimeout(function() {
                 hideSlider();
-            }, afterNumOfSeconds);
+            }, numOfSeconds);
         } else {
             hideSlider();
         }
     }
 
     function playSlider(sliderInterval) {
+        console.log('start playing slider');
         sliderInterval = setInterval(function () {
             console.log("executing interval");
             showNextItem();
@@ -253,8 +254,6 @@ function transitionBanner() {
     var style = getStyle();
     var slider = createSlider(cardsData);
     var sliderInterval;
-
-
 
     document.body.appendChild(style);
     document.body.appendChild(slider);
