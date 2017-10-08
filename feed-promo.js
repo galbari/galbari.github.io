@@ -114,10 +114,8 @@ function transitionBanner() {
         var closeBtn = createElement('div', null, 'tbl-slider-closeBtn-wrapper', closeSVG);
         var actionMessageDiv = createElement('div', null, 'actionMessage', 'Click for more content');
 
-        var itemsContainer = document.createElement('ul');
         var items = getItmesAsHtmlString(cardsData);
-
-        itemsContainer.innerHTML = items;
+        var itemsContainer = document.createElement('ul', 'tbl-items-container', null, items);
 
         innerSlider.appendChild(header);
         innerSlider.appendChild(arrowIcon);
