@@ -67,7 +67,7 @@ function transitionBanner() {
         }, '');
     }
 
-    function createDomElement(element, id, classes, innerHTML) {
+    function createElement(element, id, classes, innerHTML) {
         if (!element) {
             return false;
         }
