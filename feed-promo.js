@@ -134,15 +134,18 @@ function transitionBanner() {
     function addEventsListners() {
         document.querySelector('#tbl-slider-inner').addEventListener('click', handleSliderClick);
         document.querySelector('.tbl-slider-closeBtn').addEventListener('click', hideSlider);
-        document.body.addEventListener('scroll', isFeedInViewport);
+        window.addEventListener('scroll', isFeedInViewport);
         //document.getElementsByTagName("body")[0].scrollTop
     }
 
-    function isFeedInViewport(e) {
+    function isFeedInViewport() {
+        var scrollPosition = document.getElementsByTagName("html")[0].scrollTop;
         var feed = getFeedElement();
         var feedTopPosition = feed.offsetTop;
-        console.log(e);
-        //if (feedTopPosition)
+
+        if (scrollPosition >= feedTopPosition) {
+            console.log('🚀');
+        }
     }
 
     function hideSlider() {
