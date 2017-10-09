@@ -47,6 +47,48 @@ function transitionBanner() {
                         '.tbl-cards-slider .tbl-slider-closeBtn:hover svg{fill: #000000;}' +
                     '</style>';
 
+    function scrollToDestination(destination, duration, easing, callback) {
+        var easings = {
+            linear : function(t){
+                return t;
+            }
+        };
+
+        var start = window.pageYOffset;
+        var startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
+
+        var documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
+        var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+        var destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop;
+        var destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
+
+        if ('requestAnimationFrame' in window === false) {
+            window.scroll(0, destinationOffsetToScroll);
+            if (callback) {
+                callback();
+            }
+            return;
+        }
+
+        function scroll() {
+            var now = 'now' in window.performance ? performance.now() : new Date().getTime();
+            var time = Math.min(1, ((now - startTime) / duration));
+            var timeFunction = easings[easing](time);
+            var scrollYPosition = Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start);
+            window.scrollTo(0, scrollYPosition);
+
+            if (window.pageYOffset === destinationOffsetToScroll) {
+                if (callback) {
+                    callback();
+                }
+                return;
+            }
+
+            requestAnimationFrame(scroll);
+        }
+
+        scroll();
+    }
 
     function cutTextContent(string, endPosition) {
         return string.slice(0, endPosition).trim() + '...';
@@ -135,7 +177,10 @@ function transitionBanner() {
     function addEventsListners() {
         document.querySelector('#tbl-slider-inner').addEventListener('click', handleSliderClick);
         document.querySelector('.tbl-slider-closeBtn').addEventListener('click', hideSlider);
+        window.addEventListener('DOMContentLoaded', shouldHideSlider);
+        window.addEventListener('load', shouldHideSlider);
         window.addEventListener('scroll', shouldHideSlider);
+        window.addEventListener('resize', shouldHideSlider);
     }
 
     function isElementInViewport(element) {
@@ -148,6 +193,7 @@ function transitionBanner() {
     }
 
     function shouldHideSlider() {
+        console.log('function was called');
         var feed = document.querySelector('.tbl-feed-container');
         if (!sliderIsHidden && isElementInViewport(feed)){
             hideSlider();
@@ -164,49 +210,6 @@ function transitionBanner() {
         var feed = getFeedElement();
         scrollToDestination(feed, 300, 'linear');
         hideSlider();
-    }
-
-    function scrollToDestination(destination, duration, easing, callback) {
-        var easings = {
-            linear : function(t){
-                return t;
-            }
-        };
-
-        var start = window.pageYOffset;
-        var startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
-
-        var documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
-        var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
-        var destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop;
-        var destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
-
-        if ('requestAnimationFrame' in window === false) {
-            window.scroll(0, destinationOffsetToScroll);
-            if (callback) {
-                callback();
-            }
-            return;
-        }
-
-        function scroll() {
-            var now = 'now' in window.performance ? performance.now() : new Date().getTime();
-            var time = Math.min(1, ((now - startTime) / duration));
-            var timeFunction = easings[easing](time);
-            var scrollYPosition = Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start);
-            window.scrollTo(0, scrollYPosition);
-
-            if (window.pageYOffset === destinationOffsetToScroll) {
-                if (callback) {
-                    callback();
-                }
-                return;
-            }
-
-            requestAnimationFrame(scroll);
-        }
-
-        scroll();
     }
 
     function showNextItem() {
@@ -232,28 +235,20 @@ function transitionBanner() {
     function stopSlider() {
         clearInterval(window.sliderInterval);
         removeSliderFromViewport(waitNumOfMiliSecondsBeforeRemoving);
-        console.log('clear interval accomplished!');
     }
 
     function removeSliderFromViewport(numOfSeconds) {
-        if (numOfSeconds) {
-            setTimeout(function() {
-                hideSlider();
-            }, numOfSeconds);
-        } else {
+        numOfSeconds = numOfSeconds ? numOfSeconds : 0;
+        setTimeout(function() {
             hideSlider();
-        }
+        }, numOfSeconds);
     }
 
     function playSlider() {
-        console.log('start playing slider');
         window.sliderInterval = setInterval(function () {
-            console.log("executing interval");
             if (!sliderIsHidden) {
-                console.log("showing next item");
                 showNextItem();
             } else {
-                console.log('clearing Interval');
                 clearInterval(window.sliderInterval);
             }
         }, 2000);
