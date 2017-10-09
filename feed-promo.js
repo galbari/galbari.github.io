@@ -1,5 +1,5 @@
 function transitionBanner() {
-    var sliderAlreadyHidden = false;
+    var sliderIsHidden = false;
     var waitNumOfMiliSecondsBeforeRemoving = 10000;
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<defs></defs>' +
@@ -149,7 +149,7 @@ function transitionBanner() {
 
     function shouldHideSlider() {
         var feed = document.querySelector('.tbl-feed-container');
-        if (!sliderAlreadyHidden && isElementInViewport(feed)){
+        if (!sliderIsHidden && isElementInViewport(feed)){
             hideSlider();
         }
     }
@@ -157,7 +157,7 @@ function transitionBanner() {
     function hideSlider() {
         var slider = getSlider();
         slider.classList.remove('in-viewport');
-        sliderAlreadyHidden = true;
+        sliderIsHidden = true;
     }
 
     function handleSliderClick(e) {
@@ -231,11 +231,11 @@ function transitionBanner() {
 
     function stopSlider() {
         clearInterval(window.sliderInterval);
-        removeSlider(waitNumOfMiliSecondsBeforeRemoving);
+        removeSliderFromViewport(waitNumOfMiliSecondsBeforeRemoving);
         console.log('clear interval accomplished!');
     }
 
-    function removeSlider(numOfSeconds) {
+    function removeSliderFromViewport(numOfSeconds) {
         if (numOfSeconds) {
             setTimeout(function() {
                 hideSlider();
@@ -249,7 +249,10 @@ function transitionBanner() {
         console.log('start playing slider');
         window.sliderInterval = setInterval(function () {
             console.log("executing interval");
-            showNextItem();
+            if (!sliderIsHidden) {
+                console.log("showing next item");
+                showNextItem();
+            }
         }, 2000);
     }
 
@@ -276,5 +279,7 @@ function transitionBanner() {
 
 }
 
-
 setTimeout(function(){transitionBanner();},3000);
+
+
+
