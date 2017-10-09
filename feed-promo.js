@@ -1,4 +1,5 @@
 function transitionBanner() {
+    var !sliderAlreadyHidden = false;
     var waitNumOfMiliSecondsBeforeRemoving = 10000;
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<defs></defs>' +
@@ -134,26 +135,29 @@ function transitionBanner() {
     function addEventsListners() {
         document.querySelector('#tbl-slider-inner').addEventListener('click', handleSliderClick);
         document.querySelector('.tbl-slider-closeBtn').addEventListener('click', hideSlider);
-        window.addEventListener('scroll', isFeedInViewport);
+        window.addEventListener('scroll', shouldHideSlider);
     }
 
-    function isFeedInViewport() {
-        var scrollPosition = document.getElementsByTagName("body")[0].scrollTop;
-        //var feed = getFeedElement();
-        var feed = document.querySelector('.tbl-feed-container');
-        var rect = feed.getBoundingClientRect();
-        if (rect.bottom >= 0 && rect.right >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight) && rect.left <= (window.innerWidth || document.documentElement.clientWidth)){
-        //if (rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)) {
-            console.log('🚀');
+    function isElementInViewport(element) {
+        var rect = element.getBoundingClientRect();
+        return (rect.bottom >= 0 &&
+                rect.right >= 0 &&
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.left <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+    }
 
-        } else {
-            console.log('😫');
+    function shouldHideSlider() {
+        var feed = document.querySelector('.tbl-feed-container');
+        if (!sliderAlreadyHidden && isElementInViewport(feed)){
+            hideSlider();
         }
     }
 
     function hideSlider() {
         var slider = getSlider();
         slider.classList.remove('in-viewport');
+        sliderAlreadyHidden = true;
     }
 
     function handleSliderClick(e) {
