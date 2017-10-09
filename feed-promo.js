@@ -274,7 +274,7 @@ function transitionBanner() {
     addEventsListners();
 
     setTimeout(function() {
-        if (shouldShowSlider) {
+        if (shouldShowSlider()) {
             showSlider(slider);
             playSlider();
         }
