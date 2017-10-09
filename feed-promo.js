@@ -140,10 +140,13 @@ function transitionBanner() {
     function isFeedInViewport() {
         var scrollPosition = document.getElementsByTagName("body")[0].scrollTop;
         var feed = getFeedElement();
-        var feedTopPosition = feed.offsetTop;
+        var feedHeader = document.querySelector('.tbl-feed-header');
+        var rect = feedHeader.getBoundingClientRect();
 
-        if (scrollPosition >= feedTopPosition) {
+        if (rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)) {
             console.log('🚀');
+        } else {
+            console.log('😫');
         }
     }
 
