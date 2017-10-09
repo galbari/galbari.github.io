@@ -252,6 +252,9 @@ function transitionBanner() {
             if (!sliderIsHidden) {
                 console.log("showing next item");
                 showNextItem();
+            } else {
+                console.log('clearing Interval');
+                clearInterval(window.sliderInterval);
             }
         }, 2000);
     }
