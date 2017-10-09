@@ -135,11 +135,10 @@ function transitionBanner() {
         document.querySelector('#tbl-slider-inner').addEventListener('click', handleSliderClick);
         document.querySelector('.tbl-slider-closeBtn').addEventListener('click', hideSlider);
         window.addEventListener('scroll', isFeedInViewport);
-        //document.getElementsByTagName("body")[0].scrollTop
     }
 
     function isFeedInViewport() {
-        var scrollPosition = document.getElementsByTagName("html")[0].scrollTop;
+        var scrollPosition = document.getElementsByTagName("body")[0].scrollTop;
         var feed = getFeedElement();
         var feedTopPosition = feed.offsetTop;
 
