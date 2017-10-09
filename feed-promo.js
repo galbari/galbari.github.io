@@ -127,9 +127,22 @@ function transitionBanner() {
         return slider;
     }
 
+    function getFeedElement() {
+        return document.querySelector('.tbl-feed-container');
+    }
+
     function addEventsListners() {
         document.querySelector('#tbl-slider-inner').addEventListener('click', handleSliderClick);
-        document.querySelector('.tbl-cards-slider .tbl-slider-closeBtn').addEventListener('click', hideSlider);
+        document.querySelector('.tbl-slider-closeBtn').addEventListener('click', hideSlider);
+        document.body.addEventListener('scroll', isFeedInViewport);
+        //document.getElementsByTagName("body")[0].scrollTop
+    }
+
+    function isFeedInViewport(e) {
+        var feed = getFeedElement();
+        var feedTopPosition = feed.offsetTop;
+        console.log(e);
+        //if (feedTopPosition)
     }
 
     function hideSlider() {
@@ -138,7 +151,7 @@ function transitionBanner() {
     }
 
     function handleSliderClick(e) {
-        var feed = document.querySelector('.tbl-feed-container');
+        var feed = getFeedElement();
         scrollToDestination(feed, 300, 'linear');
         hideSlider();
     }
