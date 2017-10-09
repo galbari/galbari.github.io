@@ -1,5 +1,5 @@
 function transitionBanner() {
-    var sliderIsHidden = false;
+    var sliderIsVisible = false;
     var waitNumOfMiliSecondsBeforeRemoving = 10000;
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<defs></defs>' +
@@ -177,8 +177,6 @@ function transitionBanner() {
     function addEventsListners() {
         document.querySelector('#tbl-slider-inner').addEventListener('click', handleSliderClick);
         document.querySelector('.tbl-slider-closeBtn').addEventListener('click', hideSlider);
-        window.addEventListener('DOMContentLoaded', shouldHideSlider);
-        window.addEventListener('load', shouldHideSlider);
         window.addEventListener('scroll', shouldHideSlider);
         window.addEventListener('resize', shouldHideSlider);
     }
@@ -193,9 +191,8 @@ function transitionBanner() {
     }
 
     function shouldHideSlider() {
-        console.log('function was called');
         var feed = document.querySelector('.tbl-feed-container');
-        if (!sliderIsHidden && isElementInViewport(feed)){
+        if (sliderIsVisible && isElementInViewport(feed)){
             hideSlider();
         }
     }
@@ -203,7 +200,7 @@ function transitionBanner() {
     function hideSlider() {
         var slider = getSlider();
         slider.classList.remove('in-viewport');
-        sliderIsHidden = true;
+        sliderIsVisible = false;
     }
 
     function handleSliderClick(e) {
@@ -246,7 +243,7 @@ function transitionBanner() {
 
     function playSlider() {
         window.sliderInterval = setInterval(function () {
-            if (!sliderIsHidden) {
+            if (sliderIsVisible) {
                 showNextItem();
             } else {
                 clearInterval(window.sliderInterval);
@@ -256,10 +253,16 @@ function transitionBanner() {
 
     function showSlider(slider) {
         slider.classList.add('in-viewport');
+        sliderIsVisible = true;
     }
 
     function getSlider() {
         return document.getElementById('tbl-slider');
+    }
+
+    function shouldShowSlider() {
+        var feed = getFeedElement();
+        return !sliderIsVisible && !isElementInViewport(feed);
     }
 
     var cardsData = getCardsData();
@@ -271,8 +274,10 @@ function transitionBanner() {
     addEventsListners();
 
     setTimeout(function() {
-        showSlider(slider);
-        playSlider();
+        if (shouldShowSlider) {
+            showSlider(slider);
+            playSlider();
+        }
     },5000);
 
 }
