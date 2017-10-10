@@ -1,4 +1,6 @@
-function transitionBanner() {
+function feedTeaserSlider() {
+
+    var maxNumberOfOrganicItemsInSlider = 3;
     var sliderIsVisible = false;
     var waitNumOfMiliSecondsBeforeRemoving = 10000;
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
@@ -22,7 +24,7 @@ function transitionBanner() {
                 '</div>';
 
     var styleTag =  '<style>' +
-                        '.tbl-cards-slider {position: fixed; background: #f7f7f7; left: 16px; bottom: -500px; transition: bottom 0.4s ease; width: 264px; height: 64px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.04);; box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); cursor: default;}' +
+                        '.tbl-cards-slider {position: fixed; background: #f7f7f7; left: 16px; bottom: -500px; transition: bottom 0.4s ease; width: 264px; height: 64px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.04);; box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); z-index: 9999999999; cursor: default;}' +
                         '.tbl-cards-slider.in-viewport{bottom: 25px; transition: bottom 0.4s ease;}' +
                         '.tbl-cards-slider .tbl-cards-slider-inner {width: 100%; height: 100%; cursor: pointer;}' +
                         '.tbl-cards-slider .tbl-slider-header {position: absolute; top: 11px; left: 93px; line-height: 15px; font-weight: bold; font-size: 12px;}' +
@@ -120,7 +122,9 @@ function transitionBanner() {
 
     function getCardsData() {
         var organicCards = getOrganicCards(TRCImpl.boxes);
-        return organicCards.map(createOrganicCardObj);
+        var numberOfItemsInSlider = organicCards.length >= maxNumberOfOrganicItemsInSlider ? maxNumberOfOrganicItemsInSlider : organicCards.length;
+
+        return organicCards.slice(0, numberOfItemsInSlider).map(createOrganicCardObj);
     }
 
     function getItmesAsHtmlString(cardsData) {
@@ -282,7 +286,7 @@ function transitionBanner() {
 
 }
 
-setTimeout(function(){transitionBanner();},3000);
+setTimeout(function(){feedTeaserSlider();},3000);
 
 
 
