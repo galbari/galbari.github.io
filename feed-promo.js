@@ -4,7 +4,7 @@ function feedTeaserSlider() {
     var teaserIsVisible = false;
     var waitNumOfMiliSecondsBeforeRemoving = 10000;
     var doneCarouseling = false;
-    var sliderInterval;
+    var carousel;
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<defs></defs>' +
                         '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
@@ -188,9 +188,9 @@ function feedTeaserSlider() {
         return domElement;
     }
 
-    function createSlider(cardsData) {
-        var slider = createElement('div', 'tbl-teaser', ' tbl-cards-teaser');
-        var innerSlider = createElement('div', 'tbl-teaser-inner', 'tbl-cards-teaser-inner');
+    function createTeaser(cardsData) {
+        var teaser = createElement('div', 'tbl-teaser', ' tbl-cards-teaser');
+        var innerTeaser = createElement('div', 'tbl-teaser-inner', 'tbl-cards-teaser-inner');
 
         var header = createElement('div', null, 'tbl-teaser-header', 'Up next');
         var arrowIcon = createElement('div', null, 'arrow', arrowSVG);
@@ -200,14 +200,14 @@ function feedTeaserSlider() {
         var items = getItmesAsHtmlString(cardsData);
         var itemsContainer = createElement('ul', 'tbl-items-container', null, items);
 
-        innerSlider.appendChild(header);
-        innerSlider.appendChild(arrowIcon);
-        innerSlider.appendChild(actionMessageDiv);
-        innerSlider.appendChild(itemsContainer);
-        slider.appendChild(innerSlider);
-        slider.appendChild(closeBtn);
+        innerTeaser.appendChild(header);
+        innerTeaser.appendChild(arrowIcon);
+        innerTeaser.appendChild(actionMessageDiv);
+        innerTeaser.appendChild(itemsContainer);
+        teaser.appendChild(innerTeaser);
+        teaser.appendChild(closeBtn);
 
-        return slider;
+        return teaser;
     }
 
     function getFeedElement() {
@@ -286,11 +286,11 @@ function feedTeaserSlider() {
     }
 
     function pauseSlider() {
-        sliderInterval.pause();
+        carousel.pause();
     }
 
     function resumeSlider() {
-        sliderInterval.resume();
+        carousel.resume();
     }
 
     function removeSliderFromViewport(numOfSeconds) {
@@ -308,11 +308,11 @@ function feedTeaserSlider() {
         }
     }
 
-    function playSlider() {
-        sliderInterval = new SliderCarousel(shouldShowNextItem, 2000);
+    function playTeaserCarousel() {
+        carousel = new SliderCarousel(shouldShowNextItem, 2000);
     }
 
-    function showSlider(slider) {
+    function showTeaser(slider) {
         slider.classList.add('in-viewport');
         teaserIsVisible = true;
     }
@@ -321,23 +321,23 @@ function feedTeaserSlider() {
         return document.getElementById('tbl-teaser');
     }
 
-    function shouldShowSlider() {
+    function shouldShowTeaser() {
         var feed = getFeedElement();
         return !teaserIsVisible && !isElementInViewport(feed);
     }
 
     var cardsData = getCardsData();
     var style = createElement('div', 'tbl-teaser-style', null, styleTag);
-    var slider = createSlider(cardsData);
+    var teaser = createTeaser(cardsData);
 
     document.body.appendChild(style);
-    document.body.appendChild(slider);
+    document.body.appendChild(teaser);
     addEventsListners();
 
     setTimeout(function() {
-        if (shouldShowSlider()) {
-            showSlider(slider);
-            playSlider();
+        if (shouldShowTeaser()) {
+            showTeaser(teaser);
+            playTeaserCarousel();
         }
     },5000);
 
