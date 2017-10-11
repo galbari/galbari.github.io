@@ -52,7 +52,7 @@ function feedTeaserSlider() {
 
     function SliderCarousel(callback, interval) {
         var timerId, startTime, remaining = 0;
-        var state = 0; //  0 = idle, 1 = running, 2 = paused, 3= resumed
+        var state = 0; //  0 = idle, 1 = running, 2 = paused, 3 = resumed
 
         this.pause = function () {
             if (state != 1) return;
@@ -216,6 +216,8 @@ function feedTeaserSlider() {
     function addEventsListners() {
         document.querySelector('#tbl-slider-inner').addEventListener('click', handleSliderClick);
         document.querySelector('.tbl-slider-closeBtn').addEventListener('click', hideSlider);
+        document.querySelector('#tbl-slider').addEventListener(mouseenter, pauseSlider);
+        document.querySelector('#tbl-slider').addEventListener(mouseleave, resumeSlider);
         window.addEventListener('scroll', shouldHideSlider);
         window.addEventListener('resize', shouldHideSlider);
     }
@@ -269,8 +271,16 @@ function feedTeaserSlider() {
     }
 
     function stopSlider() {
-        sliderInterval.pause();
+        pauseSlider();
         removeSliderFromViewport(waitNumOfMiliSecondsBeforeRemoving);
+    }
+
+    function pauseSlider() {
+        sliderInterval.pause();
+    }
+
+    function resumeSlider() {
+        sliderInterval.resume();
     }
 
     function removeSliderFromViewport(numOfSeconds) {
@@ -281,26 +291,15 @@ function feedTeaserSlider() {
     }
 
     function shouldShowNextItem() {
-        console.log('should play next item check');
         if (sliderIsVisible) {
-            console.log('slider is visible so showing next item');
             showNextItem();
         } else {
-            console.log('slider is hidden so stops inerval');
             stopSlider();
         }
     }
 
     function playSlider() {
-        console.log('playSlider call');
         sliderInterval = new SliderCarousel(shouldShowNextItem, 2000);
-        // window.sliderInterval = setInterval(function () {
-        //     if (sliderIsVisible) {
-        //         showNextItem();
-        //     } else {
-        //         clearInterval(window.sliderInterval);
-        //     }
-        // }, 2000);
     }
 
     function showSlider(slider) {
