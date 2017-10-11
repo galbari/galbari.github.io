@@ -269,7 +269,7 @@ function feedTeaserSlider() {
     }
 
     function stopSlider() {
-        clearInterval(window.sliderInterval);
+        sliderInterval.pause();
         removeSliderFromViewport(waitNumOfMiliSecondsBeforeRemoving);
     }
 
@@ -287,7 +287,7 @@ function feedTeaserSlider() {
             showNextItem();
         } else {
             console.log('slider is hidden so stops inerval');
-            sliderInterval.pause();
+            stopSlider();
         }
     }
 
