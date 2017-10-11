@@ -216,8 +216,8 @@ function feedTeaserSlider() {
     function addEventsListners() {
         document.querySelector('#tbl-slider-inner').addEventListener('click', handleSliderClick);
         document.querySelector('.tbl-slider-closeBtn').addEventListener('click', hideSlider);
-        document.querySelector('#tbl-slider').addEventListener(mouseenter, pauseSlider);
-        document.querySelector('#tbl-slider').addEventListener(mouseleave, resumeSlider);
+        document.querySelector('#tbl-slider').addEventListener('mouseenter', pauseSlider);
+        document.querySelector('#tbl-slider').addEventListener('mouseleave', resumeSlider);
         window.addEventListener('scroll', shouldHideSlider);
         window.addEventListener('resize', shouldHideSlider);
     }
