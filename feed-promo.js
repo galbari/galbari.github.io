@@ -215,19 +215,19 @@ function feedTeaserSlider() {
     }
 
     function addEventsListners() {
-        document.querySelector('#tbl-teaser-inner').addEventListener('click', handleSliderClick);
-        document.querySelector('.tbl-teaser-closeBtn').addEventListener('click', hideSlider);
-        document.querySelector('#tbl-teaser').addEventListener('mouseenter', handleSliderHover);
-        document.querySelector('#tbl-teaser').addEventListener('mouseleave', resumeSlider);
-        window.addEventListener('scroll', shouldHideSlider);
-        window.addEventListener('resize', shouldHideSlider);
+        document.querySelector('#tbl-teaser-inner').addEventListener('click', handleTeaserClick);
+        document.querySelector('.tbl-teaser-closeBtn').addEventListener('click', hideTeaser);
+        document.querySelector('#tbl-teaser').addEventListener('mouseenter', handleTeaserHover);
+        document.querySelector('#tbl-teaser').addEventListener('mouseleave', resumeCarousel);
+        window.addEventListener('scroll', shouldHideTeaser);
+        window.addEventListener('resize', shouldHideTeaser);
     }
 
-    function handleSliderHover() {
+    function handleTeaserHover() {
         if (doneCarouseling) {
 
         } else {
-            pauseSlider();
+            pauseCarousel();
         }
     }
 
@@ -240,23 +240,23 @@ function feedTeaserSlider() {
                 );
     }
 
-    function shouldHideSlider() {
+    function shouldHideTeaser() {
         var feed = document.querySelector('.tbl-feed-container');
         if (teaserIsVisible && isElementInViewport(feed)){
-            hideSlider();
+            hideTeaser();
         }
     }
 
-    function hideSlider() {
+    function hideTeaser() {
         var slider = getSlider();
         slider.classList.remove('in-viewport');
         teaserIsVisible = false;
     }
 
-    function handleSliderClick(e) {
+    function handleTeaserClick(e) {
         var feed = getFeedElement();
         scrollToDestination(feed, 300, 'linear');
-        hideSlider();
+        hideTeaser();
     }
 
     function showNextItem() {
@@ -276,27 +276,31 @@ function feedTeaserSlider() {
             firstItem.classList.add("show");
             doneCarouseling = true;
 
-            stopSlider();
+            stopCarousel();
         }
     }
 
-    function stopSlider() {
-        pauseSlider();
-        removeSliderFromViewport(waitNumOfMiliSecondsBeforeRemoving);
+    function stopCarousel() {
+        pauseCarousel();
+        removeTeaserFromViewport(waitNumOfMiliSecondsBeforeRemoving);
     }
 
-    function pauseSlider() {
-        carousel.pause();
+    function pauseCarousel() {
+        if (carousel) {
+            carousel.pause();
+        }
     }
 
-    function resumeSlider() {
-        carousel.resume();
+    function resumeCarousel() {
+        if (carousel) {
+            carousel.resume();
+        }
     }
 
-    function removeSliderFromViewport(numOfSeconds) {
+    function removeTeaserFromViewport(numOfSeconds) {
         numOfSeconds = numOfSeconds ? numOfSeconds : 0;
         setTimeout(function() {
-            hideSlider();
+            hideTeaser();
         }, numOfSeconds);
     }
 
@@ -304,11 +308,11 @@ function feedTeaserSlider() {
         if (teaserIsVisible) {
             showNextItem();
         } else {
-            stopSlider();
+            stopCarousel();
         }
     }
 
-    function playTeaserCarousel() {
+    function playCarousel() {
         carousel = new SliderCarousel(shouldShowNextItem, 2000);
     }
 
@@ -337,7 +341,7 @@ function feedTeaserSlider() {
     setTimeout(function() {
         if (shouldShowTeaser()) {
             showTeaser(teaser);
-            playTeaserCarousel();
+            playCarousel();
         }
     },5000);
 
