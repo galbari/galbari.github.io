@@ -1,8 +1,9 @@
 function feedTeaserSlider() {
 
     var maxNumberOfOrganicItemsInSlider = 3;
-    var sliderIsVisible = false;
+    var teaserIsVisible = false;
     var waitNumOfMiliSecondsBeforeRemoving = 10000;
+    var doneCarouseling = false;
     var sliderInterval;
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<defs></defs>' +
@@ -12,7 +13,7 @@ function feedTeaserSlider() {
                             '</g>' +
                         '</g>' +
                 '</svg>';
-    var closeSVG = '<div class="tbl-slider-closeBtn">' +
+    var closeSVG = '<div class="tbl-teaser-closeBtn">' +
                     '<svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<desc>Created with Sketch.</desc>' +
                         '<defs></defs>' +
@@ -25,29 +26,29 @@ function feedTeaserSlider() {
                 '</div>';
 
     var styleTag =  '<style>' +
-                        '.tbl-cards-slider {position: fixed; background: #f7f7f7; left: 16px; bottom: -500px; transition: bottom 0.4s ease; width: 264px; height: 64px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.04);; box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); z-index: 9999999999; cursor: default;}' +
-                        '.tbl-cards-slider.in-viewport{bottom: 25px; transition: bottom 0.4s ease;}' +
-                        '.tbl-cards-slider .tbl-cards-slider-inner {width: 100%; height: 100%; cursor: pointer;}' +
-                        '.tbl-cards-slider .tbl-slider-header {position: absolute; top: 10px; left: 93px; line-height: 15px; font-weight: bold; font-size: 12px;}' +
-                        '.tbl-cards-slider .actionMessage { width: 220px; height: 100%; background: #f7f7f7; position: absolute; top: 0px; left: 0px; text-align: center; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; opacity: 0; z-index: 99999; transition: opacity 0.2s ease}' +
-                        '.tbl-cards-slider:hover .actionMessage {opacity: 1;}' +
-                        '.tbl-cards-slider ul {margin: 0; padding: 0; width: 100%; height: 100%;}' +
-                        '.tbl-cards-slider .item {list-style: none; width: 100%; height: 100%; position: absolute; top: 140px; left: 0;}' +
-                        '.tbl-cards-slider .item.show {top: 0;}' +
-                        '.tbl-cards-slider .img {display: inline-block; vertical-align: middle; width: 81px; height: 100%; background-size: cover; background-position: center; transform: translateY(140px); transition: transform 0.2s ease;}' +
-                        '.tbl-cards-slider .item.show .img {transform: translateY(0);}' +
-                        '.tbl-cards-slider .content-container {display: inline-block; width: 130px; height: calc(100% - 25px); padding-top: 25px; padding-left: 12px; vertical-align: middle; overflow: hidden;}' +
-                        '.tbl-cards-slider .content {font-size: 12px; background: #f7f7f7; line-height: 15px; transform: translateY(140px); transition: transform 0.35s ease;}' +
-                        '.tbl-cards-slider .item.show .content {transform: translateY(0);}' +
-                        '.tbl-cards-slider .arrow {position: absolute; top: 22px; right: 16px}' +
-                        '.tbl-cards-slider .arrow svg{transition: 0.2s ease;}' +
-                        '.tbl-cards-slider:hover .arrow svg {transform: scale(1.4);}' +
-                        '.tbl-cards-slider .tbl-slider-closeBtn-wrapper {position: absolute; top: -25px; right: -25px; width: 27px; height: 27px;}' +
-                        '.tbl-cards-slider .tbl-slider-closeBtn {position: absolute; top: 0; right: 0; width: 20px; height: 20px; border-radius: 50%; background: #000000; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); visibility: hidden; opacity:0; transition: 0.2s ease; cursor: pointer}' +
-                        '.tbl-cards-slider .tbl-slider-closeBtn svg {display: block; height: 100%; margin: auto; fill: #ffffff; transition: 0.2s ease;}' +
-                        '.tbl-cards-slider:hover .tbl-slider-closeBtn {visibility: visible; opacity: 1}' +
-                        '.tbl-cards-slider .tbl-slider-closeBtn:hover {background: #EEEEEE;}' +
-                        '.tbl-cards-slider .tbl-slider-closeBtn:hover svg{fill: #000000;}' +
+                        '.tbl-cards-teaser {position: fixed; background: #f7f7f7; left: 16px; bottom: -500px; transition: bottom 0.4s ease; width: 264px; height: 64px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.04);; box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); z-index: 9999999999; cursor: default;}' +
+                        '.tbl-cards-teaser.in-viewport{bottom: 25px; transition: bottom 0.4s ease;}' +
+                        '.tbl-cards-teaser .tbl-cards-teaser-inner {width: 100%; height: 100%; cursor: pointer;}' +
+                        '.tbl-cards-teaser .tbl-teaser-header {position: absolute; top: 10px; left: 93px; line-height: 15px; font-weight: bold; font-size: 12px;}' +
+                        '.tbl-cards-teaser .actionMessage { width: 220px; height: 100%; background: #f7f7f7; position: absolute; top: 0px; left: 0px; text-align: center; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; opacity: 0; z-index: 99999; transition: opacity 0.2s ease}' +
+                        '.tbl-cards-teaser:hover .actionMessage {opacity: 1;}' +
+                        '.tbl-cards-teaser ul {margin: 0; padding: 0; width: 100%; height: 100%;}' +
+                        '.tbl-cards-teaser .item {list-style: none; width: 100%; height: 100%; position: absolute; top: 140px; left: 0;}' +
+                        '.tbl-cards-teaser .item.show {top: 0;}' +
+                        '.tbl-cards-teaser .img {display: inline-block; vertical-align: middle; width: 81px; height: 100%; background-size: cover; background-position: center; transform: translateY(140px); transition: transform 0.2s ease;}' +
+                        '.tbl-cards-teaser .item.show .img {transform: translateY(0);}' +
+                        '.tbl-cards-teaser .content-container {display: inline-block; width: 130px; height: calc(100% - 25px); padding-top: 25px; padding-left: 12px; vertical-align: middle; overflow: hidden;}' +
+                        '.tbl-cards-teaser .content {font-size: 12px; background: #f7f7f7; line-height: 15px; transform: translateY(140px); transition: transform 0.35s ease;}' +
+                        '.tbl-cards-teaser .item.show .content {transform: translateY(0);}' +
+                        '.tbl-cards-teaser .arrow {position: absolute; top: 22px; right: 16px}' +
+                        '.tbl-cards-teaser .arrow svg{transition: 0.2s ease;}' +
+                        '.tbl-cards-teaser:hover .arrow svg {transform: scale(1.4);}' +
+                        '.tbl-cards-teaser .tbl-teaser-closeBtn-wrapper {position: absolute; top: -25px; right: -25px; width: 27px; height: 27px;}' +
+                        '.tbl-cards-teaser .tbl-teaser-closeBtn {position: absolute; top: 0; right: 0; width: 20px; height: 20px; border-radius: 50%; background: #000000; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); visibility: hidden; opacity:0; transition: 0.2s ease; cursor: pointer}' +
+                        '.tbl-cards-teaser .tbl-teaser-closeBtn svg {display: block; height: 100%; margin: auto; fill: #ffffff; transition: 0.2s ease;}' +
+                        '.tbl-cards-teaser:hover .tbl-teaser-closeBtn {visibility: visible; opacity: 1}' +
+                        '.tbl-cards-teaser .tbl-teaser-closeBtn:hover {background: #EEEEEE;}' +
+                        '.tbl-cards-teaser .tbl-teaser-closeBtn:hover svg{fill: #000000;}' +
                     '</style>';
 
     function SliderCarousel(callback, interval) {
@@ -188,12 +189,12 @@ function feedTeaserSlider() {
     }
 
     function createSlider(cardsData) {
-        var slider = createElement('div', 'tbl-slider', ' tbl-cards-slider');
-        var innerSlider = createElement('div', 'tbl-slider-inner', 'tbl-cards-slider-inner');
+        var slider = createElement('div', 'tbl-teaser', ' tbl-cards-teaser');
+        var innerSlider = createElement('div', 'tbl-teaser-inner', 'tbl-cards-teaser-inner');
 
-        var header = createElement('div', null, 'tbl-slider-header', 'Up next');
+        var header = createElement('div', null, 'tbl-teaser-header', 'Up next');
         var arrowIcon = createElement('div', null, 'arrow', arrowSVG);
-        var closeBtn = createElement('div', null, 'tbl-slider-closeBtn-wrapper', closeSVG);
+        var closeBtn = createElement('div', null, 'tbl-teaser-closeBtn-wrapper', closeSVG);
         var actionMessageDiv = createElement('div', null, 'actionMessage', 'Click for more content');
 
         var items = getItmesAsHtmlString(cardsData);
@@ -214,12 +215,20 @@ function feedTeaserSlider() {
     }
 
     function addEventsListners() {
-        document.querySelector('#tbl-slider-inner').addEventListener('click', handleSliderClick);
-        document.querySelector('.tbl-slider-closeBtn').addEventListener('click', hideSlider);
-        document.querySelector('#tbl-slider').addEventListener('mouseenter', pauseSlider);
-        document.querySelector('#tbl-slider').addEventListener('mouseleave', resumeSlider);
+        document.querySelector('#tbl-teaser-inner').addEventListener('click', handleSliderClick);
+        document.querySelector('.tbl-teaser-closeBtn').addEventListener('click', hideSlider);
+        document.querySelector('#tbl-teaser').addEventListener('mouseenter', handleSliderHover);
+        document.querySelector('#tbl-teaser').addEventListener('mouseleave', resumeSlider);
         window.addEventListener('scroll', shouldHideSlider);
         window.addEventListener('resize', shouldHideSlider);
+    }
+
+    function handleSliderHover() {
+        if (doneCarouseling) {
+
+        } else {
+            pauseSlider();
+        }
     }
 
     function isElementInViewport(element) {
@@ -233,7 +242,7 @@ function feedTeaserSlider() {
 
     function shouldHideSlider() {
         var feed = document.querySelector('.tbl-feed-container');
-        if (sliderIsVisible && isElementInViewport(feed)){
+        if (teaserIsVisible && isElementInViewport(feed)){
             hideSlider();
         }
     }
@@ -241,7 +250,7 @@ function feedTeaserSlider() {
     function hideSlider() {
         var slider = getSlider();
         slider.classList.remove('in-viewport');
-        sliderIsVisible = false;
+        teaserIsVisible = false;
     }
 
     function handleSliderClick(e) {
@@ -251,9 +260,9 @@ function feedTeaserSlider() {
     }
 
     function showNextItem() {
-        var allShownItems = document.querySelectorAll('#tbl-slider .item.show');
+        var allShownItems = document.querySelectorAll('#tbl-teaser .item.show');
         var lastShownItem = allShownItems[allShownItems.length - 1];
-        var firstItem = document.querySelector('#tbl-slider .card-0');
+        var firstItem = document.querySelector('#tbl-teaser .card-0');
         var nextItem = lastShownItem.nextSibling;
 
         if (nextItem) {
@@ -265,6 +274,7 @@ function feedTeaserSlider() {
             //show first Item agian when no organic items left
             firstItem.style.zIndex = 99;
             firstItem.classList.add("show");
+            doneCarouseling = true;
 
             stopSlider();
         }
@@ -291,7 +301,7 @@ function feedTeaserSlider() {
     }
 
     function shouldShowNextItem() {
-        if (sliderIsVisible) {
+        if (teaserIsVisible) {
             showNextItem();
         } else {
             stopSlider();
@@ -304,20 +314,20 @@ function feedTeaserSlider() {
 
     function showSlider(slider) {
         slider.classList.add('in-viewport');
-        sliderIsVisible = true;
+        teaserIsVisible = true;
     }
 
     function getSlider() {
-        return document.getElementById('tbl-slider');
+        return document.getElementById('tbl-teaser');
     }
 
     function shouldShowSlider() {
         var feed = getFeedElement();
-        return !sliderIsVisible && !isElementInViewport(feed);
+        return !teaserIsVisible && !isElementInViewport(feed);
     }
 
     var cardsData = getCardsData();
-    var style = createElement('div', 'tbl-slider-style', null, styleTag);
+    var style = createElement('div', 'tbl-teaser-style', null, styleTag);
     var slider = createSlider(cardsData);
 
     document.body.appendChild(style);
