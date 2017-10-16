@@ -230,7 +230,7 @@ function feedTeaserSlider() {
     function handleTeaserHover() {
         if (doneCarouseling) {
             console.log('pause teaser count down');
-            teaserVisibilityCountDown.pause();
+            //teaserVisibilityCountDown.pause();
         } else {
             console.log('pause carouseling');
             pauseCarousel();
@@ -266,6 +266,7 @@ function feedTeaserSlider() {
     }
 
     function hideTeaser() {
+        debugger;
         var slider = getSlider();
         slider.classList.remove('in-viewport');
         teaserIsVisible = false;
@@ -296,8 +297,8 @@ function feedTeaserSlider() {
             doneCarouseling = true;
 
             pauseCarousel();
-            console.log('carousel stopped from showNextItem function - no more items to show so stop carousel');
-            startTeaserVisibilityCountDown();
+            // console.log('carousel stopped from showNextItem function - no more items to show so stop carousel');
+            // startTeaserVisibilityCountDown();
         }
     }
 
@@ -321,9 +322,7 @@ function feedTeaserSlider() {
 
     function resumeTeaserVisibilityCountDown() {
         console.log('teaser count down interval: ' + teaserVisibilityCountDown);
-        if (teaserVisibilityCountDown) {
-            teaserVisibilityCountDown.resume();
-        }
+        teaserVisibilityCountDown.resume();
     }
 
     function shouldShowNextItem() {
@@ -337,6 +336,8 @@ function feedTeaserSlider() {
     }
 
     function playCarousel() {
+        teaserVisibilityCountDown = new Timer(hideTeaser, 10000);
+        teaserVisibilityCountDown.pause();
         carousel = new Timer(shouldShowNextItem, 2000);
     }
 
