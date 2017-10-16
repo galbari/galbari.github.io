@@ -7,6 +7,7 @@ function feedTeaserSlider() {
     var carousel;
     var teaserVisibilityCountDown;
     var remaining = 10000;
+    var startTime = 0;
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<defs></defs>' +
                         '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
@@ -310,6 +311,7 @@ function feedTeaserSlider() {
 
     function startTeaserVisibilityCountDown() {
         // teaserVisibilityCountDown = new Timer(hideTeaser, 10000);
+        startTime = new Date();
         teaserVisibilityCountDown = window.setInterval(hideTeaser, remaining);
         console.log('started teaser count down');
     }
