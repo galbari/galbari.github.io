@@ -226,6 +226,7 @@ function feedTeaserSlider() {
 
     function handleTeaserHover() {
         if (doneCarouseling) {
+            console.log('pause teaser count down');
             teaserVisibilityCountDown.pause();
         } else {
             pauseCarousel();
@@ -294,6 +295,7 @@ function feedTeaserSlider() {
     }
 
     function startTeaserVisibilityCountDown() {
+        console.log('started teaser count down');
         teaserVisibilityCountDown = new Timer(shouldHideTeaser, 10000);
     }
 
