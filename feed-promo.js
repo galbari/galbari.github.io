@@ -262,6 +262,7 @@ function feedTeaserSlider() {
         var slider = getSlider();
         slider.classList.remove('in-viewport');
         teaserIsVisible = false;
+        teaserVisibilityCountDown.pause();
     }
 
     function handleTeaserClick(e) {
