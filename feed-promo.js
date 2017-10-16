@@ -4,8 +4,8 @@ function feedTeaserSlider() {
     var teaserIsVisible = false;
     var waitNumOfMiliSecondsBeforeRemoving = 10000;
     var doneCarouseling = false;
-    window.carousel = null;
-    window.teaserVisibilityCountDown = null;
+    var carousel;
+    var teaserVisibilityCountDown;
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<defs></defs>' +
                         '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
