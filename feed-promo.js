@@ -6,6 +6,7 @@ function feedTeaserSlider() {
     var doneCarouseling = false;
     var carousel;
     var teaserVisibilityCountDown;
+    var remaining = 10000;
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<defs></defs>' +
                         '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
@@ -230,11 +231,17 @@ function feedTeaserSlider() {
     function handleTeaserHover() {
         if (doneCarouseling) {
             console.log('pause teaser count down');
-            teaserVisibilityCountDown.pause();
+            // teaserVisibilityCountDown.pause();
+            pauseTeaserVisibilityCountDown();
         } else {
             console.log('pause carouseling');
             pauseCarousel();
         }
+    }
+
+    function pauseTeaserVisibilityCountDown() {
+        remaining = remaining - (new Date() - startTime);
+        clearInterval(teaserVisibilityCountDown);
     }
 
     function handleTeaserDoneHovering() {
@@ -302,26 +309,26 @@ function feedTeaserSlider() {
     }
 
     function startTeaserVisibilityCountDown() {
-        teaserVisibilityCountDown = new Timer(hideTeaser, 10000);
+        // teaserVisibilityCountDown = new Timer(hideTeaser, 10000);
+        teaserVisibilityCountDown = window.setInterval(hideTeaser, remaining);
         console.log('started teaser count down');
     }
 
-    function pauseCarousel() {
-        // carousel.pause();
-        window.clearInterval(carousel);
+    function playCarousel() {
+        carousel = window.setInterval(shouldShowNextItem, 2000);
     }
 
-    function resumeCarousel() {
-        console.log('carousel interval: ' + carousel);
-        // carousel.resume();
-        carousel = window.setInterval(shouldShowNextItem, 2000);
+    function pauseCarousel() {
+        window.clearInterval(carousel);
     }
 
     function resumeTeaserVisibilityCountDown() {
         console.log('teaser count down interval: ' + teaserVisibilityCountDown);
-        if (teaserVisibilityCountDown) {
-            teaserVisibilityCountDown.resume();
-        }
+        teaserVisibilityCountDown = window.setInterval(hideTeaser, remaining);
+
+        // if (teaserVisibilityCountDown) {
+        //     teaserVisibilityCountDown.resume();
+        // }
     }
 
     function shouldShowNextItem() {
@@ -332,12 +339,6 @@ function feedTeaserSlider() {
             console.log('pausing carousel beacuse teaser is not visible');
             pauseCarousel();
         }
-    }
-
-    function playCarousel() {
-        // carousel = new Timer(shouldShowNextItem, 2000);
-        carousel = window.setInterval(shouldShowNextItem, 2000);
-
     }
 
     function showTeaser(slider) {
