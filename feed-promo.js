@@ -54,43 +54,6 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser .tbl-teaser-closeBtn:hover svg{fill: #000000;}' +
                     '</style>';
 
-    function Timer(callback, interval) {
-        var timerId, startTime, remaining = 0;
-        var state = 0; //  0 = idle, 1 = running, 2 = paused, 3 = resumed
-
-        this.pause = function () {
-            if (state != 1) return;
-
-            remaining = interval - (new Date() - startTime);
-            console.log('timerId = ' + timerId);
-            window.clearInterval(timerId);
-            state = 2;
-        };
-
-        this.resume = function () {
-            if (state != 2) return;
-
-            state = 3;
-            window.setTimeout(this.timeoutCallback, remaining);
-        };
-
-        this.timeoutCallback = function () {
-            if (state != 3) return;
-
-            callback();
-
-            startTime = new Date();
-            timerId = window.setInterval(callback, interval);
-            console.log('timerId = ' + timerId);
-            state = 1;
-        };
-
-        startTime = new Date();
-        timerId = window.setInterval(callback, interval);
-        console.log('timerId = ' + timerId);
-        state = 1;
-    }
-
     function scrollToDestination(destination, duration, easing, callback) {
         var easings = {
             linear : function(t){
@@ -278,7 +241,6 @@ function feedTeaserSlider() {
         slider.classList.remove('in-viewport');
         teaserIsVisible = false;
         window.clearInterval(teaserVisibilityCountDown);
-        // teaserVisibilityCountDown.pause();
     }
 
     function handleTeaserClick(e) {
@@ -310,7 +272,6 @@ function feedTeaserSlider() {
     }
 
     function startTeaserVisibilityCountDown() {
-        // teaserVisibilityCountDown = new Timer(hideTeaser, 10000);
         startTime = new Date();
         teaserVisibilityCountDown = window.setInterval(hideTeaser, remaining);
         console.log('started teaser count down');
@@ -329,10 +290,6 @@ function feedTeaserSlider() {
         console.log('remaining: ' + remaining/1000 + 'seconds');
         startTime = new Date();
         teaserVisibilityCountDown = window.setInterval(hideTeaser, remaining);
-
-        // if (teaserVisibilityCountDown) {
-        //     teaserVisibilityCountDown.resume();
-        // }
     }
 
     function shouldShowNextItem() {
