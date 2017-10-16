@@ -277,7 +277,8 @@ function feedTeaserSlider() {
         var slider = getSlider();
         slider.classList.remove('in-viewport');
         teaserIsVisible = false;
-        teaserVisibilityCountDown.pause();
+        window.clearInterval(teaserVisibilityCountDown);
+        // teaserVisibilityCountDown.pause();
     }
 
     function handleTeaserClick(e) {
@@ -304,7 +305,6 @@ function feedTeaserSlider() {
             doneCarouseling = true;
 
             pauseCarousel();
-            console.log('carousel stopped from showNextItem function - no more items to show so stop carousel');
             startTeaserVisibilityCountDown();
         }
     }
