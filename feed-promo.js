@@ -318,7 +318,7 @@ function feedTeaserSlider() {
     }
 
     function resumeTeaserVisibilityCountDown() {
-        console.log('teaser count down interval: ' + teaserVisibilityCountDown.state);
+        console.log('teaser count down interval: ' + teaserVisibilityCountDown);
         if (teaserVisibilityCountDown) {
             teaserVisibilityCountDown.resume();
         }
