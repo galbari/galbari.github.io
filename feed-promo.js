@@ -69,7 +69,6 @@ function feedTeaserSlider() {
             if (state != 2) return;
 
             state = 3;
-            window.clearInterval(timerId);
             window.setTimeout(this.timeoutCallback, remaining);
         };
 
@@ -267,7 +266,6 @@ function feedTeaserSlider() {
     }
 
     function hideTeaser() {
-        debugger;
         var slider = getSlider();
         slider.classList.remove('in-viewport');
         teaserIsVisible = false;
@@ -309,9 +307,7 @@ function feedTeaserSlider() {
     }
 
     function pauseCarousel() {
-        if (carousel) {
-            carousel.pause();
-        }
+        carousel.pause();
     }
 
     function resumeCarousel() {
