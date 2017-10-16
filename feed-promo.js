@@ -301,7 +301,7 @@ function feedTeaserSlider() {
 
     function stopCarousel() {
         pauseCarousel();
-        removeTeaserFromViewport(waitNumOfMiliSecondsBeforeRemoving);
+        //removeTeaserFromViewport(waitNumOfMiliSecondsBeforeRemoving);
     }
 
     function pauseCarousel() {
