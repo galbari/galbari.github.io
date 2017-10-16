@@ -311,14 +311,14 @@ function feedTeaserSlider() {
     }
 
     function resumeCarousel() {
-        console.log('carousel interval: ' + carousel);
+        console.log('carousel interval: ' + carousel.state);
         if (carousel) {
             carousel.resume();
         }
     }
 
     function resumeTeaserVisibilityCountDown() {
-        console.log('teaser count down interval: ' + carousel);
+        console.log('teaser count down interval: ' + teaserVisibilityCountDown.state);
         if (teaserVisibilityCountDown) {
             teaserVisibilityCountDown.resume();
         }
