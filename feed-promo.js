@@ -229,14 +229,20 @@ function feedTeaserSlider() {
             console.log('pause teaser count down');
             teaserVisibilityCountDown.pause();
         } else {
+            console.log('pause carouseling');
             pauseCarousel();
         }
     }
 
     function handleTeaserDoneHovering() {
         console.log('done Hovering');
-        resumeCarousel();
-        resumeTeaserVisibilityCountDown();
+        if (doneCarouseling) {
+            console.log('resume teaser visibility count down');
+            resumeTeaserVisibilityCountDown();
+        } else {
+            console.log('resume carouseling');
+            resumeCarousel();
+        }
     }
 
     function isElementInViewport(element) {
@@ -249,14 +255,11 @@ function feedTeaserSlider() {
     }
 
     function shouldHideTeaser() {
-        if ((teaserVisibilityCountDown && teaserVisibilityCountDown.state === 1) || isFeedVisibleToTheUser()) {
+        var feed = document.querySelector('.tbl-feed-container');
+        if (teaserIsVisible && isElementInViewport(feed)) {
+            console.log('gonna hide teaser beacuse teaser IS VISIBLE &&& FEED IN VIEWPORT');
             hideTeaser();
         }
-    }
-
-    function isFeedVisibleToTheUser() {
-        var feed = document.querySelector('.tbl-feed-container');
-        return teaserIsVisible && isElementInViewport(feed);
     }
 
     function hideTeaser() {
@@ -296,12 +299,11 @@ function feedTeaserSlider() {
 
     function startTeaserVisibilityCountDown() {
         console.log('started teaser count down');
-        teaserVisibilityCountDown = new Timer(shouldHideTeaser, 10000);
+        teaserVisibilityCountDown = new Timer(hideTeaser, 10000);
     }
 
     function stopCarousel() {
         pauseCarousel();
-        //removeTeaserFromViewport(waitNumOfMiliSecondsBeforeRemoving);
     }
 
     function pauseCarousel() {
@@ -322,13 +324,6 @@ function feedTeaserSlider() {
         if (teaserVisibilityCountDown) {
             teaserVisibilityCountDown.resume();
         }
-    }
-
-    function removeTeaserFromViewport(numOfSeconds) {
-        numOfSeconds = numOfSeconds ? numOfSeconds : 0;
-        setTimeout(function() {
-            hideTeaser();
-        }, numOfSeconds);
     }
 
     function shouldShowNextItem() {
