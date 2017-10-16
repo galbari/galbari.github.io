@@ -53,15 +53,15 @@ function feedTeaserSlider() {
                     '</style>';
 
     function Timer(callback, interval) {
-        var startTime, remaining = 0;
-        this.timerId = 0;
+        var timerId, startTime, remaining = 0;
         var state = 0; //  0 = idle, 1 = running, 2 = paused, 3 = resumed
 
         this.pause = function () {
             if (state != 1) return;
 
             remaining = interval - (new Date() - startTime);
-            window.clearInterval(this.timerId);
+            console.log('timerId = ' + timerId);
+            window.clearInterval(timerId);
             state = 2;
         };
 
@@ -78,12 +78,14 @@ function feedTeaserSlider() {
             callback();
 
             startTime = new Date();
-            this.timerId = window.setInterval(callback, interval);
+            timerId = window.setInterval(callback, interval);
+            console.log('timerId = ' + timerId);
             state = 1;
         };
 
         startTime = new Date();
-        this.timerId = window.setInterval(callback, interval);
+        timerId = window.setInterval(callback, interval);
+        console.log('timerId = ' + timerId);
         state = 1;
     }
 
