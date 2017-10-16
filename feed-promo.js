@@ -295,21 +295,15 @@ function feedTeaserSlider() {
             firstItem.classList.add("show");
             doneCarouseling = true;
 
-            stopCarousel();
-            setTimeout(function() {
-                console.log('....');
-                startTeaserVisibilityCountDown();
-            }, 2000);
+            pauseCarousel();
+            console.log('carousel stopped from showNextItem function - no more items to show so stop carousel');
+            startTeaserVisibilityCountDown();
         }
     }
 
     function startTeaserVisibilityCountDown() {
-        console.log('started teaser count down');
         teaserVisibilityCountDown = new Timer(hideTeaser, 10000);
-    }
-
-    function stopCarousel() {
-        pauseCarousel();
+        console.log('started teaser count down');
     }
 
     function pauseCarousel() {
@@ -333,10 +327,12 @@ function feedTeaserSlider() {
     }
 
     function shouldShowNextItem() {
+        console.log('checking if --- should show next item in carousel');
         if (teaserIsVisible) {
             showNextItem();
         } else {
-            stopCarousel();
+            console.log('pausing carousel beacuse teaser is not visible');
+            pauseCarousel();
         }
     }
 
