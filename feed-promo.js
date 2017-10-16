@@ -307,13 +307,15 @@ function feedTeaserSlider() {
     }
 
     function pauseCarousel() {
-        carousel.pause();
+        // carousel.pause();
+        window.clearInterval(carousel);
     }
 
     function resumeCarousel() {
         console.log('carousel interval: ' + carousel);
         if (carousel) {
-            carousel.resume();
+            // carousel.resume();
+            carousel = window.setInterval(shouldShowNextItem(), 2000);
         }
     }
 
@@ -335,7 +337,9 @@ function feedTeaserSlider() {
     }
 
     function playCarousel() {
-        carousel = new Timer(shouldShowNextItem, 2000);
+        // carousel = new Timer(shouldShowNextItem, 2000);
+        carousel = window.setInterval(shouldShowNextItem(), 2000);
+
     }
 
     function showTeaser(slider) {
