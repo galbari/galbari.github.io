@@ -5,6 +5,7 @@ function feedTeaserSlider() {
     var waitNumOfMiliSecondsBeforeRemoving = 10000;
     var doneCarouseling = false;
     var carousel;
+    var teaserVisibilityCountDown;
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<defs></defs>' +
                         '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
@@ -51,7 +52,7 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser .tbl-teaser-closeBtn:hover svg{fill: #000000;}' +
                     '</style>';
 
-    function SliderCarousel(callback, interval) {
+    function Timer(callback, interval) {
         var timerId, startTime, remaining = 0;
         var state = 0; //  0 = idle, 1 = running, 2 = paused, 3 = resumed
 
@@ -218,17 +219,23 @@ function feedTeaserSlider() {
         document.querySelector('#tbl-teaser-inner').addEventListener('click', handleTeaserClick);
         document.querySelector('.tbl-teaser-closeBtn').addEventListener('click', hideTeaser);
         document.querySelector('#tbl-teaser').addEventListener('mouseenter', handleTeaserHover);
-        document.querySelector('#tbl-teaser').addEventListener('mouseleave', resumeCarousel);
+        document.querySelector('#tbl-teaser').addEventListener('mouseleave', handleTeaserDoneHovering);
         window.addEventListener('scroll', shouldHideTeaser);
         window.addEventListener('resize', shouldHideTeaser);
     }
 
     function handleTeaserHover() {
         if (doneCarouseling) {
-
+            teaserVisibilityCountDown.pause();
         } else {
             pauseCarousel();
         }
+    }
+
+    function handleTeaserDoneHovering() {
+        console.log('done Hovering');
+        resumeCarousel();
+        resumeTeaserVisibilityCountDown();
     }
 
     function isElementInViewport(element) {
@@ -241,10 +248,14 @@ function feedTeaserSlider() {
     }
 
     function shouldHideTeaser() {
-        var feed = document.querySelector('.tbl-feed-container');
-        if (teaserIsVisible && isElementInViewport(feed)){
+        if (teaserVisibilityCountDown || isFeedVisibleToTheUser()) {
             hideTeaser();
         }
+    }
+
+    function isFeedVisibleToTheUser() {
+        var feed = document.querySelector('.tbl-feed-container');
+        return teaserIsVisible && isElementInViewport(feed);
     }
 
     function hideTeaser() {
@@ -277,7 +288,12 @@ function feedTeaserSlider() {
             doneCarouseling = true;
 
             stopCarousel();
+            startTeaserVisibilityCountDown();
         }
+    }
+
+    function startTeaserVisibilityCountDown() {
+        teaserVisibilityCountDown = new Timer(shouldHideTeaser, 10000);
     }
 
     function stopCarousel() {
@@ -292,8 +308,16 @@ function feedTeaserSlider() {
     }
 
     function resumeCarousel() {
+        console.log('carousel interval: ' + carousel);
         if (carousel) {
             carousel.resume();
+        }
+    }
+
+    function resumeTeaserVisibilityCountDown() {
+        console.log('teaser count down interval: ' + carousel);
+        if (teaserVisibilityCountDown) {
+            teaserVisibilityCountDown.resume();
         }
     }
 
@@ -313,7 +337,7 @@ function feedTeaserSlider() {
     }
 
     function playCarousel() {
-        carousel = new SliderCarousel(shouldShowNextItem, 2000);
+        carousel = new Timer(shouldShowNextItem, 2000);
     }
 
     function showTeaser(slider) {
