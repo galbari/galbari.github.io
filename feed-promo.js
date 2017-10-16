@@ -244,7 +244,7 @@ function feedTeaserSlider() {
             resumeTeaserVisibilityCountDown();
         } else {
             console.log('resume carouseling');
-            resumeCarousel();
+            playCarousel();
         }
     }
 
@@ -313,10 +313,8 @@ function feedTeaserSlider() {
 
     function resumeCarousel() {
         console.log('carousel interval: ' + carousel);
-        if (carousel) {
-            // carousel.resume();
-            carousel = window.setInterval(shouldShowNextItem, 2000);
-        }
+        // carousel.resume();
+        carousel = window.setInterval(shouldShowNextItem, 2000);
     }
 
     function resumeTeaserVisibilityCountDown() {
