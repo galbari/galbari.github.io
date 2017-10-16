@@ -53,7 +53,8 @@ function feedTeaserSlider() {
                     '</style>';
 
     function Timer(callback, interval) {
-        var timerId, startTime, remaining = 0;
+        var startTime, remaining = 0;
+
         var state = 0; //  0 = idle, 1 = running, 2 = paused, 3 = resumed
 
         this.pause = function () {
@@ -61,7 +62,7 @@ function feedTeaserSlider() {
 
             remaining = interval - (new Date() - startTime);
             console.log('timerId = ' + timerId);
-            window.clearInterval(timerId);
+            window.clearInterval(window.timerId);
             state = 2;
         };
 
@@ -78,13 +79,13 @@ function feedTeaserSlider() {
             callback();
 
             startTime = new Date();
-            timerId = window.setInterval(callback, interval);
+            window.timerId = window.setInterval(callback, interval);
             console.log('timerId = ' + timerId);
             state = 1;
         };
 
         startTime = new Date();
-        timerId = window.setInterval(callback, interval);
+        window.timerId = window.setInterval(callback, interval);
         console.log('timerId = ' + timerId);
         state = 1;
     }
@@ -230,7 +231,7 @@ function feedTeaserSlider() {
     function handleTeaserHover() {
         if (doneCarouseling) {
             console.log('pause teaser count down');
-            //teaserVisibilityCountDown.pause();
+            teaserVisibilityCountDown.pause();
         } else {
             console.log('pause carouseling');
             pauseCarousel();
@@ -297,8 +298,8 @@ function feedTeaserSlider() {
             doneCarouseling = true;
 
             pauseCarousel();
-            // console.log('carousel stopped from showNextItem function - no more items to show so stop carousel');
-            // startTeaserVisibilityCountDown();
+            console.log('carousel stopped from showNextItem function - no more items to show so stop carousel');
+            startTeaserVisibilityCountDown();
         }
     }
 
@@ -322,7 +323,9 @@ function feedTeaserSlider() {
 
     function resumeTeaserVisibilityCountDown() {
         console.log('teaser count down interval: ' + teaserVisibilityCountDown);
-        teaserVisibilityCountDown.resume();
+        if (teaserVisibilityCountDown) {
+            teaserVisibilityCountDown.resume();
+        }
     }
 
     function shouldShowNextItem() {
@@ -336,8 +339,6 @@ function feedTeaserSlider() {
     }
 
     function playCarousel() {
-        teaserVisibilityCountDown = new Timer(hideTeaser, 10000);
-        teaserVisibilityCountDown.pause();
         carousel = new Timer(shouldShowNextItem, 2000);
     }
 
