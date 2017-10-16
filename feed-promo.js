@@ -326,6 +326,7 @@ function feedTeaserSlider() {
 
     function resumeTeaserVisibilityCountDown() {
         console.log('teaser count down interval: ' + teaserVisibilityCountDown);
+        console.log('remaining: ' + remaining/1000 + 'seconds');
         teaserVisibilityCountDown = window.setInterval(hideTeaser, remaining);
 
         // if (teaserVisibilityCountDown) {
