@@ -36,9 +36,9 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser ul {margin: 0; padding: 0; width: 100%; height: 100%;}' +
                         '.tbl-cards-teaser .item {list-style: none; width: 100%; height: 100%; position: absolute; top: 140px; left: 0;}' +
                         '.tbl-cards-teaser .item.show {top: 0;}' +
-                        '.tbl-cards-teaser .img {display: inline-block; vertical-align: middle; width: 81px; height: 100%; background-size: cover; background-position: center; transform: translateY(140px); transition: transform 0.2s ease;}' +
+                        '.tbl-cards-teaser .img {display: inline-block; vertical-align: top; width: 81px; height: 100%; background-size: cover; background-position: center; transform: translateY(140px); transition: transform 0.2s ease;}' +
                         '.tbl-cards-teaser .item.show .img {transform: translateY(0);}' +
-                        '.tbl-cards-teaser .content-container {display: inline-block; width: 130px; height: calc(100% - 25px); padding-top: 25px; padding-left: 12px; vertical-align: middle; overflow: hidden;}' +
+                        '.tbl-cards-teaser .content-container {display: inline-block; width: 130px; height: 100%; padding-top: 25px; padding-left: 12px; vertical-align: top; overflow: hidden;}' +
                         '.tbl-cards-teaser .content {font-size: 12px; background: #f7f7f7; line-height: 15px; transform: translateY(140px); transition: transform 0.35s ease;}' +
                         '.tbl-cards-teaser .item.show .content {transform: translateY(0);}' +
                         '.tbl-cards-teaser .arrow {position: absolute; top: 22px; right: 16px}' +
