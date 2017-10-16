@@ -315,7 +315,7 @@ function feedTeaserSlider() {
         console.log('carousel interval: ' + carousel);
         if (carousel) {
             // carousel.resume();
-            carousel = window.setInterval(shouldShowNextItem(), 2000);
+            carousel = window.setInterval(shouldShowNextItem, 2000);
         }
     }
 
@@ -338,7 +338,7 @@ function feedTeaserSlider() {
 
     function playCarousel() {
         // carousel = new Timer(shouldShowNextItem, 2000);
-        carousel = window.setInterval(shouldShowNextItem(), 2000);
+        carousel = window.setInterval(shouldShowNextItem, 2000);
 
     }
 
