@@ -1,12 +1,15 @@
 function feedTeaserSlider() {
 
-    var maxNumberOfOrganicItemsInSlider = 3;
-    var teaserIsVisible = false;
-    var doneCarouseling = false;
-    var carousel;
-    var teaserVisibilityCountDown;
-    var remaining = 10000;
-    var countingDownStartTime = 0;
+    var maxNumberOfOrganicItemsInSlider = 3,
+        teaserIsVisible = false,
+        doneCarouseling = false,
+        teaserVisibilityRemainingTime = 10000,
+        carouselNextItemTime = 2000,
+        countingDownStartTime = 0,
+        scrollDurationSpeed = 600,
+        carousel,
+        teaserVisibilityCountDown;
+
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<defs></defs>' +
                         '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
@@ -201,15 +204,14 @@ function feedTeaserSlider() {
 
     function handleMouseLeaveTeaser() {
         if (doneCarouseling) {
-            startTeaserVisibilityCountDown()
-            // resumeTeaserVisibilityCountDown();
+            startTeaserVisibilityCountDown();
         } else {
             playCarousel();
         }
     }
 
     function pauseTeaserVisibilityCountDown() {
-        remaining = remaining - (new Date() - countingDownStartTime);
+        teaserVisibilityRemainingTime = teaserVisibilityRemainingTime - (new Date() - countingDownStartTime);
         stopTimer(teaserVisibilityCountDown);
     }
 
@@ -224,8 +226,7 @@ function feedTeaserSlider() {
     }
 
     function resumeTeaserVisibilityCountDown() {
-        teaserVisibilityCountDown = startTimer(hideTeaser, remaining);
-        // teaserVisibilityCountDown = window.setInterval(hideTeaser, remaining);
+        teaserVisibilityCountDown = startTimer(hideTeaser, teaserVisibilityRemainingTime);
         updateCountingDownStartTime();
     }
 
@@ -259,7 +260,7 @@ function feedTeaserSlider() {
 
     function handleTeaserClick(e) {
         var feed = getFeedElement();
-        scrollToDestination(feed, 300, 'linear');
+        scrollToDestination(feed, scrollDurationSpeed, 'linear');
         hideTeaser();
     }
 
@@ -286,14 +287,12 @@ function feedTeaserSlider() {
     }
 
     function startTeaserVisibilityCountDown() {
-        teaserVisibilityCountDown = startTimer(hideTeaser, remaining);
-        // teaserVisibilityCountDown = window.setInterval(hideTeaser, remaining);
+        teaserVisibilityCountDown = startTimer(hideTeaser, teaserVisibilityRemainingTime);
         updateCountingDownStartTime();
     }
 
     function playCarousel() {
-        carousel = startTimer(shouldShowNextItem, 2000);
-        // carousel = window.setInterval(shouldShowNextItem, 2000);
+        carousel = startTimer(shouldShowNextItem, carouselNextItemTime);
     }
 
     function stopCarousel() {
