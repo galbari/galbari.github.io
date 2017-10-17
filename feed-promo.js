@@ -2,12 +2,11 @@ function feedTeaserSlider() {
 
     var maxNumberOfOrganicItemsInSlider = 3;
     var teaserIsVisible = false;
-    var waitNumOfMiliSecondsBeforeRemoving = 10000;
     var doneCarouseling = false;
     var carousel;
     var teaserVisibilityCountDown;
     var remaining = 10000;
-    var startTime = 0;
+    var countingDownStartTime = 0;
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<defs></defs>' +
                         '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
@@ -187,36 +186,51 @@ function feedTeaserSlider() {
         document.querySelector('#tbl-teaser-inner').addEventListener('click', handleTeaserClick);
         document.querySelector('.tbl-teaser-closeBtn').addEventListener('click', hideTeaser);
         document.querySelector('#tbl-teaser').addEventListener('mouseenter', handleTeaserHover);
-        document.querySelector('#tbl-teaser').addEventListener('mouseleave', handleTeaserDoneHovering);
+        document.querySelector('#tbl-teaser').addEventListener('mouseleave', handleMouseLeaveTeaser);
         window.addEventListener('scroll', shouldHideTeaser);
         window.addEventListener('resize', shouldHideTeaser);
     }
 
     function handleTeaserHover() {
         if (doneCarouseling) {
-            console.log('pause teaser count down');
-            // teaserVisibilityCountDown.pause();
             pauseTeaserVisibilityCountDown();
         } else {
-            console.log('pause carouseling');
-            pauseCarousel();
+            stopCarousel();
+        }
+    }
+
+    function handleMouseLeaveTeaser() {
+        if (doneCarouseling) {
+            startTeaserVisibilityCountDown()
+            // resumeTeaserVisibilityCountDown();
+        } else {
+            playCarousel();
         }
     }
 
     function pauseTeaserVisibilityCountDown() {
-        remaining = remaining - (new Date() - startTime);
-        clearInterval(teaserVisibilityCountDown);
+        remaining = remaining - (new Date() - countingDownStartTime);
+        stopTimer(teaserVisibilityCountDown);
     }
 
-    function handleTeaserDoneHovering() {
-        console.log('done Hovering');
-        if (doneCarouseling) {
-            console.log('resume teaser visibility count down');
-            resumeTeaserVisibilityCountDown();
-        } else {
-            console.log('resume carouseling');
-            playCarousel();
+    function startTimer(func, time) {
+        return window.setInterval(func, time);
+    }
+
+    function stopTimer(interval) {
+        if (interval) {
+            window.clearInterval(interval);
         }
+    }
+
+    function resumeTeaserVisibilityCountDown() {
+        teaserVisibilityCountDown = startTimer(hideTeaser, remaining);
+        // teaserVisibilityCountDown = window.setInterval(hideTeaser, remaining);
+        updateCountingDownStartTime();
+    }
+
+    function updateCountingDownStartTime() {
+        countingDownStartTime = new Date();
     }
 
     function isElementInViewport(element) {
@@ -231,16 +245,16 @@ function feedTeaserSlider() {
     function shouldHideTeaser() {
         var feed = document.querySelector('.tbl-feed-container');
         if (teaserIsVisible && isElementInViewport(feed)) {
-            console.log('gonna hide teaser beacuse teaser IS VISIBLE &&& FEED IN VIEWPORT');
             hideTeaser();
         }
     }
 
     function hideTeaser() {
-        var slider = getSlider();
-        slider.classList.remove('in-viewport');
+        var teaser = document.getElementById('tbl-teaser');
+        teaser.classList.remove('in-viewport');
         teaserIsVisible = false;
-        window.clearInterval(teaserVisibilityCountDown);
+        stopTimer(teaserVisibilityCountDown);
+        stopTimer(carousel);
     }
 
     function handleTeaserClick(e) {
@@ -252,8 +266,8 @@ function feedTeaserSlider() {
     function showNextItem() {
         var allShownItems = document.querySelectorAll('#tbl-teaser .item.show');
         var lastShownItem = allShownItems[allShownItems.length - 1];
-        var firstItem = document.querySelector('#tbl-teaser .card-0');
         var nextItem = lastShownItem.nextSibling;
+        var firstItem = document.querySelector('#tbl-teaser .card-0');
 
         if (nextItem) {
             nextItem.classList.add("show");
@@ -261,54 +275,42 @@ function feedTeaserSlider() {
                 firstItem.classList.remove('show');
             }
         } else {
-            //show first Item agian when no organic items left
+            //show first Item agian when no organic more items to show
             firstItem.style.zIndex = 99;
             firstItem.classList.add("show");
             doneCarouseling = true;
 
-            pauseCarousel();
+            stopCarousel();
             startTeaserVisibilityCountDown();
         }
     }
 
     function startTeaserVisibilityCountDown() {
-        startTime = new Date();
-        teaserVisibilityCountDown = window.setInterval(hideTeaser, remaining);
-        console.log('started teaser count down');
+        teaserVisibilityCountDown = startTimer(hideTeaser, remaining);
+        // teaserVisibilityCountDown = window.setInterval(hideTeaser, remaining);
+        updateCountingDownStartTime();
     }
 
     function playCarousel() {
-        carousel = window.setInterval(shouldShowNextItem, 2000);
+        carousel = startTimer(shouldShowNextItem, 2000);
+        // carousel = window.setInterval(shouldShowNextItem, 2000);
     }
 
-    function pauseCarousel() {
-        window.clearInterval(carousel);
-    }
-
-    function resumeTeaserVisibilityCountDown() {
-        console.log('teaser count down interval: ' + teaserVisibilityCountDown);
-        console.log('remaining: ' + remaining/1000 + 'seconds');
-        startTime = new Date();
-        teaserVisibilityCountDown = window.setInterval(hideTeaser, remaining);
+    function stopCarousel() {
+        stopTimer(carousel);
     }
 
     function shouldShowNextItem() {
-        console.log('checking if --- should show next item in carousel');
         if (teaserIsVisible) {
             showNextItem();
         } else {
-            console.log('pausing carousel beacuse teaser is not visible');
-            pauseCarousel();
+            stopCarousel();
         }
     }
 
     function showTeaser(slider) {
         slider.classList.add('in-viewport');
         teaserIsVisible = true;
-    }
-
-    function getSlider() {
-        return document.getElementById('tbl-teaser');
     }
 
     function shouldShowTeaser() {
