@@ -33,7 +33,7 @@ function feedTeaserSlider() {
 
     var styleTag =  '<style>' +
                         '.tbl-cards-teaser {position: fixed; background: #f7f7f7; left: 16px; bottom: -500px; transition: bottom 0.4s ease; width: 264px; height: 64px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.04);; box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); z-index: 9999999999; cursor: default;}' +
-                        '.tbl-cards-teaser.in-viewport{bottom: 25px; transition: bottom 0.4s ease;}' +
+                        '.tbl-cards-teaser.in-viewport {bottom: 25px; transition: bottom 0.4s ease;}' +
                         '.tbl-cards-teaser .tbl-cards-teaser-inner {width: 100%; height: 100%; cursor: pointer;}' +
                         '.tbl-cards-teaser .tbl-teaser-header {position: absolute; top: 10px; left: 93px; line-height: 15px; font-weight: bold; font-size: 12px;}' +
                         '.tbl-cards-teaser .actionMessage { width: 220px; height: 100%; background: #f7f7f7; position: absolute; top: 0px; left: 0px; text-align: center; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; opacity: 0; z-index: 99999; transition: opacity 0.2s ease}' +
@@ -59,7 +59,8 @@ function feedTeaserSlider() {
 
     var mobileStyleTag =    '<style>' +
                                 '@media screen and (min-width: 0px) and (max-width: ' + mobileMaxWidth + ') { ' +
-                                    '.tbl-cards-teaser {background: #4472C4; color: #ffffff; width: 272px; height: 48px}' +
+                                    '.tbl-cards-teaser {background: #4472C4; color: #ffffff; width: 272px; height: 48px; left: calc((100% - 272px) / 2);}' +
+                                    '.tbl-cards-teaser.in-viewport {bottom: 35px;}' +
                                     '.tbl-cards-teaser .tbl-teaser-header {display: none;}' +
                                     '.tbl-cards-teaser .content-container {width: 195px; padding: 8px 12px;}' +
                                     '.tbl-cards-teaser .content {background: #4472C4; font-size: 13px; line-height: 16px;}' +
