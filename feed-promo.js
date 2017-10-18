@@ -120,7 +120,7 @@ function feedTeaserSlider() {
     function createOrganicCardObj(cardData) {
         var card = cardData.boxes[0];
         var textContent = card.textContent;
-        var maxContentLength = isMobile ? 45 : 30;
+        var maxContentLength = isMobile ? 40 : 30;
 
         textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
         return {
