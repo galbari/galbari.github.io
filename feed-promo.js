@@ -4,10 +4,11 @@ function feedTeaserSlider() {
         teaserIsVisible = false,
         doneCarouseling = false,
         teaserVisibilityRemainingTime = 10000,
-        carouselNextItemTime = 2000,
+        replaceCarouselItemTime = 2000,
         countingDownStartTime = 0,
         scrollDurationSpeed = 600,
         carousel,
+        isMobile = true,
         teaserVisibilityCountDown;
 
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
@@ -136,7 +137,11 @@ function feedTeaserSlider() {
 
     function getItmesAsHtmlString(cardsData) {
         return cardsData.reduce(function(html, card, index){
+            debugger;
+            var mobileString = '<span class="mobile-header">Up Next:</span>&nbsp;';
             var showClass = index === 0 ? 'show' : '';
+            card.content = isMobile ? mobileString.concat(card.content) : card.content;
+
             return html + '<li class="item card-' + index + ' ' + showClass + '" style="z-index:'+ index + ';">' +
                             '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
                             '<div class="content-container">' +
@@ -292,7 +297,7 @@ function feedTeaserSlider() {
     }
 
     function playCarousel() {
-        carousel = startTimer(shouldShowNextItem, carouselNextItemTime);
+        carousel = startTimer(shouldShowNextItem, replaceCarouselItemTime);
     }
 
     function stopCarousel() {
