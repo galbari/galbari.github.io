@@ -64,7 +64,7 @@ function feedTeaserSlider() {
                                     '.tbl-cards-teaser .tbl-teaser-header {display: none;}' +
                                     '.tbl-cards-teaser .content-container {width: 215px; padding: 8px 12px;}' +
                                     '.tbl-cards-teaser .content {background: #4472C4; font-size: 13px; line-height: 16px;}' +
-                                    '.tbl-cards-teaser content .mobile-header {font-weight: bold;}' +
+                                    '.tbl-cards-teaser .content .mobile-header {font-weight: bold;}' +
                                     '.tbl-cards-teaser .img {display: none;}' +
                                     '.tbl-cards-teaser .arrow {top: 12px; right: 12px}' +
                                     '.tbl-cards-teaser .arrow svg {width: 24px; height: 24px; fill: #ffffff}' +
@@ -124,7 +124,7 @@ function feedTeaserSlider() {
     function createOrganicCardObj(cardData) {
         var card = cardData.boxes[0];
         var textContent = card.textContent;
-        var maxContentLength = isMobile ? 45 : 30;
+        var maxContentLength = isMobile ? 40 : 30;
 
         textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
         return {
