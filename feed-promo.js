@@ -47,7 +47,7 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser .content {font-size: 12px; background: #f7f7f7; line-height: 15px; transform: translateY(140px); transition: transform 0.35s ease;}' +
                         '.tbl-cards-teaser .item.show .content {transform: translateY(0);}' +
                         '.tbl-cards-teaser .arrow {position: absolute; top: 22px; right: 16px}' +
-                        '.tbl-cards-teaser .arrow svg{widht: 20px; height: 20px; fill: #4472C4; transition: 0.2s ease;}' +
+                        '.tbl-cards-teaser .arrow svg {width: 20px; height: 20px; fill: #4472C4; transition: 0.2s ease;}' +
                         '.tbl-cards-teaser:hover .arrow svg {transform: scale(1.4);}' +
                         '.tbl-cards-teaser .tbl-teaser-closeBtn-wrapper {position: absolute; top: -25px; right: -25px; width: 27px; height: 27px;}' +
                         '.tbl-cards-teaser .tbl-teaser-closeBtn {position: absolute; top: 0; right: 0; width: 20px; height: 20px; border-radius: 50%; background: #000000; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); visibility: hidden; opacity:0; transition: 0.2s ease; cursor: pointer}' +
@@ -64,10 +64,10 @@ function feedTeaserSlider() {
                                     '.tbl-cards-teaser .tbl-teaser-header {display: none;}' +
                                     '.tbl-cards-teaser .content-container {width: 215px; padding: 8px 12px;}' +
                                     '.tbl-cards-teaser .content {background: #4472C4; font-size: 13px; line-height: 16px;}' +
-                                    '.tbl-cards-teaser content .mobile-header {font-weight: bold;}'
+                                    '.tbl-cards-teaser content .mobile-header {font-weight: bold;}' +
                                     '.tbl-cards-teaser .img {display: none;}' +
                                     '.tbl-cards-teaser .arrow {top: 12px; right: 12px}' +
-                                    '.tbl-cards-teaser .arrow svg {widht: 24px; height: 24px; fill: #ffffff}' +
+                                    '.tbl-cards-teaser .arrow svg {width: 24px; height: 24px; fill: #ffffff}' +
                                     '.tbl-cards-teaser:hover .tbl-teaser-closeBtn {display: none;}' +
                                     'tbl-cards-teaser:hover .actionMessage {display: none;}' +
                                     '.tbl-cards-teaser:hover .arrow svg {transform: none;}' +
