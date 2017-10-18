@@ -9,6 +9,7 @@ function feedTeaserSlider() {
         scrollDurationSpeed = 600,
         carousel,
         isMobile = true,
+        mobileMaxWidth = '480px',
         teaserVisibilityCountDown;
 
     var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
@@ -56,6 +57,13 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser .tbl-teaser-closeBtn:hover {background: #EEEEEE;}' +
                         '.tbl-cards-teaser .tbl-teaser-closeBtn:hover svg{fill: #000000;}' +
                     '</style>';
+
+    var mobileStyleTag =    '<style>' +
+                                '@media screen and (min-width: 0px) and (max-width: ' + mobileMaxWidth + ') { ' +
+                                    '.tbl-cards-teaser {background: ##4472C4; color: #ffffff;}' +
+                                    '.tbl-cards-teaser .tbl-teaser-header {display: none;}' +
+                                '}' +
+                            '</style>';
 
     function scrollToDestination(destination, duration, easing, callback) {
         var easings = {
@@ -137,7 +145,6 @@ function feedTeaserSlider() {
 
     function getItmesAsHtmlString(cardsData) {
         return cardsData.reduce(function(html, card, index){
-            debugger;
             var mobileString = '<span class="mobile-header">Up Next:</span>&nbsp;';
             var showClass = index === 0 ? 'show' : '';
             card.content = isMobile ? mobileString.concat(card.content) : card.content;
@@ -320,6 +327,10 @@ function feedTeaserSlider() {
     function shouldShowTeaser() {
         var feed = getFeedElement();
         return !teaserIsVisible && !isElementInViewport(feed);
+    }
+
+    if (isMobile) {
+        styleTag = styleTag.concat(mobileStyleTag);
     }
 
     var cardsData = getCardsData();
