@@ -66,7 +66,10 @@ function feedTeaserSlider() {
                                     '.tbl-cards-teaser .content {background: #4472C4; font-size: 13px; line-height: 16px;}' +
                                     '.tbl-cards-teaser .img {display: none;}' +
                                     '.tbl-cards-teaser .arrow {top: 12px; right: 12px}' +
-                                    '.tbl-cards-teaser .arrow svg{widht: 24px; height: 24px; fill: #ffffff}' +
+                                    '.tbl-cards-teaser .arrow svg {widht: 24px; height: 24px; fill: #ffffff}' +
+                                    '.tbl-cards-teaser:hover .tbl-teaser-closeBtn {display: none;}' +
+                                    'tbl-cards-teaser:hover .actionMessage {display: none;}' +
+                                    '.tbl-cards-teaser:hover .arrow svg {transform: none;}' +
                                 '}' +
                             '</style>';
 
