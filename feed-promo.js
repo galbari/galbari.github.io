@@ -144,13 +144,9 @@ function feedTeaserSlider() {
         return organicCards;
     }
 
-    function getOrganicItemsFromCard(card, nextCard) {
+    function getOrganicItemsFromCard(itemsArray, nextCard) {
         debugger;
-        if (card.length) {
-            return card.response.trc['video-list'].video.concat(nextCard.response.trc['video-list'].video);
-        } else {
-            return nextCard.response.trc['video-list'].video;
-        }
+        return itemsArray.concat(nextCard.response.trc['video-list'].video);
     }
 
     function getCardsData() {
