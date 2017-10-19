@@ -120,15 +120,15 @@ function feedTeaserSlider() {
         return string.slice(0, endPosition).trim() + '...';
     }
 
-    function createOrganicCardObj(cardData) {
-        var card = cardData.boxes[0];
+    function createOrganicItemsObj(itemData) {
+        var card = itemData.boxes[0];
         var textContent = card.textContent;
         var maxContentLength = 30;
 
         textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
         return {
             content: textContent,
-            container: cardData.container,
+            container: itemData.container,
             img: card.video_data.thumbnail
         };
     }
@@ -144,11 +144,18 @@ function feedTeaserSlider() {
         return organicCards;
     }
 
+    function getOrganicItemsFromCard(card, nextCard) {
+        debugger;
+        return card.response.trc.video-list.video.concat(nextCard.response.trc.video-list.video);
+    }
+
     function getCardsData() {
         var organicCards = getOrganicCards(TRCImpl.boxes);
+        var organicItems = organicCards.reduce(getOrganicItemsFromCard, []);
+        debugger;
         var numberOfItemsInSlider = organicCards.length >= maxNumberOfOrganicItemsInSlider ? maxNumberOfOrganicItemsInSlider : organicCards.length;
 
-        return organicCards.slice(0, numberOfItemsInSlider).map(createOrganicCardObj);
+        return organicCards.slice(0, numberOfItemsInSlider).map(createOrganicItemsObj);
     }
 
     function getItmesAsHtmlString(cardsData) {
