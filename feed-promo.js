@@ -7,6 +7,7 @@ function feedTeaserSlider() {
         replaceCarouselItemTime = 2000,
         countingDownStartTime = 0,
         scrollDurationSpeed = 600,
+        feedInViewport = false,
         carousel,
         teaserVisibilityCountDown;
 
@@ -317,11 +318,19 @@ function feedTeaserSlider() {
         return !teaserIsVisible && !isElementInViewport(feed);
     }
 
+    function feedInViewportHandler() {
+        debugger;
+        feedInViewport = true;
+        if (teaserIsVisible) {
+            hideTeaser();
+        }
+    }
+
     function observeFeed(feed) {
         if (feed) {
             var options = {
                 targetElement: feed,
-                onEnter: hideTeaser
+                onEnter: feedInViewportHandler
             };
 
             TRC.intersections.observe(options);
@@ -338,7 +347,7 @@ function feedTeaserSlider() {
     observeFeed(getFeedElement());
 
     setTimeout(function() {
-        if (true) {
+        if (!feedInViewport) {
             showTeaser(teaser);
             playCarousel();
         }
