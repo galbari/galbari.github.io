@@ -45,7 +45,7 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser .item.show .img {transform: translateY(0);}' +
                         '.tbl-cards-teaser .content-container {display: inline-block; width: 130px; height: 100%; padding-top: 25px; padding-left: 12px; vertical-align: top; overflow: hidden;}' +
                         '.tbl-cards-teaser .content {font-size: 12px; background: #f7f7f7; line-height: 15px; transform: translateY(140px); transition: transform 0.35s ease;}' +
-                        '.tbl-cards-teaser .content .mobile-header {display: none; font-weight: bold;}'
+                        '.tbl-cards-teaser .content .mobile-header {display: none; font-weight: bold;}' +
                         '.tbl-cards-teaser .item.show .content {transform: translateY(0);}' +
                         '.tbl-cards-teaser .arrow {position: absolute; top: 22px; right: 16px}' +
                         '.tbl-cards-teaser .arrow svg {width: 20px; height: 20px; fill: #4472C4; transition: 0.2s ease;}' +
