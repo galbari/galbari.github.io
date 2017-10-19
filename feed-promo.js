@@ -318,9 +318,7 @@ function feedTeaserSlider() {
     }
 
     function observeFeed(feed) {
-        debugger;
         if (feed) {
-
             var options = {
                 targetElement: feed,
                 onEnter: hideTeaser
@@ -333,15 +331,14 @@ function feedTeaserSlider() {
     var cardsData = getCardsData();
     var style = createElement('div', 'tbl-teaser-style', null, styleTag);
     var teaser = createTeaser(cardsData);
-    var feed = getFeedElement();
 
     document.body.appendChild(style);
     document.body.appendChild(teaser);
     addEventsListners();
-    observeFeed(feed);
+    observeFeed(getFeedElement());
 
     setTimeout(function() {
-        if (shouldShowTeaser()) {
+        if (true) {
             showTeaser(teaser);
             playCarousel();
         }
