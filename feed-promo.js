@@ -8,6 +8,7 @@ function feedTeaserSlider() {
         countingDownStartTime = 0,
         scrollDurationSpeed = 600,
         feedInViewport = false,
+        mobileMaxWidth = 480,
         carousel,
         teaserVisibilityCountDown;
 
@@ -56,7 +57,7 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser .tbl-teaser-closeBtn:hover {background: #EEEEEE;}' +
                         '.tbl-cards-teaser .tbl-teaser-closeBtn:hover svg{fill: #000000;}' +
                         ////////////// Mobile Style
-                        '@media screen and (min-width: 0px) and (max-width: ' + mobileMaxWidth + ') { ' +
+                        '@media screen and (min-width: 0px) and (max-width: ' + mobileMaxWidth + 'px) { ' +
                             '.tbl-cards-teaser {background: #4472C4; color: #ffffff; width: 272px; height: 48px; left: calc((100% - 272px) / 2);}' +
                             '.tbl-cards-teaser.in-viewport {bottom: 35px;}' +
                             '.tbl-cards-teaser .tbl-teaser-header {display: none;}' +
