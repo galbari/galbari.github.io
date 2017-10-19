@@ -8,7 +8,7 @@ function feedTeaserSlider() {
         countingDownStartTime = 0,
         scrollDurationSpeed = 600,
         feedInViewport = false,
-        mobileScreenWidth = 480,
+        mobileScreenWidth = '480px',
         carousel,
         teaserVisibilityCountDown;
 
