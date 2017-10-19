@@ -146,7 +146,7 @@ function feedTeaserSlider() {
 
     function getOrganicItemsFromCard(card, nextCard) {
         debugger;
-        return card.response.trc.video-list.video.concat(nextCard.response.trc.video-list.video);
+        return card.response.trc['video-list'].video.concat(nextCard.response.trc['video-list'].video);
     }
 
     function getCardsData() {
