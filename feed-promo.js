@@ -8,22 +8,21 @@ function feedTeaserSlider() {
         countingDownStartTime = 0,
         scrollDurationSpeed = 600,
         carousel,
-        isMobile = true,
-        mobileMaxWidth = '480px',
         teaserVisibilityCountDown;
 
-    var arrowSVG = '<svg viewBox="0 0 20 20">' +
+    var arrowSVG = '<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                         '<defs></defs>' +
-                        '<g id="arrow" stroke="none" stroke-width="1" fill-rule="evenodd">' +
-                            '<g id="icons" transform="translate(-18.000000, -20.000000)">' +
+                        '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                            '<g id="icons" transform="translate(-18.000000, -20.000000)" fill="#4472C4">' +
                                 '<path d="M34.4775,29.751875 L28.2275,36.3925 L28,36.634375 L27.771875,36.3925 L21.521875,29.751875 L21.2775,29.49125 L21.568125,29.28375 L22.4125,28.679375 L22.635,28.52 L22.8225,28.719375 L27.14125,33.308125 L27.14125,23.67875 L27.14125,23.36625 L27.45375,23.36625 L28.54625,23.36625 L28.85875,23.36625 L28.85875,23.67875 L28.85875,33.308125 L33.1775,28.719375 L33.365,28.52 L33.586875,28.679375 L34.431875,29.28375 L34.7225,29.49125 L34.4775,29.751875 Z M28,20 C22.476875,20 18,24.4775 18,30 C18,35.523125 22.476875,40 28,40 C33.5225,40 38,35.523125 38,30 C38,24.4775 33.5225,20 28,20 L28,20 Z" id="Desktop-arrow-initial"></path>' +
                             '</g>' +
                         '</g>' +
                 '</svg>';
     var closeSVG = '<div class="tbl-teaser-closeBtn">' +
                     '<svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
+                        '<desc>Created with Sketch.</desc>' +
                         '<defs></defs>' +
-                        '<g id="close" stroke="none" stroke-width="1" fill-rule="evenodd">' +
+                        '<g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd">' +
                             '<g id="icons" transform="translate(-23.000000, -130.000000)">' +
                                 '<polygon id="Desktop-Close-initial" points="33 131.208868 31.7911325 130 28 133.791132 24.2088675 130 23 131.208868 26.7911325 135 23 138.791132 24.2088675 140 28 136.208868 31.7911325 140 33 138.791132 29.2088675 135"></polygon>' +
                             '</g>' +
@@ -33,7 +32,7 @@ function feedTeaserSlider() {
 
     var styleTag =  '<style>' +
                         '.tbl-cards-teaser {position: fixed; background: #f7f7f7; left: 16px; bottom: -500px; transition: bottom 0.4s ease; width: 264px; height: 64px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.04);; box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); z-index: 9999999999; cursor: default;}' +
-                        '.tbl-cards-teaser.in-viewport {bottom: 25px; transition: bottom 0.4s ease;}' +
+                        '.tbl-cards-teaser.in-viewport{bottom: 25px; transition: bottom 0.4s ease;}' +
                         '.tbl-cards-teaser .tbl-cards-teaser-inner {width: 100%; height: 100%; cursor: pointer;}' +
                         '.tbl-cards-teaser .tbl-teaser-header {position: absolute; top: 10px; left: 93px; line-height: 15px; font-weight: bold; font-size: 12px;}' +
                         '.tbl-cards-teaser .actionMessage { width: 220px; height: 100%; background: #f7f7f7; position: absolute; top: 0px; left: 0px; text-align: center; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; opacity: 0; z-index: 99999; transition: opacity 0.2s ease}' +
@@ -47,7 +46,7 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser .content {font-size: 12px; background: #f7f7f7; line-height: 15px; transform: translateY(140px); transition: transform 0.35s ease;}' +
                         '.tbl-cards-teaser .item.show .content {transform: translateY(0);}' +
                         '.tbl-cards-teaser .arrow {position: absolute; top: 22px; right: 16px}' +
-                        '.tbl-cards-teaser .arrow svg {width: 20px; height: 20px; fill: #4472C4; transition: 0.2s ease;}' +
+                        '.tbl-cards-teaser .arrow svg{transition: 0.2s ease;}' +
                         '.tbl-cards-teaser:hover .arrow svg {transform: scale(1.4);}' +
                         '.tbl-cards-teaser .tbl-teaser-closeBtn-wrapper {position: absolute; top: -25px; right: -25px; width: 27px; height: 27px;}' +
                         '.tbl-cards-teaser .tbl-teaser-closeBtn {position: absolute; top: 0; right: 0; width: 20px; height: 20px; border-radius: 50%; background: #000000; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); visibility: hidden; opacity:0; transition: 0.2s ease; cursor: pointer}' +
@@ -56,23 +55,6 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser .tbl-teaser-closeBtn:hover {background: #EEEEEE;}' +
                         '.tbl-cards-teaser .tbl-teaser-closeBtn:hover svg{fill: #000000;}' +
                     '</style>';
-
-    var mobileStyleTag =    '<style>' +
-                                '@media screen and (min-width: 0px) and (max-width: ' + mobileMaxWidth + ') { ' +
-                                    '.tbl-cards-teaser {background: #4472C4; color: #ffffff; width: 272px; height: 48px; left: calc((100% - 272px) / 2);}' +
-                                    '.tbl-cards-teaser.in-viewport {bottom: 35px;}' +
-                                    '.tbl-cards-teaser .tbl-teaser-header {display: none;}' +
-                                    '.tbl-cards-teaser .content-container {width: 215px; padding: 8px 12px;}' +
-                                    '.tbl-cards-teaser .content {background: #4472C4; font-size: 13px; line-height: 16px;}' +
-                                    '.tbl-cards-teaser .content .mobile-header {font-weight: bold;}' +
-                                    '.tbl-cards-teaser .img {display: none;}' +
-                                    '.tbl-cards-teaser .arrow {top: 12px; right: 12px}' +
-                                    '.tbl-cards-teaser .arrow svg {width: 24px; height: 24px; fill: #ffffff}' +
-                                    '.tbl-cards-teaser:hover .tbl-teaser-closeBtn {display: none;}' +
-                                    '.tbl-cards-teaser:hover .actionMessage {display: none;}' +
-                                    '.tbl-cards-teaser:hover .arrow svg {transform: none;}' +
-                                '}' +
-                            '</style>';
 
     function scrollToDestination(destination, duration, easing, callback) {
         var easings = {
@@ -124,7 +106,7 @@ function feedTeaserSlider() {
     function createOrganicCardObj(cardData) {
         var card = cardData.boxes[0];
         var textContent = card.textContent;
-        var maxContentLength = isMobile ? 40 : 30;
+        var maxContentLength = 30;
 
         textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
         return {
@@ -154,10 +136,7 @@ function feedTeaserSlider() {
 
     function getItmesAsHtmlString(cardsData) {
         return cardsData.reduce(function(html, card, index){
-            var mobileString = '<span class="mobile-header">Up Next:</span>&nbsp;';
             var showClass = index === 0 ? 'show' : '';
-            card.content = isMobile ? mobileString.concat(card.content) : card.content;
-
             return html + '<li class="item card-' + index + ' ' + showClass + '" style="z-index:'+ index + ';">' +
                             '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
                             '<div class="content-container">' +
@@ -256,12 +235,18 @@ function feedTeaserSlider() {
     }
 
     function isElementInViewport(element) {
-        var rect = element.getBoundingClientRect();
-        return (rect.bottom >= 0 &&
-                rect.right >= 0 &&
-                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.left <= (window.innerWidth || document.documentElement.clientWidth)
-                );
+        var isInViewport = TRC.intersections.isInViewPort(element, function(event, feedContainer, pageLevelObserver, visibilityState) {
+            debugger;
+            return TRC.intersections.visibilityState.IN_VIEW_PORT_VISIBLE === visibilityState;
+        });
+
+        return isInViewport;
+        // var rect = element.getBoundingClientRect();
+        // return (rect.bottom >= 0 &&
+        //         rect.right >= 0 &&
+        //         rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+        //         rect.left <= (window.innerWidth || document.documentElement.clientWidth)
+        //         );
     }
 
     function shouldHideTeaser() {
@@ -336,10 +321,6 @@ function feedTeaserSlider() {
     function shouldShowTeaser() {
         var feed = getFeedElement();
         return !teaserIsVisible && !isElementInViewport(feed);
-    }
-
-    if (isMobile) {
-        styleTag = styleTag.concat(mobileStyleTag);
     }
 
     var cardsData = getCardsData();
