@@ -55,6 +55,21 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser:hover .tbl-teaser-closeBtn {visibility: visible; opacity: 1}' +
                         '.tbl-cards-teaser .tbl-teaser-closeBtn:hover {background: #EEEEEE;}' +
                         '.tbl-cards-teaser .tbl-teaser-closeBtn:hover svg{fill: #000000;}' +
+                        ////////////// Mobile Style
+                        '@media screen and (min-width: 0px) and (max-width: ' + mobileMaxWidth + ') { ' +
+                            '.tbl-cards-teaser {background: #4472C4; color: #ffffff; width: 272px; height: 48px; left: calc((100% - 272px) / 2);}' +
+                            '.tbl-cards-teaser.in-viewport {bottom: 35px;}' +
+                            '.tbl-cards-teaser .tbl-teaser-header {display: none;}' +
+                            '.tbl-cards-teaser .content-container {width: 215px; padding: 8px 12px;}' +
+                            '.tbl-cards-teaser .content {background: #4472C4; font-size: 13px; line-height: 16px;}' +
+                            '.tbl-cards-teaser .content .mobile-header {font-weight: bold;}' +
+                            '.tbl-cards-teaser .img {display: none;}' +
+                            '.tbl-cards-teaser .arrow {top: 12px; right: 12px}' +
+                            '.tbl-cards-teaser .arrow svg {width: 24px; height: 24px; fill: #ffffff}' +
+                            '.tbl-cards-teaser:hover .tbl-teaser-closeBtn {display: none;}' +
+                            '.tbl-cards-teaser:hover .actionMessage {display: none;}' +
+                            '.tbl-cards-teaser:hover .arrow svg {transform: none;}' +
+                        '}' +
                     '</style>';
 
     function scrollToDestination(destination, duration, easing, callback) {
@@ -191,8 +206,6 @@ function feedTeaserSlider() {
         document.querySelector('.tbl-teaser-closeBtn').addEventListener('click', hideTeaser);
         document.querySelector('#tbl-teaser').addEventListener('mouseenter', handleTeaserHover);
         document.querySelector('#tbl-teaser').addEventListener('mouseleave', handleMouseLeaveTeaser);
-        // window.addEventListener('scroll', shouldHideTeaser);
-        // window.addEventListener('resize', shouldHideTeaser);
     }
 
     function handleTeaserHover() {
@@ -233,22 +246,6 @@ function feedTeaserSlider() {
 
     function updateCountingDownStartTime() {
         countingDownStartTime = new Date();
-    }
-
-    function isElementInViewport(element) {
-        var rect = element.getBoundingClientRect();
-        return (rect.bottom >= 0 &&
-                rect.right >= 0 &&
-                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.left <= (window.innerWidth || document.documentElement.clientWidth)
-                );
-    }
-
-    function shouldHideTeaser() {
-        var feed = document.querySelector('.tbl-feed-container');
-        if (teaserIsVisible && isElementInViewport(feed)) {
-            hideTeaser();
-        }
     }
 
     function hideTeaser() {
@@ -313,13 +310,7 @@ function feedTeaserSlider() {
         teaserIsVisible = true;
     }
 
-    function shouldShowTeaser() {
-        var feed = getFeedElement();
-        return !teaserIsVisible && !isElementInViewport(feed);
-    }
-
     function feedInViewportHandler() {
-        console.log('feed in viewport');
         feedInViewport = true;
         if (teaserIsVisible) {
             hideTeaser();
@@ -347,7 +338,6 @@ function feedTeaserSlider() {
     observeFeed(getFeedElement());
 
     setTimeout(function() {
-        console.log('checking if should show teaser');
         if (!feedInViewport) {
             showTeaser(teaser);
             playCarousel();
