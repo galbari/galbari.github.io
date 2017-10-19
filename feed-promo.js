@@ -45,6 +45,7 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser .item.show .img {transform: translateY(0);}' +
                         '.tbl-cards-teaser .content-container {display: inline-block; width: 130px; height: 100%; padding-top: 25px; padding-left: 12px; vertical-align: top; overflow: hidden;}' +
                         '.tbl-cards-teaser .content {font-size: 12px; background: #f7f7f7; line-height: 15px; transform: translateY(140px); transition: transform 0.35s ease;}' +
+                        '.tbl-cards-teaser .content .mobile-header {display: none; font-weight: bold;}'
                         '.tbl-cards-teaser .item.show .content {transform: translateY(0);}' +
                         '.tbl-cards-teaser .arrow {position: absolute; top: 22px; right: 16px}' +
                         '.tbl-cards-teaser .arrow svg {width: 20px; height: 20px; fill: #4472C4; transition: 0.2s ease;}' +
@@ -62,7 +63,7 @@ function feedTeaserSlider() {
                             '.tbl-cards-teaser .tbl-teaser-header {display: none;}' +
                             '.tbl-cards-teaser .content-container {width: 215px; padding: 8px 12px;}' +
                             '.tbl-cards-teaser .content {background: #4472C4; font-size: 13px; line-height: 16px;}' +
-                            '.tbl-cards-teaser .content .mobile-header {font-weight: bold;}' +
+                            '.tbl-cards-teaser .content .mobile-header {display: inline;}' +
                             '.tbl-cards-teaser .img {display: none;}' +
                             '.tbl-cards-teaser .arrow {top: 12px; right: 12px}' +
                             '.tbl-cards-teaser .arrow svg {width: 24px; height: 24px; fill: #ffffff}' +
@@ -156,7 +157,10 @@ function feedTeaserSlider() {
             return html + '<li class="item card-' + index + ' ' + showClass + '" style="z-index:'+ index + ';">' +
                             '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
                             '<div class="content-container">' +
-                                '<div class="content">' + card.content + '</div>' +
+                                '<div class="content">' +
+                                    '<span class="mobile-header">Up Next:&nbsp;</span>' +
+                                    '<span class="card-content">' + card.content + '</span>' +
+                                '</div>' +
                             '</div>' +
                         '</li>';
         }, '');
