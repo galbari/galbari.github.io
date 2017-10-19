@@ -319,7 +319,7 @@ function feedTeaserSlider() {
     }
 
     function feedInViewportHandler() {
-        debugger;
+        console.log('feed in viewport');
         feedInViewport = true;
         if (teaserIsVisible) {
             hideTeaser();
@@ -347,11 +347,12 @@ function feedTeaserSlider() {
     observeFeed(getFeedElement());
 
     setTimeout(function() {
+        console.log('checking if should show teaser');
         if (!feedInViewport) {
             showTeaser(teaser);
             playCarousel();
         }
-    },5000);
+    }, 5000);
 
 }
 
