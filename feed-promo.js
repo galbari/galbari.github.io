@@ -190,8 +190,8 @@ function feedTeaserSlider() {
         document.querySelector('.tbl-teaser-closeBtn').addEventListener('click', hideTeaser);
         document.querySelector('#tbl-teaser').addEventListener('mouseenter', handleTeaserHover);
         document.querySelector('#tbl-teaser').addEventListener('mouseleave', handleMouseLeaveTeaser);
-        window.addEventListener('scroll', shouldHideTeaser);
-        window.addEventListener('resize', shouldHideTeaser);
+        // window.addEventListener('scroll', shouldHideTeaser);
+        // window.addEventListener('resize', shouldHideTeaser);
     }
 
     function handleTeaserHover() {
@@ -235,18 +235,12 @@ function feedTeaserSlider() {
     }
 
     function isElementInViewport(element) {
-        var isInViewport = TRC.intersections.isInViewPort(element, function(event, feedContainer, pageLevelObserver, visibilityState) {
-            debugger;
-            return TRC.intersections.visibilityState.IN_VIEW_PORT_VISIBLE === visibilityState;
-        });
-
-        return isInViewport;
-        // var rect = element.getBoundingClientRect();
-        // return (rect.bottom >= 0 &&
-        //         rect.right >= 0 &&
-        //         rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-        //         rect.left <= (window.innerWidth || document.documentElement.clientWidth)
-        //         );
+        var rect = element.getBoundingClientRect();
+        return (rect.bottom >= 0 &&
+                rect.right >= 0 &&
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.left <= (window.innerWidth || document.documentElement.clientWidth)
+                );
     }
 
     function shouldHideTeaser() {
@@ -323,13 +317,28 @@ function feedTeaserSlider() {
         return !teaserIsVisible && !isElementInViewport(feed);
     }
 
+    function observeFeed(feed) {
+        debugger;
+        if (feed) {
+
+            var options = {
+                targetElement: feed,
+                onEnter: hideTeaser
+            };
+
+            TRC.intersections.observe(options);
+        }
+    }
+
     var cardsData = getCardsData();
     var style = createElement('div', 'tbl-teaser-style', null, styleTag);
     var teaser = createTeaser(cardsData);
+    var feed = getFeedElement();
 
     document.body.appendChild(style);
     document.body.appendChild(teaser);
     addEventsListners();
+    observeFeed(feed);
 
     setTimeout(function() {
         if (shouldShowTeaser()) {
