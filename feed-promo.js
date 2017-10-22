@@ -123,7 +123,7 @@ function feedTeaserSlider() {
     }
 
     function createOrganicItemsObj(item) {
-        var textContent = item.description;
+        var textContent = item.description || item.title;
         var maxContentLength = 30;
 
         textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
