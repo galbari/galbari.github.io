@@ -149,7 +149,7 @@ function feedTeaserSlider() {
     function getCardsData() {
         var organicCards = getOrganicCards(TRCImpl.boxes);
         var organicItems = organicCards.reduce(getOrganicItemsFromCard, []);
-        var numberOfItemsInSlider = organicCards.length >= maxNumberOfOrganicItemsInSlider ? maxNumberOfOrganicItemsInSlider : organicCards.length;
+        var numberOfItemsInSlider = organicItems.length >= maxNumberOfOrganicItemsInSlider ? maxNumberOfOrganicItemsInSlider : organicItems.length;
 
         return organicItems.slice(0, numberOfItemsInSlider).map(createOrganicItemsObj);
     }
