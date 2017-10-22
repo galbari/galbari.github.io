@@ -10,7 +10,9 @@ function feedTeaserSlider() {
         feedInViewport = false,
         mobileScreenWidth = '480px',
         carousel,
-        teaserVisibilityCountDown;
+        teaserVisibilityCountDown,
+        teaserAppearanceTime,
+        teaserClickedTime;
 
     var arrowSVG = '<svg viewBox="0 0 20 20">' +
                         '<defs></defs>' +
@@ -155,7 +157,7 @@ function feedTeaserSlider() {
     }
 
     function getItmesAsHtmlString(cardsData) {
-        return cardsData.reduce(function(html, card, index){
+        return cardsData.reduce(function(html, card, index) {
             var showClass = index === 0 ? 'show' : '';
             return html + '<li class="item card-' + index + ' ' + showClass + '" style="z-index:'+ index + ';">' +
                             '<div class="img" style="background-image: url(' + card.img + ')"></div>' +
@@ -208,14 +210,27 @@ function feedTeaserSlider() {
         return document.querySelector('.tbl-feed-container');
     }
 
+    function sendEvent(name, value) {
+        _taboola.push({
+            name: name,
+            value: value
+        });
+    }
+
     function addEventsListners() {
         document.querySelector('#tbl-teaser-inner').addEventListener('click', handleTeaserClick);
-        document.querySelector('.tbl-teaser-closeBtn').addEventListener('click', hideTeaser);
+        document.querySelector('.tbl-teaser-closeBtn').addEventListener('click', handleCloseBtnClick);
         document.querySelector('#tbl-teaser').addEventListener('mouseenter', handleTeaserHover);
         document.querySelector('#tbl-teaser').addEventListener('mouseleave', handleMouseLeaveTeaser);
     }
 
+    function handleCloseBtnClick() {
+        sendEvent('closeTeaserBtnClicked', {closeBtnClickedTime: Date.now()});
+        hideTeaser();
+    }
+
     function handleTeaserHover() {
+        sendEvent('teaserHovered', {teaserHoveringTime: Date.now()});
         if (doneCarouseling) {
             pauseTeaserVisibilityCountDown();
         } else {
@@ -259,11 +274,14 @@ function feedTeaserSlider() {
         var teaser = document.getElementById('tbl-teaser');
         teaser.classList.remove('in-viewport');
         teaserIsVisible = false;
+        sendEvent('teaserIsHidden', {teaserDisappearingTime: Date.now()});
         stopTimer(teaserVisibilityCountDown);
         stopTimer(carousel);
     }
 
     function handleTeaserClick(e) {
+        teaserClickedTime = Date.now();
+        sendEvent('teaserClicked', {teaserAppearanceTime: teaserAppearanceTime, teaserClickedTime: teaserClickedTime});
         var feed = getFeedElement();
         scrollToDestination(feed, scrollDurationSpeed, 'linear');
         hideTeaser();
@@ -315,6 +333,8 @@ function feedTeaserSlider() {
     function showTeaser(slider) {
         slider.classList.add('in-viewport');
         teaserIsVisible = true;
+        teaserAppearanceTime = Date.now();
+        sendEvent('teaserIsVisible', {teaserAppearanceTime: teaserAppearanceTime});
     }
 
     function feedInViewportHandler() {
