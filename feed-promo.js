@@ -64,6 +64,7 @@ function feedTeaserSlider() {
                             '.tbl-cards-teaser {width: 100%; top: -300px; left: 0;}' +
                             '.tbl-cards-teaser.in-viewport {top: 0;}' +
                             '.tbl-cards-teaser .content-container {width: 215px;}' +
+                            '.tbl-cards-teaser .actionMessage {display: none;}' +                        
                             '.tbl-cards-teaser .card-content-mobile {display: inline;}' +                        
                             '.tbl-cards-teaser .card-content-desktop {display: none;}' +                        
                             '.tbl-cards-teaser:hover .tbl-teaser-closeBtn {display: none;}' +
@@ -120,7 +121,7 @@ function feedTeaserSlider() {
 
     function createOrganicItemsObj(item) {
         var maxContentLength = 33;
-        var maxContentLengthOnMobile = 45;
+        var maxContentLengthOnMobile = 52;
         var textContent =  item.title || item.description;
 
         var mobileTextContent = textContent.length >= maxContentLengthOnMobile ? cutTextContent(textContent, maxContentLengthOnMobile) : textContent;
