@@ -1,18 +1,18 @@
 function feedTeaserSlider() {
 
     var maxNumberOfOrganicItemsInSlider = 3,
-        teaserIsVisible = false,
-        doneCarouseling = false,
-        teaserVisibilityRemainingTime = 10000,
-        replaceCarouselItemTime = 2000,
-        countingDownStartTime = 0,
-        scrollDurationSpeed = 600,
-        feedInViewport = false,
-        mobileScreenWidth = '480px',
-        carousel,
-        teaserVisibilityCountDown,
-        teaserAppearanceTime,
-        teaserClickedTime;
+    teaserIsVisible = false,
+    doneCarouseling = false,
+    teaserVisibilityRemainingTime = 10000,
+    replaceCarouselItemTime = 2000,
+    countingDownStartTime = 0,
+    scrollDurationSpeed = 600,
+    feedInViewport = false,
+    mobileScreenWidth = '480px',
+    carousel,
+    teaserVisibilityCountDown,
+    teaserAppearanceTime,
+    teaserClickedTime;
 
     var arrowSVG = '<svg viewBox="0 0 20 20">' +
                         '<defs></defs>' +
@@ -37,7 +37,7 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser {position: fixed; background: #f7f7f7; left: 16px; bottom: -500px; transition: bottom 0.4s ease; width: 264px; height: 64px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.04);; box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); z-index: 9999999999; cursor: default;}' +
                         '.tbl-cards-teaser.in-viewport {bottom: 25px; transition: bottom 0.4s ease;}' +
                         '.tbl-cards-teaser .tbl-cards-teaser-inner {width: 100%; height: 100%; cursor: pointer;}' +
-                        '.tbl-cards-teaser .tbl-teaser-header {position: absolute; top: 10px; left: 93px; line-height: 15px; font-weight: bold; font-size: 12px;}' +
+                        '.tbl-cards-teaser .tbl-teaser-header {position: absolute; top: 8px; left: 93px; line-height: 15px; font-weight: bold; font-size: 12px;}' +
                         '.tbl-cards-teaser .actionMessage { width: 220px; height: 100%; background: #f7f7f7; position: absolute; top: 0px; left: 0px; text-align: center; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; opacity: 0; z-index: 99999; transition: opacity 0.2s ease}' +
                         '.tbl-cards-teaser:hover .actionMessage {opacity: 1;}' +
                         '.tbl-cards-teaser ul {margin: 0; padding: 0; width: 100%; height: 100%;}' +
@@ -45,11 +45,11 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser .item.show {top: 0;}' +
                         '.tbl-cards-teaser .img {display: inline-block; vertical-align: top; width: 81px; height: 100%; background-size: cover; background-position: center; transform: translateY(140px); transition: transform 0.2s ease;}' +
                         '.tbl-cards-teaser .item.show .img {transform: translateY(0);}' +
-                        '.tbl-cards-teaser .content-container {display: inline-block; width: 130px; height: 100%; padding-top: 25px; padding-left: 12px; vertical-align: top; overflow: hidden;}' +
+                        '.tbl-cards-teaser .content-container {display: inline-block; width: 130px; height: 100%; padding-top: 23px; padding-left: 12px; vertical-align: top; overflow: hidden;}' +
                         '.tbl-cards-teaser .content {font-size: 12px; background: #f7f7f7; line-height: 15px; transform: translateY(140px); transition: transform 0.35s ease;}' +
                         '.tbl-cards-teaser .content .mobile-header {display: none; font-weight: bold;}' +
                         '.tbl-cards-teaser .item.show .content {transform: translateY(0);}' +
-                        '.tbl-cards-teaser .arrow {position: absolute; top: 22px; right: 16px}' +
+                        '.tbl-cards-teaser .arrow {position: absolute; top: 22px; right: 15px; z-index: 99999;}' +
                         '.tbl-cards-teaser .arrow svg {width: 20px; height: 20px; fill: #4472C4; transition: 0.2s ease;}' +
                         '.tbl-cards-teaser:hover .arrow svg {transform: scale(1.4);}' +
                         '.tbl-cards-teaser .tbl-teaser-closeBtn-wrapper {position: absolute; top: -25px; right: -25px; width: 27px; height: 27px;}' +
@@ -60,17 +60,10 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser .tbl-teaser-closeBtn:hover svg{fill: #000000;}' +
                         ////////////// Mobile Style
                         '@media screen and (min-width: 0px) and (max-width: ' + mobileScreenWidth + ') { ' +
-                            '.tbl-cards-teaser {background: #4472C4; color: #ffffff; width: 272px; height: 48px; left: calc((100% - 272px) / 2);}' +
-                            '.tbl-cards-teaser.in-viewport {bottom: 35px;}' +
-                            '.tbl-cards-teaser .tbl-teaser-header {display: none;}' +
-                            '.tbl-cards-teaser .content-container {width: 215px; padding: 8px 12px;}' +
-                            '.tbl-cards-teaser .content {background: #4472C4; font-size: 13px; line-height: 16px;}' +
-                            '.tbl-cards-teaser .content .mobile-header {display: inline;}' +
-                            '.tbl-cards-teaser .img {display: none;}' +
-                            '.tbl-cards-teaser .arrow {top: 12px; right: 12px}' +
-                            '.tbl-cards-teaser .arrow svg {width: 24px; height: 24px; fill: #ffffff}' +
+                            '.tbl-cards-teaser {width: 100%; top: -300px; left: 0;}' +
+                            '.tbl-cards-teaser.in-viewport {top: 0;}' +
+                            '.tbl-cards-teaser .content-container {width: 215px;}' +
                             '.tbl-cards-teaser:hover .tbl-teaser-closeBtn {display: none;}' +
-                            '.tbl-cards-teaser:hover .actionMessage {display: none;}' +
                             '.tbl-cards-teaser:hover .arrow svg {transform: none;}' +
                         '}' +
                     '</style>';
@@ -124,7 +117,7 @@ function feedTeaserSlider() {
 
     function createOrganicItemsObj(item) {
         var textContent =  item.title || item.description;
-        var maxContentLength = 30;
+        var maxContentLength = 33;
 
         textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
         return {
@@ -188,7 +181,7 @@ function feedTeaserSlider() {
         var teaser = createElement('div', 'tbl-teaser', ' tbl-cards-teaser');
         var innerTeaser = createElement('div', 'tbl-teaser-inner', 'tbl-cards-teaser-inner');
 
-        var header = createElement('div', null, 'tbl-teaser-header', 'Up next');
+        var header = createElement('div', null, 'tbl-teaser-header', 'Up Next');
         var arrowIcon = createElement('div', null, 'arrow', arrowSVG);
         var closeBtn = createElement('div', null, 'tbl-teaser-closeBtn-wrapper', closeSVG);
         var actionMessageDiv = createElement('div', null, 'actionMessage', 'Click for more content');
@@ -372,7 +365,7 @@ function feedTeaserSlider() {
     observeFeed(getFeedElement());
 
     setTimeout(function() {
-        if (!feedInViewport && cardsData.length) {
+        if (cardsData.length && !feedInViewport) {
             showTeaser(teaser);
             playCarousel();
         }
