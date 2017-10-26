@@ -49,6 +49,7 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser .content {font-size: 12px; background: #f7f7f7; line-height: 15px; transform: translateY(140px); transition: transform 0.35s ease;}' +
                         '.tbl-cards-teaser .content .mobile-header {display: none; font-weight: bold;}' +
                         '.tbl-cards-teaser .item.show .content {transform: translateY(0);}' +
+                        '.tbl-cards-teaser .card-content-mobile {display: none;}' +
                         '.tbl-cards-teaser .arrow {position: absolute; top: 22px; right: 15px; z-index: 99999;}' +
                         '.tbl-cards-teaser .arrow svg {width: 20px; height: 20px; fill: #4472C4; transition: 0.2s ease;}' +
                         '.tbl-cards-teaser:hover .arrow svg {transform: scale(1.4);}' +
@@ -63,6 +64,8 @@ function feedTeaserSlider() {
                             '.tbl-cards-teaser {width: 100%; top: -300px; left: 0;}' +
                             '.tbl-cards-teaser.in-viewport {top: 0;}' +
                             '.tbl-cards-teaser .content-container {width: 215px;}' +
+                            '.tbl-cards-teaser .card-content-mobile {display: inline;}' +                        
+                            '.tbl-cards-teaser .card-content-desktop {display: none;}' +                        
                             '.tbl-cards-teaser:hover .tbl-teaser-closeBtn {display: none;}' +
                             '.tbl-cards-teaser:hover .arrow svg {transform: none;}' +
                         '}' +
@@ -116,12 +119,15 @@ function feedTeaserSlider() {
     }
 
     function createOrganicItemsObj(item) {
-        var textContent =  item.title || item.description;
         var maxContentLength = 33;
+        var maxContentLengthOnMobile = 45;
+        var textContent =  item.title || item.description;
 
+        var mobileTextContent = textContent.length >= maxContentLengthOnMobile ? cutTextContent(textContent, maxContentLengthOnMobile) : textContent;
         textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
         return {
             content: textContent,
+            mobileContent: mobileTextContent,
             img: item.thumbnail
         };
     }
@@ -157,7 +163,8 @@ function feedTeaserSlider() {
                             '<div class="content-container">' +
                                 '<div class="content">' +
                                     '<span class="mobile-header">Up Next:&nbsp;</span>' +
-                                    '<span class="card-content">' + card.content + '</span>' +
+                                    '<span class="card-content-desktop">' + card.content + '</span>' +
+                                    '<span class="card-content-mobile">' + card.mobileContent + '</span>' +
                                 '</div>' +
                             '</div>' +
                         '</li>';
