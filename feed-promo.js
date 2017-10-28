@@ -36,7 +36,7 @@ function feedTeaserSlider() {
                 '</div>';
 
     var styleTag =  '<style>' +
-                        '.tbl-cards-teaser {position: fixed; background: #f7f7f7; left: 16px; bottom: -500px; transition: 0.4s ease; width: 264px; height: 64px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.04); overflow: hidden; box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); z-index: 9999999999; cursor: default;}' +
+                        '.tbl-cards-teaser {position: fixed; background: #f7f7f7; left: 16px; bottom: -500px; transition: 0.4s ease; width: 264px; height: 64px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20); z-index: 9999999999; cursor: default;}' +
                         '.tbl-cards-teaser.in-viewport {bottom: 25px;}' +
                         '.tbl-cards-teaser .tbl-cards-teaser-inner {width: 100%; height: 100%; cursor: pointer;}' +
                         '.tbl-cards-teaser .tbl-teaser-header {position: absolute; top: 8px; left: 93px; line-height: 15px; font-weight: bold; font-size: 12px;}' +
@@ -63,7 +63,7 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser .tbl-teaser-closeBtn:hover svg{fill: #000000;}' +
                         ////////////// Mobile Style
                         '@media screen and (min-width: 0px) and (max-width: ' + mobileScreenWidth + ') { ' +
-                            '.tbl-cards-teaser {width: 100vw; top: -300px; left: 0; border-radius: 0;}' +
+                            '.tbl-cards-teaser {width: 100vw; top: -300px; left: 0; border-radius: 0; overflow: hidden;}' +
                             '.tbl-cards-teaser.in-viewport {top: 0;}' +
                             '.tbl-cards-teaser .tbl-teaser-header {line-height: 16px; font-size: 13px; top: 7px;}' +                        
                             '.tbl-cards-teaser .content-container {width: 215px; padding-top: 22px;}' +
