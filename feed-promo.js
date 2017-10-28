@@ -9,6 +9,8 @@ function feedTeaserSlider() {
     scrollDurationSpeed = 600,
     feedInViewport = false,
     mobileScreenWidth = '480px',
+    maxCharactersLengthDesktop = 35,
+    maxCharactersLengthMobile = 58,
     carousel,
     teaserVisibilityCountDown,
     teaserAppearanceTime,
@@ -63,7 +65,9 @@ function feedTeaserSlider() {
                         '@media screen and (min-width: 0px) and (max-width: ' + mobileScreenWidth + ') { ' +
                             '.tbl-cards-teaser {width: 100vw; top: -300px; left: 0;}' +
                             '.tbl-cards-teaser.in-viewport {top: 0;}' +
+                            '.tbl-cards-teaser .tbl-teaser-header {line-height: 16px; font-size: 13px;}' +                        
                             '.tbl-cards-teaser .content-container {width: 215px;}' +
+                            '.tbl-cards-teaser .content {font-size: 13px; line-height: 16px;}' +                        
                             '.tbl-cards-teaser .actionMessage {display: none;}' +                        
                             '.tbl-cards-teaser .card-content-mobile {display: inline;}' +                        
                             '.tbl-cards-teaser .card-content-desktop {display: none;}' +                        
@@ -120,14 +124,12 @@ function feedTeaserSlider() {
     }
 
     function createOrganicItemsObj(item) {
-        var maxContentLength = 35;
-        var maxContentLengthOnMobile = 58;
         var textContent =  item.title || item.description;
-
-        var mobileTextContent = textContent.length >= maxContentLengthOnMobile ? cutTextContent(textContent, maxContentLengthOnMobile) : textContent;
-        textContent = textContent.length >= maxContentLength ? cutTextContent(textContent, maxContentLength) : textContent;
+        var mobileTextContent = textContent.length >= maxCharactersLengthMobile ? cutTextContent(textContent, maxCharactersLengthMobile) : textContent;
+        var desktopTextContent = textContent.length >= maxCharactersLengthDesktop ? cutTextContent(textContent, maxCharactersLengthDesktop) : textContent;
+        
         return {
-            content: textContent,
+            content: desktopTextContent,
             mobileContent: mobileTextContent,
             img: item.thumbnail
         };
