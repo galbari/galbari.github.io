@@ -295,7 +295,7 @@ function feedTeaserSlider() {
     }
 
     function handleTeaserClick(e) {
-        teaserClickedTime = Date.now();
+        e.preventDefault();
         sendEvent('teaserClicked', 'click');
         var feed = getFeedElement();
         scrollToDestination(feed, scrollDurationSpeed, 'linear');
