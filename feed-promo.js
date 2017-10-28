@@ -388,4 +388,3 @@ function feedTeaserSlider() {
 setTimeout(function(){feedTeaserSlider();},3000);
 
 
-
