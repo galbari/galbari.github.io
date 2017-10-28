@@ -120,8 +120,8 @@ function feedTeaserSlider() {
     }
 
     function createOrganicItemsObj(item) {
-        var maxContentLength = 33;
-        var maxContentLengthOnMobile = 52;
+        var maxContentLength = 35;
+        var maxContentLengthOnMobile = 58;
         var textContent =  item.title || item.description;
 
         var mobileTextContent = textContent.length >= maxContentLengthOnMobile ? cutTextContent(textContent, maxContentLengthOnMobile) : textContent;
