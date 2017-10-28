@@ -63,7 +63,7 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser .tbl-teaser-closeBtn:hover svg{fill: #000000;}' +
                         ////////////// Mobile Style
                         '@media screen and (min-width: 0px) and (max-width: ' + mobileScreenWidth + ') { ' +
-                            '.tbl-cards-teaser {width: 100vw; top: -300px; left: 0;}' +
+                            '.tbl-cards-teaser {width: 100vw; top: -300px; left: 0; border-radius: none;}' +
                             '.tbl-cards-teaser.in-viewport {top: 0;}' +
                             '.tbl-cards-teaser .tbl-teaser-header {line-height: 16px; font-size: 13px;}' +                        
                             '.tbl-cards-teaser .content-container {width: 215px;}' +
@@ -71,8 +71,8 @@ function feedTeaserSlider() {
                             '.tbl-cards-teaser .actionMessage {display: none;}' +                        
                             '.tbl-cards-teaser .card-content-mobile {display: inline;}' +                        
                             '.tbl-cards-teaser .card-content-desktop {display: none;}' + 
-                            '.tbl-cards-teaser .tbl-teaser-closeBtn-wrapper {top: 22px; right: 15px; width: 20px; height: 20px; z-index: 99;}' +                        
-                            '.tbl-cards-teaser .tbl-teaser-closeBtn {display: block; visibility: visible; opacity: 1; background: none; border: none; box-shadow: none; transition: none;}' +
+                            '.tbl-cards-teaser .tbl-teaser-closeBtn-wrapper {top: 12px; right: 5px; width: 40px; height: 40px; z-index: 99;}' +                        
+                            '.tbl-cards-teaser .tbl-teaser-closeBtn {top: 10px; right: 10px; display: block; visibility: visible; opacity: 1; background: none; border: none; box-shadow: none; transition: none;}' +
                             '.tbl-cards-teaser .tbl-teaser-closeBtn svg {fill: #000000;}' +                        
                             '.tbl-cards-teaser .arrow {display: none;}' +
                             '.tbl-cards-teaser:hover .arrow {display: none;}' +
