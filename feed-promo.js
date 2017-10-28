@@ -238,7 +238,8 @@ function feedTeaserSlider() {
         document.querySelector('#tbl-teaser').addEventListener('mouseleave', handleMouseLeaveTeaser);
     }
 
-    function handleCloseBtnClick() {
+    function handleCloseBtnClick(e) {
+        e.preventDefault();
         sendEvent('closeTeaserBtnClicked', 'click');
         hideTeaser();
     }
