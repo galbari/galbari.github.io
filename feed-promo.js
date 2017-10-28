@@ -61,7 +61,7 @@ function feedTeaserSlider() {
                         '.tbl-cards-teaser .tbl-teaser-closeBtn:hover svg{fill: #000000;}' +
                         ////////////// Mobile Style
                         '@media screen and (min-width: 0px) and (max-width: ' + mobileScreenWidth + ') { ' +
-                            '.tbl-cards-teaser {width: 100%; top: -300px; left: 0;}' +
+                            '.tbl-cards-teaser {width: 100vw; top: -300px; left: 0;}' +
                             '.tbl-cards-teaser.in-viewport {top: 0;}' +
                             '.tbl-cards-teaser .content-container {width: 215px;}' +
                             '.tbl-cards-teaser .actionMessage {display: none;}' +                        
