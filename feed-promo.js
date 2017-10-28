@@ -72,7 +72,9 @@ function feedTeaserSlider() {
                             '.tbl-cards-teaser .card-content-mobile {display: inline;}' +                        
                             '.tbl-cards-teaser .card-content-desktop {display: none;}' + 
                             '.tbl-cards-teaser .tbl-teaser-closeBtn-wrapper {top: 22px; right: 15px; width: 20px; height: 20px;}' +                        
-                            '.tbl-cards-teaser .tbl-teaser-closeBtn {display: block;}' +
+                            '.tbl-cards-teaser .tbl-teaser-closeBtn {display: block; visibility: visible; opacity: 1; background: none; border: none; box-shadow: none; transition: none;}' +
+                            '.tbl-cards-teaser .tbl-teaser-closeBtn svg {fill: #000000;}' +                        
+                            '.tbl-cards-teaser .arrow {display: none;}' +
                             '.tbl-cards-teaser:hover .arrow {display: none;}' +
                             '.tbl-cards-teaser:hover .arrow svg {transform: none;}' +
                         '}' +
@@ -386,5 +388,6 @@ function feedTeaserSlider() {
 }
 
 setTimeout(function(){feedTeaserSlider();},3000);
+
 
 
