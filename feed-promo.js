@@ -70,8 +70,10 @@ function feedTeaserSlider() {
                             '.tbl-cards-teaser .content {font-size: 13px; line-height: 16px;}' +                        
                             '.tbl-cards-teaser .actionMessage {display: none;}' +                        
                             '.tbl-cards-teaser .card-content-mobile {display: inline;}' +                        
-                            '.tbl-cards-teaser .card-content-desktop {display: none;}' +                        
-                            '.tbl-cards-teaser:hover .tbl-teaser-closeBtn {display: none;}' +
+                            '.tbl-cards-teaser .card-content-desktop {display: none;}' + 
+                            '.tbl-cards-teaser .tbl-teaser-closeBtn-wrapper {top: 22px; right: 15px; width: 20px; height: 20px;}' +                        
+                            '.tbl-cards-teaser .tbl-teaser-closeBtn {display: block;}' +
+                            '.tbl-cards-teaser:hover .arrow {display: none;}' +
                             '.tbl-cards-teaser:hover .arrow svg {transform: none;}' +
                         '}' +
                     '</style>';
