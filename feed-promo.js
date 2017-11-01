@@ -216,7 +216,7 @@ function feedTeaserSlider() {
     function cutInnerText(element, index, listObj) {
         debugger;
         var containerHeight = element.parentNode.offsetHeight;
-        while (elemetn.outerHeight > containerHeight) {
+        while (element.offsetHeight > containerHeight) {
             debugger;
             element.innerText =  element.innerText.replace(/\W*\s(\S)*$/, '...');
         }
@@ -408,4 +408,4 @@ function feedTeaserSlider() {
 
 setTimeout(function () {
     feedTeaserSlider();
-}, 3000);   
+}, 3000);
