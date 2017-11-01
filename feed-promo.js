@@ -210,7 +210,6 @@ function feedTeaserSlider() {
         innerTeaser.appendChild(itemsContainer);
         teaser.appendChild(innerTeaser);
         teaser.appendChild(closeBtn);
-        handleOverflowText();
         return teaser;
     }
 
@@ -395,6 +394,8 @@ function feedTeaserSlider() {
     document.body.appendChild(teaser);
     addEventsListners();
     observeFeed(getFeedElement());
+    handleOverflowText();
+    
 
     setTimeout(function () {
         if (cardsData.length && !feedInViewport) {
@@ -407,4 +408,4 @@ function feedTeaserSlider() {
 
 setTimeout(function () {
     feedTeaserSlider();
-}, 3000);       
+}, 3000);   
