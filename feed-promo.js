@@ -51,7 +51,6 @@ function feedTeaserSlider() {
         '.tbl-cards-teaser .content {font-size: 12px; background: #f7f7f7; line-height: 15px; transform: translateY(140px); transition: transform 0.35s ease;}' +
         '.tbl-cards-teaser .content .mobile-header {display: none; font-weight: bold;}' +
         '.tbl-cards-teaser .item.show .content {transform: translateY(0);}' +
-        '.tbl-cards-teaser .card-content-mobile {display: none;}' +
         '.tbl-cards-teaser .arrow {position: absolute; top: 22px; right: 15px; z-index: 99999;}' +
         '.tbl-cards-teaser .arrow svg {width: 20px; height: 20px; fill: #4472C4; transition: 0.2s ease;}' +
         '.tbl-cards-teaser:hover .arrow svg {transform: scale(1.4);}' +
@@ -69,8 +68,6 @@ function feedTeaserSlider() {
         '.tbl-cards-teaser .content-container {width: 64%; padding-top: 22px;}' +
         '.tbl-cards-teaser .content {font-size: 13px; line-height: 16px;}' +
         '.tbl-cards-teaser .actionMessage {display: none;}' +
-        '.tbl-cards-teaser .card-content-mobile {display: inline;}' +
-        '.tbl-cards-teaser .card-content-desktop {display: none;}' +
         '.tbl-cards-teaser .tbl-teaser-closeBtn-wrapper {top: 0; right: 5px; width: 40px; height: 100%; z-index: 99;}' +
         '.tbl-cards-teaser .tbl-teaser-closeBtn {height: 100%; width: 100%; display: block; visibility: visible; opacity: 1; background: none; border: none; box-shadow: none; transition: none;}' +
         '.tbl-cards-teaser .tbl-teaser-closeBtn svg {height: 100%; fill: #000000;}' +
@@ -129,13 +126,8 @@ function feedTeaserSlider() {
     }
 
     function createOrganicItemsObj(item) {
-        var textContent = item.title || item.description;
-        // var mobileTextContent = textContent.length >= maxCharactersLengthMobile ? cutTextContent(textContent, maxCharactersLengthMobile) : textContent;
-        // var desktopTextContent = textContent.length >= maxCharactersLengthDesktop ? cutTextContent(textContent, maxCharactersLengthDesktop) : textContent;
-
         return {
-            content: textContent,
-            mobileContent: textContent,
+            content: item.title || item.description,
             img: item.thumbnail
         };
     }
@@ -171,8 +163,7 @@ function feedTeaserSlider() {
                 '<div class="content-container">' +
                 '<div class="content">' +
                 '<span class="mobile-header">Up Next:&nbsp;</span>' +
-                '<span class="card-content-desktop">' + card.content + '</span>' +
-                '<span class="card-content-mobile">' + card.mobileContent + '</span>' +
+                '<span class="card-content">' + card.content + '</span>' +
                 '</div>' +
                 '</div>' +
                 '</li>';
@@ -213,19 +204,19 @@ function feedTeaserSlider() {
         return teaser;
     }
 
-    function cutInnerText(element, index, listObj) {
-        var container = element.parentNode;
-        var containerHeight = element.parentNode.offsetHeight - parseInt(window.getComputedStyle(container).paddingTop, 10);
-        console.log('containerHeight', containerHeight);
-        while (element.offsetHeight > containerHeight) {
-            element.innerText =  element.innerText.replace(/\W*\s(\S)*$/, '...');
+    function cutText(item) {
+        var container = item.parentNode;
+        var containerHeight = item.parentNode.offsetHeight - parseInt(window.getComputedStyle(container).paddingTop, 10);
+
+        while (item.offsetHeight > containerHeight) {
+            item.innerText =  item.innerText.replace(/\W*\s(\S)*$/, '...');
         }
 
     }
 
-    function handleOverflowText() {
+    function handleTextOverflow() {
         var items = document.querySelectorAll('#tbl-items-container .item .content');
-        items.forEach(cutInnerText);
+        items.forEach(cutText);
     }
 
     function getFeedElement() {
@@ -391,9 +382,9 @@ function feedTeaserSlider() {
 
     document.body.appendChild(style);
     document.body.appendChild(teaser);
+    handleTextOverflow();
     addEventsListners();
     observeFeed(getFeedElement());
-    handleOverflowText();
     
 
     setTimeout(function () {
