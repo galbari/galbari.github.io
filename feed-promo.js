@@ -214,10 +214,10 @@ function feedTeaserSlider() {
     }
 
     function cutInnerText(element, index, listObj) {
-        debugger;
-        var containerHeight = element.parentNode.offsetHeight;
+        var container = element.parentNode;
+        var containerHeight = element.parentNode.offsetHeight - parseInt(window.getComputedStyle(container).paddingTop, 10);
+        console.log('containerHeight', containerHeight);
         while (element.offsetHeight > containerHeight) {
-            debugger;
             element.innerText =  element.innerText.replace(/\W*\s(\S)*$/, '...');
         }
 
@@ -225,7 +225,6 @@ function feedTeaserSlider() {
 
     function handleOverflowText() {
         var items = document.querySelectorAll('#tbl-items-container .item .content');
-        debugger;
         items.forEach(cutInnerText);
     }
 
