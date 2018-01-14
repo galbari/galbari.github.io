@@ -1,7 +1,5 @@
-TRC.feedTeaserSlider = function () {
-    if (TRC.feedTeaserExecuted) {
-        return;
-    }
+function () {
+    
 
     var maxNumberOfOrganicItemsInSlider = 2,
         teaserIsVisible = false,
@@ -405,6 +403,6 @@ TRC.feedTeaserSlider = function () {
         }
     }, 5000);
 
-    TRC.feedTeaserExecuted = true;
+ 
 
 };
