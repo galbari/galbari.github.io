@@ -1,4 +1,4 @@
-function feedTeaserSlider() {
+TRC.feedTeaserSlider = function () {
 
     var maxNumberOfOrganicItemsInSlider = 3,
         teaserIsVisible = false,
@@ -9,8 +9,6 @@ function feedTeaserSlider() {
         scrollDurationSpeed = 600,
         feedInViewport = false,
         mobileScreenWidth = '812px',
-        maxCharactersLengthDesktop = 35,
-        maxCharactersLengthMobile = 58,
         carousel,
         teaserVisibilityCountDown,
         teaserAppearanceTime,
@@ -209,7 +207,8 @@ function feedTeaserSlider() {
         var containerHeight = item.parentNode.offsetHeight - parseInt(window.getComputedStyle(container).paddingTop, 10);
 
         while (item.offsetHeight > containerHeight) {
-            item.innerText =  item.innerText.replace(/\W*\s(\S)*$/, '...');
+            //replace the last word with ...
+            item.innerText = item.innerText.replace(/\W*\s(\S)*$/, '...');
         }
 
     }
@@ -320,7 +319,7 @@ function feedTeaserSlider() {
                 firstItem.classList.remove('show');
             }
         } else {
-            //show first Item agian when no organic more items to show
+            //show first Item agian when no more organic items to show
             firstItem.style.zIndex = 99;
             firstItem.classList.add("show");
             doneCarouseling = true;
@@ -385,7 +384,7 @@ function feedTeaserSlider() {
     handleTextOverflow();
     addEventsListners();
     observeFeed(getFeedElement());
-    
+
 
     setTimeout(function () {
         if (cardsData.length && !feedInViewport) {
@@ -394,7 +393,7 @@ function feedTeaserSlider() {
         }
     }, 5000);
 
-}
+};
 
 setTimeout(function () {
     feedTeaserSlider();
