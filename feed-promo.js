@@ -1,10 +1,11 @@
 feedTeaserSlider = function () {
 
-    var maxNumberOfOrganicItemsInSlider = 3,
+    var maxNumberOfOrganicItemsInSlider = 2,
         teaserIsVisible = false,
         doneCarouseling = false,
-        teaserVisibilityRemainingTime = 10000,
-        replaceCarouselItemTime = 2000,
+        // teaserVisibilityRemainingTime = 10000,
+        teaserVisibilityRemainingTime = null,
+        replaceCarouselItemTime = 2500,
         countingDownStartTime = 0,
         scrollDurationSpeed = 600,
         feedInViewport = false,
@@ -267,8 +268,10 @@ feedTeaserSlider = function () {
     }
 
     function pauseTeaserVisibilityCountDown() {
-        teaserVisibilityRemainingTime = teaserVisibilityRemainingTime - (new Date() - countingDownStartTime);
-        stopTimer(teaserVisibilityCountDown);
+        if (teaserVisibilityRemainingTime) {
+            teaserVisibilityRemainingTime = teaserVisibilityRemainingTime - (new Date() - countingDownStartTime);
+            stopTimer(teaserVisibilityCountDown);
+        }
     }
 
     function startTimer(func, time) {
@@ -282,8 +285,10 @@ feedTeaserSlider = function () {
     }
 
     function resumeTeaserVisibilityCountDown() {
-        teaserVisibilityCountDown = startTimer(hideTeaser, teaserVisibilityRemainingTime);
-        updateCountingDownStartTime();
+        if (teaserVisibilityRemainingTime) {
+            teaserVisibilityCountDown = startTimer(hideTeaser, teaserVisibilityRemainingTime);
+            updateCountingDownStartTime();
+        }
     }
 
     function updateCountingDownStartTime() {
@@ -330,8 +335,10 @@ feedTeaserSlider = function () {
     }
 
     function startTeaserVisibilityCountDown() {
-        teaserVisibilityCountDown = startTimer(hideTeaser, teaserVisibilityRemainingTime);
-        updateCountingDownStartTime();
+        if (teaserVisibilityRemainingTime) {
+            teaserVisibilityCountDown = startTimer(hideTeaser, teaserVisibilityRemainingTime);
+            updateCountingDownStartTime();
+        }
     }
 
     function playCarousel() {
