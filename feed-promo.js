@@ -320,7 +320,7 @@ feedTeaserSlider = function () {
 
         if (nextItem) {
             nextItem.classList.add("show");
-            if (nextItem.classList.contains('card-2')) {
+            if (nextItem.classList.contains('card-1')) {
                 firstItem.classList.remove('show');
             }
         } else {
