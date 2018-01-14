@@ -1,4 +1,7 @@
-feedTeaserSlider = function () {
+TRC.feedTeaserSlider = function () {
+    if (TRC.feedTeaserExecuted) {
+        return;
+    }
 
     var maxNumberOfOrganicItemsInSlider = 2,
         teaserIsVisible = false,
@@ -321,7 +324,9 @@ feedTeaserSlider = function () {
         if (nextItem) {
             nextItem.classList.add("show");
             if (nextItem.classList.contains('card-1')) {
-                firstItem.classList.remove('show');
+                setTimoeout(function(){
+                    firstItem.classList.remove('show');
+                }, 355)
             }
         } else {
             //show first Item agian when no more organic items to show
@@ -400,8 +405,6 @@ feedTeaserSlider = function () {
         }
     }, 5000);
 
-};
+    TRC.feedTeaserExecuted = true;
 
-setTimeout(function () {
-    feedTeaserSlider();
-}, 3000);
+};
