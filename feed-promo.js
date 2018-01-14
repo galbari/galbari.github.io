@@ -1,5 +1,4 @@
-function () {
-    
+function feedTeaserSlider () {
 
     var maxNumberOfOrganicItemsInSlider = 2,
         teaserIsVisible = false,
@@ -321,10 +320,8 @@ function () {
 
         if (nextItem) {
             nextItem.classList.add("show");
-            if (nextItem.classList.contains('card-1')) {
-                setTimoeout(function(){
-                    firstItem.classList.remove('show');
-                }, 355)
+            if (nextItem.classList.contains('card-2')) {
+                firstItem.classList.remove('show');
             }
         } else {
             //show first Item agian when no more organic items to show
@@ -403,6 +400,8 @@ function () {
         }
     }, 5000);
 
- 
-
 };
+
+setTimeout(function () {
+    feedTeaserSlider();
+}, 3000);
