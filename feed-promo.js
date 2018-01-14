@@ -1,6 +1,6 @@
 function feedTeaserSlider () {
 
-    var maxNumberOfOrganicItemsInSlider = 2,
+    var maxNumberOfOrganicItemsInSlider = 3,
         teaserIsVisible = false,
         doneCarouseling = false,
         // teaserVisibilityRemainingTime = 10000,
