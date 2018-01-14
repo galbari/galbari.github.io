@@ -320,7 +320,7 @@ function feedTeaserSlider () {
 
         if (nextItem) {
             nextItem.classList.add("show");
-            if (lastShownItem.contains('card-0')) {
+            if (lastShownItem.classList.contains('card-0')) {
                 setTimeout(function() {
                     firstItem.classList.remove('show');
                 }, 355)
