@@ -1,4 +1,4 @@
-TRC.feedTeaserSlider = function () {
+feedTeaserSlider = function () {
 
     var maxNumberOfOrganicItemsInSlider = 3,
         teaserIsVisible = false,
