@@ -321,7 +321,7 @@ function feedTeaserSlider () {
         if (nextItem) {
             nextItem.classList.add("show");
             if (nextItem.classList.contains('card-1')) {
-                setTimoeout(function(){
+                setTimeout(function(){
                     firstItem.classList.remove('show');
                 }, 355)
             }
