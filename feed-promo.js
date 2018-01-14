@@ -320,8 +320,10 @@ function feedTeaserSlider () {
 
         if (nextItem) {
             nextItem.classList.add("show");
-            if (nextItem.classList.contains('card-2')) {
-                firstItem.classList.remove('show');
+            if (nextItem.classList.contains('card-1')) {
+                setTimoeout(function(){
+                    firstItem.classList.remove('show');
+                }, 355)
             }
         } else {
             //show first Item agian when no more organic items to show
