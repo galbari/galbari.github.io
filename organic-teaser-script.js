@@ -45,7 +45,7 @@ TRC.feedTeaserSlider = function () {
         '.tbl-cards-teaser .actionMessage { width: 100%; height: 100%; background: #f7f7f7; position: absolute; top: 0px; left: 0px; text-align: left; padding-left: 25px; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; opacity: 0; box-sizing: border-box; z-index: 99999; transition: opacity 0.2s ease}' +
         '.tbl-cards-teaser:hover .actionMessage {opacity: 1;}' +
         '.tbl-cards-teaser ul {margin: 0; padding: 0; width: 100%; height: 100%;}' +
-        '.tbl-cards-teaser .item {list-style: none; width: 100%; height: 100%; position: absolute; top: 140px; left: 0;}' +
+        '.tbl-cards-teaser .item {display: list-item !important; list-style: none; width: 100%; height: 100%; position: absolute; top: 140px; left: 0;}' +
         '.tbl-cards-teaser .item.show {top: 0;}' +
         '.tbl-cards-teaser .img {display: inline-block; vertical-align: top; width: 81px; height: 100%; background-size: cover; background-position: center; transform: translateY(140px); transition: transform 0.2s ease;}' +
         '.tbl-cards-teaser .item.show .img {transform: translateY(0);}' +
