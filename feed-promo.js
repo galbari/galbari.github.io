@@ -308,7 +308,8 @@ function feedTeaserSlider () {
         e.preventDefault();
         sendEvent('teaserClicked', 'click');
         var feed = getFeedElement();
-        var destination = getElementDestinationFromTopOfThePage(feed)
+        var destination = getElementDestinationFromTopOfThePage(feed);
+        destination = destination - 100; //remove 100px from desitantion so if there is fixed header on the page, it won't cover up the taboola-feed logo
         scrollToDestination(destination, scrollDurationSpeed, 'linear');
         hideTeaser();
     }
@@ -316,7 +317,7 @@ function feedTeaserSlider () {
     function getElementDestinationFromTopOfThePage(element) {
         var yPosition = 0;
         while(element) {
-            console.log('element', element)
+            console.log('elemnet', elemnet)
             yPosition += (element.offsetTop - element.scrollTop + element.clientTop);
             element = element.offsetParent;
             console.log('yPosition in progress', yPosition);
