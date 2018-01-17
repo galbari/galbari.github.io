@@ -5,7 +5,7 @@ function feedTeaserSlider () {
         doneCarouseling = false,
         // teaserVisibilityRemainingTime = 10000,
         teaserVisibilityRemainingTime = null,
-        replaceCarouselItemTime = 2500,
+        replaceCarouselItemTime = 3500,
         countingDownStartTime = 0,
         scrollDurationSpeed = 600,
         feedInViewport = false,
@@ -39,18 +39,18 @@ function feedTeaserSlider () {
         '.tbl-cards-teaser.in-viewport {bottom: 25px;}' +
         '.tbl-cards-teaser .tbl-cards-teaser-inner {width: 100%; height: 100%; cursor: pointer;}' +
         '.tbl-cards-teaser .tbl-teaser-header {position: absolute; top: 8px; left: 93px; line-height: 15px; font-weight: bold; font-size: 12px;}' +
-        '.tbl-cards-teaser .actionMessage { width: 220px; height: 100%; background: #f7f7f7; position: absolute; top: 0px; left: 0px; text-align: center; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; opacity: 0; z-index: 99999; transition: opacity 0.2s ease}' +
+        '.tbl-cards-teaser .actionMessage { width: 100%; height: 100%; background: #f7f7f7; position: absolute; top: 0px; left: 0px; text-align: left; padding-left: 25px; font-weight: bold; font-size: 16px; color: #000000; line-height: 62px; opacity: 0; box-sizing: border-box; z-index: 99999; transition: opacity 0.2s ease}' +
         '.tbl-cards-teaser:hover .actionMessage {opacity: 1;}' +
         '.tbl-cards-teaser ul {margin: 0; padding: 0; width: 100%; height: 100%;}' +
-        '.tbl-cards-teaser .item {list-style: none; width: 100%; height: 100%; position: absolute; top: 140px; left: 0;}' +
+        '.tbl-cards-teaser .item {display: list-item !important; list-style: none; width: 100%; height: 100%; position: absolute; top: 140px; left: 0;}' +
         '.tbl-cards-teaser .item.show {top: 0;}' +
         '.tbl-cards-teaser .img {display: inline-block; vertical-align: top; width: 81px; height: 100%; background-size: cover; background-position: center; transform: translateY(140px); transition: transform 0.2s ease;}' +
         '.tbl-cards-teaser .item.show .img {transform: translateY(0);}' +
         '.tbl-cards-teaser .content-container {display: inline-block; width: 140px; height: 100%; padding-top: 23px; padding-left: 12px; vertical-align: top; overflow: hidden;}' +
-        '.tbl-cards-teaser .content {font-size: 12px; background: #f7f7f7; line-height: 15px; transform: translateY(140px); transition: transform 0.35s ease;}' +
+        '.tbl-cards-teaser .content {font-size: 12px; background: #f7f7f7; line-height: 15px; float: none; width: auto; transform: translateY(140px); transition: transform 0.35s ease;}' +
         '.tbl-cards-teaser .content .mobile-header {display: none; font-weight: bold;}' +
         '.tbl-cards-teaser .item.show .content {transform: translateY(0);}' +
-        '.tbl-cards-teaser .arrow {position: absolute; top: 22px; right: 15px; z-index: 99999;}' +
+        '.tbl-cards-teaser .arrow {position: absolute; top: 22px; right: 15px; z-index: 999999;}' +
         '.tbl-cards-teaser .arrow svg {width: 20px; height: 20px; fill: #4472C4; transition: 0.2s ease;}' +
         '.tbl-cards-teaser:hover .arrow svg {transform: scale(1.4);}' +
         '.tbl-cards-teaser .tbl-teaser-closeBtn-wrapper {position: absolute; top: -25px; right: -25px; width: 27px; height: 27px;}' +
@@ -207,7 +207,7 @@ function feedTeaserSlider () {
         var container = item.parentNode;
         var containerHeight = item.parentNode.offsetHeight - parseInt(window.getComputedStyle(container).paddingTop, 10);
 
-        while (item.offsetHeight > containerHeight) {
+        while (item.offsetHeight > containerHeight || item.offsetHeight > 41) {
             //replace the last word with ...
             item.innerText = item.innerText.replace(/\W*\s(\S)*$/, '...');
         }
@@ -308,8 +308,22 @@ function feedTeaserSlider () {
         e.preventDefault();
         sendEvent('teaserClicked', 'click');
         var feed = getFeedElement();
-        scrollToDestination(feed, scrollDurationSpeed, 'linear');
+        var destination = getElementDestinationFromTopOfThePage(feed)
+        scrollToDestination(destination, scrollDurationSpeed, 'linear');
         hideTeaser();
+    }
+
+    function getElementDestinationFromTopOfThePage(elemnet) {
+        var yPosition = 0;
+        while(element) {
+            console.log('elemnet', elemnet)
+            yPosition += (element.offsetTop - element.scrollTop + element.clientTop);
+            element = element.offsetParent;
+            console.log('yPosition in progress', yPosition);
+        }
+
+        console.log('yPosition DONE!', yPosition);        
+        return yPosition;
     }
 
     function showNextItem() {
