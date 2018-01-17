@@ -317,7 +317,7 @@ function feedTeaserSlider () {
     function getElementDestinationFromTopOfThePage(element) {
         var yPosition = 0;
         while(element) {
-            console.log('elemnet', elemnet)
+            console.log('element', element)
             yPosition += (element.offsetTop - element.scrollTop + element.clientTop);
             element = element.offsetParent;
             console.log('yPosition in progress', yPosition);
