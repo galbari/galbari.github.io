@@ -8,7 +8,7 @@ TRC.feedTeaserSlider = function () {
         doneCarouseling = false,
         // teaserVisibilityRemainingTime = 10000,
         teaserVisibilityRemainingTime = null,
-        replaceCarouselItemTime = 2500,
+        replaceCarouselItemTime = 3500,
         countingDownStartTime = 0,
         scrollDurationSpeed = 600,
         feedInViewport = false,
@@ -50,7 +50,7 @@ TRC.feedTeaserSlider = function () {
         '.tbl-cards-teaser .img {display: inline-block; vertical-align: top; width: 81px; height: 100%; background-size: cover; background-position: center; transform: translateY(140px); transition: transform 0.2s ease;}' +
         '.tbl-cards-teaser .item.show .img {transform: translateY(0);}' +
         '.tbl-cards-teaser .content-container {display: inline-block; width: 140px; height: 100%; padding-top: 23px; padding-left: 12px; vertical-align: top; overflow: hidden;}' +
-        '.tbl-cards-teaser .content {font-size: 12px; background: #f7f7f7; line-height: 15px; transform: translateY(140px); transition: transform 0.35s ease;}' +
+        '.tbl-cards-teaser .content {font-size: 12px; background: #f7f7f7; line-height: 15px; float: none; width: auto; transform: translateY(140px); transition: transform 0.35s ease;}' +
         '.tbl-cards-teaser .content .mobile-header {display: none; font-weight: bold;}' +
         '.tbl-cards-teaser .item.show .content {transform: translateY(0);}' +
         '.tbl-cards-teaser .arrow {position: absolute; top: 22px; right: 15px; z-index: 999999;}' +
