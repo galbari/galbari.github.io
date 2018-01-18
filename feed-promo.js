@@ -1,4 +1,7 @@
-function feedTeaserSlider () {
+TRC.feedTeaserSlider = function () {
+    if (TRC.feedTeaserExecuted) {
+        return;
+    }
 
     var maxNumberOfOrganicItemsInSlider = 2,
         teaserIsVisible = false,
@@ -309,7 +312,7 @@ function feedTeaserSlider () {
         sendEvent('teaserClicked', 'click');
         var feed = getFeedElement();
         var destination = getElementDestinationFromTopOfThePage(feed);
-        destination = destination - 100; //remove 100px from desitantion so if there is fixed header on the page, it won't cover up the taboola-feed logo
+        destination = destination - 150; //remove 100px from desitantion so if there is fixed header on the page, it won't cover up the taboola-feed logo
         scrollToDestination(destination, scrollDurationSpeed, 'linear');
         hideTeaser();
     }
@@ -317,13 +320,10 @@ function feedTeaserSlider () {
     function getElementDestinationFromTopOfThePage(element) {
         var yPosition = 0;
         while(element) {
-            console.log('element', element)
             yPosition += (element.offsetTop - element.scrollTop + element.clientTop);
             element = element.offsetParent;
-            console.log('yPosition in progress', yPosition);
         }
 
-        console.log('yPosition DONE!', yPosition);        
         return yPosition;
     }
 
@@ -417,8 +417,5 @@ function feedTeaserSlider () {
         }
     }, 5000);
 
+    TRC.feedTeaserExecuted = true;
 };
-
-setTimeout(function () {
-    feedTeaserSlider();
-}, 3000);
