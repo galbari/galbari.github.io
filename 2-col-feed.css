@@ -1,0 +1,9 @@
+.left-feed-container {
+    width: 67%;
+    float: left;
+}
+
+.right-feed-container {
+    width: 33%;
+    float: left;
+}
