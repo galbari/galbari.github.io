@@ -1,1 +1,6 @@
-console.log('inside publisher start HOOK!')
+var container = document.getElementById('taboola-container');
+var wrapper = document.createElement('div');
+container.parentNode.insertBefore(wrapper, container);
+wrapper.appendChild(container);
+
+
