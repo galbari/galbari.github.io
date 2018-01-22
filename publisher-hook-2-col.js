@@ -6,8 +6,8 @@ var wrapper = document.createElement("div");
 var rightFeedContainer = document.createElement("div");
 
 function addClass(element, className) {
-	if (el.classList) el.classList.add(className);
-	else el.className += " " + className;
+	if (element.classList) element.classList.add(className);
+	else element.className += " " + className;
 }
 
 addClass(container, LEFT_CONTAINER_CLASS);
