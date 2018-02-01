@@ -59,7 +59,6 @@ function start2ColFeedProcess() {
     }
     
     function keepLeftPositionSync() {
-        debugger;
         if (window.getComputedStyle(rightFeedContainer).position === "fixed" || window.getComputedStyle(rightFeedContainer).position === "absolute") {
 	        var leftFeedContainerClientRect = container.getBoundingClientRect();        
             rightFeedContainer.style.left = container.getBoundingClientRect().right + 10 + "px";
