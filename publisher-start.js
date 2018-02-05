@@ -1,18 +1,21 @@
 function start2ColFeedProcess() {
-	var LEFT_CONTAINER_CLASS = "left-feed-container",
-		RIGHT_CONTAINER_CLASS = "right-feed-container",
+	var LEFT_CONTAINER_CLASS = "tbl-left-feed-container",
+		RIGHT_CONTAINER_CLASS = "tbl-right-feed-container",
+		RIGHT_CONTAINER_ID = "tbl-right-feed",
 		ORGINAL_FEED_CONTAINER = "taboola-container",
-		WIDER_FEED_WRAPPER = "wider-feed-wrapper",
+		FEEDS_WRAPPER = "tbl-feeds-wrapper",
+		STICKY_CLASS = "tbl-sticky",
+		ABSLT_POS_CLASS = "tbl-abslt-pos",
 		container = document.getElementById(ORGINAL_FEED_CONTAINER),
 		wrapper = document.createElement("div"),
 		rightFeedContainer = document.createElement("div"),
 		rightFeedContainerClientRect,
 		observerContainer;
 
-	wrapper.classList.add(WIDER_FEED_WRAPPER);
+	wrapper.classList.add(FEEDS_WRAPPER);
 	container.classList.add(LEFT_CONTAINER_CLASS);
 	rightFeedContainer.classList.add(RIGHT_CONTAINER_CLASS);
-	rightFeedContainer.setAttribute("id", "tbl-right-feed");
+	rightFeedContainer.setAttribute("id", RIGHT_CONTAINER_ID);
 
 	container.parentNode.insertBefore(wrapper, container);
 	wrapper.appendChild(container);
@@ -35,7 +38,6 @@ function start2ColFeedProcess() {
 
 		var placeholderUl = ul.cloneNode(true);
 		rightFeedContainer.appendChild(ul);
-		// placeholderFeed.appendChild(placeholderUl);
 	}
 
 	function getViewportHeight() {
@@ -43,11 +45,11 @@ function start2ColFeedProcess() {
 			document.documentElement.clientHeight,
 			window.innerHeight || 0
 		);
-    }
-    
-    function getLogoHeight() {
-        return document.querySelector(".tbl-feed-header").offsetHeight;
-    }
+	}
+
+	function getLogoHeight() {
+		return document.querySelector(".tbl-feed-header").offsetHeight;
+	}
 
 	function getTopMarginOfFeed(shouldReturnPxValue) {
 		var containerMarginTop = parseInt(
@@ -56,42 +58,36 @@ function start2ColFeedProcess() {
 		);
 		var topMargin = getLogoHeight() + containerMarginTop;
 		return shouldReturnPxValue ? topMargin + "px" : topMargin;
-    }
-    
-    function keepLeftPositionSync() {
-        if (window.getComputedStyle(rightFeedContainer).position === "fixed" || window.getComputedStyle(rightFeedContainer).position === "absolute") {
-	        var leftFeedContainerClientRect = container.getBoundingClientRect();        
-            rightFeedContainer.style.left = container.getBoundingClientRect().right + 10 + "px";
-        }
-    }
+	}
 
-	function addStickinessToRightFeed() {     
+	function keepLeftPositionSync() {
+		var leftFeedContainerClientRect = container.getBoundingClientRect();
+		rightFeedContainer.style.left =
+			container.getBoundingClientRect().right + 10 + "px";
+	}
+
+	function addStickinessToRightFeed() {
 		removeStickinessFromRightFeed();
-		rightFeedContainer.classList.add("sticky");
-        rightFeedContainer.style.width = rightFeedContainerClientRect.width + "px";
-        keepLeftPositionSync();
+		rightFeedContainer.classList.add(STICKY_CLASS);
+		rightFeedContainer.style.width = rightFeedContainerClientRect.width + "px";
+		keepLeftPositionSync();
 	}
 
 	function removeStickinessFromRightFeed() {
-		rightFeedContainer.classList.remove("sticky");
+		rightFeedContainer.classList.remove(STICKY_CLASS);
 		rightFeedContainer.style.left = null;
 		rightFeedContainer.style.width = null;
 	}
 
-	function handleFeedAtTheTop() {
-		if (!rightFeedContainer.classList.contains("mid-sticky")) {
+	function handleLeftFeedTouchesTopOfViewport() {
+		if (!rightFeedContainer.classList.contains(ABSLT_POS_CLASS)) {
 			addStickinessToRightFeed();
 		}
 		TRC.dom.on(window, "scroll", handleScroll);
-        TRC.dom.on(window, "resize", handlePageResize);
-        // TRC.dom.on(container, "resize", handleContainerResize);
-    }
-    
-    function handleContainerResize() {
-        console.log("CONTAINER RESIZE");
-    }
+		TRC.dom.on(window, "resize", handlePageResize);
+	}
 
-	function handleFeedNotAtTheTop() {
+	function handleLeftFeedIsPartOrOutsideTheViewport() {
 		removeStickinessFromRightFeed();
 		TRC.dom.off(window, "scroll", handleScroll);
 	}
@@ -102,32 +98,44 @@ function start2ColFeedProcess() {
 		var containerBottomPos = container.getBoundingClientRect().bottom;
 		return (
 			containerBottomPos < rightFeedContainerBottomPos &&
-			!rightFeedContainer.classList.contains("mid-sticky")
+			!rightFeedContainer.classList.contains(ABSLT_POS_CLASS)
 		);
 	}
 
 	function freezeRightFeed() {
 		var topPosition = wrapper.offsetHeight - rightFeedContainer.offsetHeight;
 		removeStickinessFromRightFeed();
-		rightFeedContainer.classList.add("mid-sticky");
+		rightFeedContainer.classList.add(ABSLT_POS_CLASS);
 		rightFeedContainer.style.top = topPosition + "px";
 		rightFeedContainer.style.marginTop = null;
 	}
 
 	function unFreezeRightFeed() {
-		rightFeedContainer.classList.remove("mid-sticky");
+		rightFeedContainer.classList.remove(ABSLT_POS_CLASS);
 		rightFeedContainer.style.top = null;
 		rightFeedContainer.style.marginTop = getTopMarginOfFeed(true);
 		addStickinessToRightFeed();
 	}
 
+	function isRightFeedInFixedPosition() {
+		return (
+			rightFeedContainer.classList.contains(STICKY_CLASS) &&
+			!rightFeedContainer.classList.contains(ABSLT_POS_CLASS)
+		);
+	}
+
 	function handlePageResize() {
-        keepLeftPositionSync();
-        TRC.intersections.unobserve(observerContainer);
-		rightFeedContainer.classList.remove("mid-sticky");        
-		rightFeedContainer.classList.remove("sticky");        
-        observeFeedInViewport();
-        handleScroll();
+		if (isRightFeedInFixedPosition()) {
+			TRC.intersections.unobserve(observerContainer);
+			observeFeedInViewport();
+			keepLeftPositionSync();
+		} else {
+			removeStickinessFromRightFeed();
+			observeFeedInViewport();
+			// if (window.getComputedStyle(rightFeedContainer).position !== "relative") {
+			// handleScroll();
+			// }
+		}
 	}
 
 	function handleScroll(e) {
@@ -136,23 +144,23 @@ function start2ColFeedProcess() {
 		} else if (rightFeedContainer.getBoundingClientRect().top > 0) {
 			unFreezeRightFeed();
 		}
-    }
-    
-    function getRootMargin() {
-        var viewportHeight = getViewportHeight();
-        var logoHeight = getLogoHeight();
-        var rootMarginTop = logoHeight + "px";
-        var rootMarginBottom = (viewportHeight + logoHeight) * -1 + "px";
-        return rootMarginTop + " 0px " + rootMarginBottom + " 0px";
-    } 
+	}
+
+	function getRootMargin() {
+		var viewportHeight = getViewportHeight();
+		var logoHeight = getLogoHeight();
+		var rootMarginTop = logoHeight + "px";
+		var rootMarginBottom = (viewportHeight + logoHeight) * -1 + "px";
+		return rootMarginTop + " 0px " + rootMarginBottom + " 0px";
+	}
 
 	function observeFeedInViewport() {
-        var rootMargin = getRootMargin();
+		var rootMargin = getRootMargin();
 		var options = {
 			targetElement: container,
 			rootMargin: rootMargin,
-			onEnter: handleFeedAtTheTop,
-			onExit: handleFeedNotAtTheTop
+			onEnter: handleLeftFeedTouchesTopOfViewport,
+			onExit: handleLeftFeedIsPartOrOutsideTheViewport
 		};
 
 		observerContainer = TRC.intersections.observe(options);
@@ -177,4 +185,3 @@ _taboola.push({
 		}
 	}
 });
-
