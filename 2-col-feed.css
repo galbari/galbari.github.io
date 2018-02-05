@@ -1,40 +1,51 @@
 .tbl-feeds-wrapper {
-    width: 100%;
-    position: relative;
+	width: 100%;
+	position: relative;
 }
 
 .tbl-feeds-wrapper:after {
-    content: "";
-    display: table;
-    clear: both;
+	content: "";
+	display: table;
+	clear: both;
 }
 
 .tbl-left-feed-container {
-    width: calc((100% - 10px) * 0.67);
-    float: left;
-    position: relative;
-    margin-right: 10px;
+	width: calc((100% - 10px) * 0.67);
+	float: left;
+	position: relative;
+	margin-right: 10px;
 }
 
 .tbl-right-feed-container {
-    width: calc((100% - 10px) * 0.33);
-    float: left;
-    position: relative;
-    clear: none;
+	width: calc((100% - 10px) * 0.33);
+	float: left;
+	position: relative;
+	clear: none;
 }
 
 .tbl-right-feed-container .tbl-feed-header {
-    display: none;
+	display: none;
 }
 
 .tbl-sticky {
-    position: fixed;
-    top: 0;
-    margin-top: 0 !important;
+	position: fixed;
+	top: 0;
+	margin-top: 0 !important;
 }
 
 .tbl-abslt-pos {
-    position: absolute;
-    right: 0;
-    margin-top: 0;
+	position: absolute;
+	right: 0;
+	margin-top: 0;
+}
+
+@media screen and (min-width: 0px) and (max-width: 750px),
+	screen and (min-width: 0px) and (max-width: 850px) and (orientation: landscape) {
+	.tbl-left-feed-container {
+		width: 100%;
+	}
+
+	.tbl-right-feed-container {
+		display: none;
+	}
 }
