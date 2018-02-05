@@ -23,22 +23,8 @@ function start2ColFeedProcess() {
 
 	rightFeedContainer.style.marginTop = getTopMarginOfFeed(true);
 	rightFeedContainerClientRect = rightFeedContainer.getBoundingClientRect();
-	// addCustomContentToRightFeed();
 	addSecondFeed();
 	observeFeedInViewport();
-
-	function addCustomContentToRightFeed() {
-		var ul = document.createElement("ul");
-		ul.setAttribute("id", "list");
-		for (var i = 0; i < 9; i++) {
-			var li = document.createElement("li");
-			li.innerHTML = "Item number " + i;
-			ul.appendChild(li);
-		}
-
-		var placeholderUl = ul.cloneNode(true);
-		rightFeedContainer.appendChild(ul);
-	}
 
 	function getViewportHeight() {
 		return Math.max(
@@ -125,6 +111,8 @@ function start2ColFeedProcess() {
 	}
 
 	function handlePageResize() {
+		rightFeedContainerClientRect = rightFeedContainer.getBoundingClientRect();
+		
 		if (isRightFeedInFixedPosition()) {
 			TRC.intersections.unobserve(observerContainer);
 			observeFeedInViewport();
@@ -132,9 +120,6 @@ function start2ColFeedProcess() {
 		} else {
 			removeStickinessFromRightFeed();
 			observeFeedInViewport();
-			// if (window.getComputedStyle(rightFeedContainer).position !== "relative") {
-			// handleScroll();
-			// }
 		}
 	}
 
