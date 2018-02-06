@@ -54,8 +54,8 @@ function start2ColFeedProcess() {
 
 	function addStickinessToRightFeed() {
 		removeStickinessFromRightFeed();
+		rightFeedContainer.style.width = rightFeedContainer.getBoundingClientRect().width + "px";
 		rightFeedContainer.classList.add(STICKY_CLASS);
-		rightFeedContainer.style.width = rightFeedContainerClientRect.width + "px";
 		keepLeftPositionSync();
 	}
 
@@ -71,6 +71,8 @@ function start2ColFeedProcess() {
 		}
 		TRC.dom.on(window, "scroll", handleScroll);
 		TRC.dom.on(window, "resize", handlePageResize);
+		container.addEventListener("resize", handlePageResize);
+		// TRC.dom.on(container, "resize", handlePageResize);
 	}
 
 	function handleLeftFeedIsPartOrOutsideTheViewport() {
@@ -82,10 +84,11 @@ function start2ColFeedProcess() {
 		var rightFeedContainerBottomPos = rightFeedContainer.getBoundingClientRect()
 			.bottom;
 		var containerBottomPos = container.getBoundingClientRect().bottom;
-		return (
-			containerBottomPos < rightFeedContainerBottomPos &&
-			!rightFeedContainer.classList.contains(ABSLT_POS_CLASS)
-		);
+		return containerBottomPos < rightFeedContainerBottomPos;
+		// return (
+		// 	containerBottomPos < rightFeedContainerBottomPos &&
+		// 	!rightFeedContainer.classList.contains(ABSLT_POS_CLASS)
+		// );
 	}
 
 	function freezeRightFeed() {
@@ -112,9 +115,8 @@ function start2ColFeedProcess() {
 
 	function handlePageResize() {
 		rightFeedContainerClientRect = rightFeedContainer.getBoundingClientRect();
-		
+		TRC.intersections.unobserve(observerContainer);
 		if (isRightFeedInFixedPosition()) {
-			TRC.intersections.unobserve(observerContainer);
 			observeFeedInViewport();
 			keepLeftPositionSync();
 		} else {
@@ -128,6 +130,11 @@ function start2ColFeedProcess() {
 			freezeRightFeed();
 		} else if (rightFeedContainer.getBoundingClientRect().top > 0) {
 			unFreezeRightFeed();
+		} else if (parseInt(container.getBoundingClientRect().bottom, 10) > parseInt(rightFeedContainer.getBoundingClientRect().bottom, 10)) {
+			// This func fires beacuse I can't tell when a new batch is loading/loaded inside the left feed
+			// When new batch loaded remove abslt-pos from right feed and add fixed pos to it
+			unFreezeRightFeed();
+			addStickinessToRightFeed();
 		}
 	}
 
