@@ -20,13 +20,13 @@
 	width: calc((100% - 10px) * 0.33);
 	float: left;
 	position: relative;
-    clear: none;
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.15);
-    padding: 28px;
+	clear: none;
+	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.15);
+	padding: 28px;
 }
 
 .tbl-right-feed-container.tbl-feed-container .tbl-feed-card {
-    border: none;
+	border: none;
 }
 
 .tbl-right-feed-container .tbl-feed-header {
