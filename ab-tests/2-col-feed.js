@@ -139,10 +139,6 @@ function twoColFeed () {
 				.bottom;
 			var containerBottomPos = container.getBoundingClientRect().bottom;
 			return containerBottomPos < rightFeedContainerBottomPos;
-			// return (
-			// 	containerBottomPos < rightFeedContainerBottomPos &&
-			// 	!rightFeedContainer.classList.contains(ABSLT_POS_CLASS)
-			// );
 		}
 
 		function freezeRightFeed() {
