@@ -1,3 +1,4 @@
+/* 2 col v1 */
 .tbl-feeds-wrapper {
 	width: 100%;
 	position: relative;
@@ -9,49 +10,43 @@
 	clear: both;
 }
 
-.tbl-left-feed-container {
+.tbl-feed-container.tbl-left-feed-container {
 	width: calc((100% - 10px) * 0.67);
 	float: left;
 	position: relative;
 	margin-right: 10px;
 }
 
-.tbl-right-feed-container {
+.tbl-feed-container.tbl-right-feed-container {
 	width: calc((100% - 10px) * 0.33);
 	float: left;
 	position: relative;
 	clear: none;
-	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.15);
-	padding: 28px;
 }
 
-.tbl-right-feed-container.tbl-feed-container .tbl-feed-card {
-	border: none;
-}
-
-.tbl-right-feed-container .tbl-feed-header {
-	display: none;
-}
-
-.tbl-sticky {
+.tbl-feed-container.tbl-right-feed-container.tbl-sticky {
 	position: fixed;
 	top: 0;
 	margin-top: 0 !important;
 }
 
-.tbl-abslt-pos {
+.tbl-feed-container.tbl-right-feed-container.tbl-abslt-pos {
 	position: absolute;
 	right: 0;
 	margin-top: 0;
 }
 
+.tbl-feed-container.tbl-right-feed-container .tbl-feed-header {
+	display: none;
+}
+
 @media screen and (min-width: 0px) and (max-width: 750px),
 	screen and (min-width: 0px) and (max-width: 850px) and (orientation: landscape) {
-	.tbl-left-feed-container {
+	.tbl-feed-container.tbl-left-feed-container {
 		width: 100%;
 	}
 
-	.tbl-right-feed-container {
+	.tbl-feed-container.tbl-right-feed-container {
 		display: none;
 	}
 }
