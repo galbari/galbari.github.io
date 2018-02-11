@@ -61,7 +61,8 @@ function twoColFeed () {
 				placement: "2 Columns Feed",
 				target_type: "mix"
 			}
-
+		
+		loadCSSFile()
 		wrapper.classList.add(FEEDS_WRAPPER);
 		container.classList.add(LEFT_CONTAINER_CLASS);
 		rightFeedContainer.classList.add(RIGHT_CONTAINER_CLASS);
@@ -78,6 +79,15 @@ function twoColFeed () {
 		rightFeedContainerClientRect = rightFeedContainer.getBoundingClientRect();
 		addSecondFeed();
 		observeFeedInViewport();
+		
+		function loadCSSFile() {
+        		var link = document.createElement( "link" );
+        		link.href = "//s3.amazonaws.com/c3.taboola.com/ui-ab-tests/2-col-feed.css";
+        		link.type = "text/css";
+        		link.rel = "stylesheet";
+
+        		document.getElementsByTagName("body")[0].appendChild(link);
+    		}
 
 		function getViewportHeight() {
 			return Math.max(
