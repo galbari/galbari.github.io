@@ -152,7 +152,7 @@ function start2ColFeedProcess() {
 			unFreezeRightFeed();
 			addStickinessToRightFeed();
 		}
-	}
+	} 
 
 	function getRootMargin() {
 		var viewportHeight = getViewportHeight();
