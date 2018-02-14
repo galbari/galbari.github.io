@@ -6,6 +6,7 @@ function start2ColFeedProcess() {
 		FEEDS_WRAPPER = "tbl-feeds-wrapper",
 		STICKY_CLASS = "tbl-sticky",
 		ABSLT_POS_CLASS = "tbl-abslt-pos",
+		MODE = "thumbnails-a-amp",		
 		PLACEMENT = "2 Columns Feed",
 		container = document.getElementById(ORGINAL_FEED_CONTAINER),
 		wrapper = document.createElement("div"),
@@ -14,7 +15,7 @@ function start2ColFeedProcess() {
 		publisherFixedPositionElementHeight = 41,
 		lastScrollPosition = 0,
 		taboolaPushConfig = {
-			mode: "thumbnails-a-amp-xxxxx",
+			mode: MODE,
 			container: RIGHT_CONTAINER_ID, //taboola-below-article-thumbnails
 			placement: PLACEMENT,
 			target_type: "mix"
