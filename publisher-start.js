@@ -6,19 +6,21 @@ function start2ColFeedProcess() {
 		FEEDS_WRAPPER = "tbl-feeds-wrapper",
 		STICKY_CLASS = "tbl-sticky",
 		ABSLT_POS_CLASS = "tbl-abslt-pos",
+		PLACEMENT = "2 Columns Feed",
 		container = document.getElementById(ORGINAL_FEED_CONTAINER),
 		wrapper = document.createElement("div"),
 		rightFeedContainer = document.createElement("div"),
-		rightFeedContainerClientRect,
-        observerContainer,
-        taboolaPushConfig = {
-            mode: "thumbnails-a",
-            container: "tbl-right-feed", //taboola-below-article-thumbnails
-            placement: "2 Columns Feed",
-            target_type: "mix"
-        }
+		observerContainer,
+		publisherFixedPositionElementHeight = 41,
+		lastScrollPosition = 0,
+		taboolaPushConfig = {
+			mode: "thumbnails-a-amp-xxxxx",
+			container: RIGHT_CONTAINER_ID, //taboola-below-article-thumbnails
+			placement: PLACEMENT,
+			target_type: "mix"
+		};
 
-    loadCSSFile()
+	loadCSSFile()
 	wrapper.classList.add(FEEDS_WRAPPER);
 	container.classList.add(LEFT_CONTAINER_CLASS);
 	rightFeedContainer.classList.add(RIGHT_CONTAINER_CLASS);
@@ -29,18 +31,30 @@ function start2ColFeedProcess() {
 	container.parentNode.insertBefore(rightFeedContainer, container.nextSibling);
 
 	rightFeedContainer.style.marginTop = getTopMarginOfFeed(true);
-	rightFeedContainerClientRect = rightFeedContainer.getBoundingClientRect();
 	addSecondFeed();
-    observeFeedInViewport();
-    
-    function loadCSSFile() {
-        var link = document.createElement( "link" );
-        link.href = "//s3.amazonaws.com/c3.taboola.com/ui-ab-tests/2-col-feed.css";
-        link.type = "text/css";
-        link.rel = "stylesheet";
+	TRC.EventsAPI.listen("nocontent", handleRightFeedErrors);
+	observeFeedInViewport();
 
-        document.getElementsByTagName("body")[0].appendChild(link);
-    }
+	function handleRightFeedErrors (e) {
+		if (e.detail.placement === PLACEMENT) {
+			abort2ColFeedProcess();
+		}		
+	}
+
+	function abort2ColFeedProcess () {		
+		TRC.intersections.unobserve(observerContainer);
+		container.classList.remove(LEFT_CONTAINER_CLASS);	
+		wrapper.removeChild(rightFeedContainer);
+	}
+
+	function loadCSSFile() {
+		var link = document.createElement("link");
+		link.href = "//s3.amazonaws.com/c3.taboola.com/ui-ab-tests/2-col-feed.css";
+		link.type = "text/css";
+		link.rel = "stylesheet";
+
+		document.getElementsByTagName("body")[0].appendChild(link);
+	}
 
 	function getViewportHeight() {
 		return Math.max(
@@ -68,10 +82,16 @@ function start2ColFeedProcess() {
 			container.getBoundingClientRect().right + 10 + "px";
 	}
 
+	function addTopValueToStickyFeed() {
+		rightFeedContainer.style.top = publisherFixedPositionElementHeight + "px";
+	}
+
 	function addStickinessToRightFeed() {
 		removeStickinessFromRightFeed();
 		rightFeedContainer.style.width = rightFeedContainer.getBoundingClientRect().width + "px";
 		rightFeedContainer.classList.add(STICKY_CLASS);
+		if (publisherFixedPositionElementHeight)
+			addTopValueToStickyFeed();
 		keepLeftPositionSync();
 	}
 
@@ -79,6 +99,7 @@ function start2ColFeedProcess() {
 		rightFeedContainer.classList.remove(STICKY_CLASS);
 		rightFeedContainer.style.left = null;
 		rightFeedContainer.style.width = null;
+		rightFeedContainer.style.top = null;
 	}
 
 	function handleLeftFeedTouchesTopOfViewport() {
@@ -87,8 +108,6 @@ function start2ColFeedProcess() {
 		}
 		TRC.dom.on(window, "scroll", handleScroll);
 		TRC.dom.on(window, "resize", handlePageResize);
-		container.addEventListener("resize", handlePageResize);
-		// TRC.dom.on(container, "resize", handlePageResize);
 	}
 
 	function handleLeftFeedIsPartOrOutsideTheViewport() {
@@ -101,10 +120,6 @@ function start2ColFeedProcess() {
 			.bottom;
 		var containerBottomPos = container.getBoundingClientRect().bottom;
 		return containerBottomPos < rightFeedContainerBottomPos;
-		// return (
-		// 	containerBottomPos < rightFeedContainerBottomPos &&
-		// 	!rightFeedContainer.classList.contains(ABSLT_POS_CLASS)
-		// );
 	}
 
 	function freezeRightFeed() {
@@ -122,43 +137,71 @@ function start2ColFeedProcess() {
 		addStickinessToRightFeed();
 	}
 
-	function isRightFeedInFixedPosition() {
+	function isStickyFeed() {
 		return (
 			rightFeedContainer.classList.contains(STICKY_CLASS) &&
 			!rightFeedContainer.classList.contains(ABSLT_POS_CLASS)
 		);
 	}
 
+	function isFreezFeed() {
+		return rightFeedContainer.classList.contains(ABSLT_POS_CLASS) && !isStickyFeed();
+	}
+
 	function handlePageResize() {
-		rightFeedContainerClientRect = rightFeedContainer.getBoundingClientRect();
 		TRC.intersections.unobserve(observerContainer);
-		if (isRightFeedInFixedPosition()) {
-			observeFeedInViewport();
+		if (isStickyFeed()) {
 			keepLeftPositionSync();
+		} else if (isFreezFeed()) {
+			freezeRightFeed();
 		} else {
 			removeStickinessFromRightFeed();
-			observeFeedInViewport();
 		}
+		observeFeedInViewport();
+	}
+
+	function getScrollDirection() {
+		var newScrollPosition = window.scrollY;
+		var dir;
+		if (newScrollPosition < lastScrollPosition) {
+			dir = "up"
+		} else {
+			dir = "down";
+		}
+		lastScrollPosition = newScrollPosition;
+
+		return dir;
+	}
+
+	function isRightFeedContainerShouldUnfreeze() {
+		return isFreezFeed() && rightFeedContainer.getBoundingClientRect().top > 0 + getAdditionalHeight();
+	}
+
+	function isLeftFeedOverlapingRightFeed() {
+		return isFreezFeed() && parseInt(container.getBoundingClientRect().bottom, 10) > parseInt(rightFeedContainer.getBoundingClientRect().bottom, 10);
+	}
+
+	function shouldUnfreezeRightFeed() {
+		return (getScrollDirection() === "up" && isRightFeedContainerShouldUnfreeze()) || isLeftFeedOverlapingRightFeed();
 	}
 
 	function handleScroll(e) {
-		if (isRightFeedOverlapingLeftFeed()) {
+		if (isRightFeedOverlapingLeftFeed() && isStickyFeed()) {
 			freezeRightFeed();
-		} else if (rightFeedContainer.getBoundingClientRect().top > 0) {
+		} else if (shouldUnfreezeRightFeed()) {
 			unFreezeRightFeed();
-		} else if (parseInt(container.getBoundingClientRect().bottom, 10) > parseInt(rightFeedContainer.getBoundingClientRect().bottom, 10)) {
-			// This func fires beacuse I can't tell when a new batch is loading/loaded inside the left feed
-			// When new batch loaded remove abslt-pos from right feed and add fixed pos to it
-			unFreezeRightFeed();
-			addStickinessToRightFeed();
 		}
-	} 
+	}
+
+	function getAdditionalHeight() {
+		return publisherFixedPositionElementHeight ? publisherFixedPositionElementHeight : 0;
+	}
 
 	function getRootMargin() {
 		var viewportHeight = getViewportHeight();
 		var logoHeight = getLogoHeight();
 		var rootMarginTop = logoHeight + "px";
-		var rootMarginBottom = (viewportHeight + logoHeight) * -1 + "px";
+		var rootMarginBottom = (viewportHeight + logoHeight - getAdditionalHeight()) * -1 + "px";
 		return rootMarginTop + " 0px " + rootMarginBottom + " 0px";
 	}
 
@@ -175,13 +218,13 @@ function start2ColFeedProcess() {
 	}
 
 	function addSecondFeed() {
-        _taboola.push(taboolaPushConfig);
+		_taboola.push(taboolaPushConfig);
 	}
 }
 
 _taboola.push({
 	listenTo: "render",
-	handler: function() {
+	handler: function () {
 		if (!TRC.rrLoaded && Object.keys(TRCImpl.feeds).length) {
 			TRC.rrLoaded = true;
 			start2ColFeedProcess();
