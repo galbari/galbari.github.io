@@ -1,7 +1,9 @@
 var trcManager = this,
-	variant1 = "7|1820",
-	variantArr = [variant1],
-	placement = ["Below Article Thumbnails"];
+	variant1 = "793032|2086",
+	variant2 = "575019|2086",
+	variant3 = "314049|2086",
+	variantArr = [variant1, variant2, variant3],
+	placement = ["Below Article Thumbnails | Card 1"];
 
 try {
 	TRC.aspect.before(
@@ -53,13 +55,13 @@ function twoColFeed() {
 			FEEDS_WRAPPER = "tbl-feeds-wrapper",
 			STICKY_CLASS = "tbl-sticky",
 			ABSLT_POS_CLASS = "tbl-abslt-pos",
-			MODE = "thumbnails-a-amp",
+			MODE = "right-column-feed", // Should change to relevan mode
 			PLACEMENT = "2 Columns Feed",
 			container = document.getElementById(ORGINAL_FEED_CONTAINER),
 			wrapper = document.createElement("div"),
 			rightFeedContainer = document.createElement("div"),
 			observerContainer,
-			publisherFixedPositionElementHeight = 0,
+			publisherFixedPositionElementHeight = 41,
 			lastScrollPosition = 0,
 			taboolaPushConfig = {
 				mode: MODE,
@@ -155,15 +157,13 @@ function twoColFeed() {
 		}
 
 		function handleLeftFeedTouchesTopOfViewport() {
-			if (!rightFeedContainer.classList.contains(ABSLT_POS_CLASS)) {
-				addStickinessToRightFeed();
-			}
+			if (!isFreezFeed()) addStickinessToRightFeed();
 			TRC.dom.on(window, "scroll", handleScroll);
 			TRC.dom.on(window, "resize", handlePageResize);
 		}
 
 		function handleLeftFeedIsPartOrOutsideTheViewport() {
-			removeStickinessFromRightFeed();
+			if (isStickyFeed()) removeStickinessFromRightFeed();
 			TRC.dom.off(window, "scroll", handleScroll);
 		}
 
