@@ -61,7 +61,7 @@ function twoColFeed() {
             wrapper = document.createElement('div'),
             rightFeedContainer = document.createElement('div'),
             observerContainer,
-            publisherFixedPositionElementHeight = 41,
+            publisherFixedPositionElementHeight = 0,
             lastScrollPosition = 0,
             taboolaPushConfig = {
                 mode: MODE,
