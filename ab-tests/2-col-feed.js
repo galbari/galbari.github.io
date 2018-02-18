@@ -17,12 +17,12 @@ try {
 						'loadScriptCallback',
 						function(cacheKey, response) {
 							try {
-								var currentVariant = response.trc['test-data'];
+                                				var currentVariant = response.trc['test-data'];
+								var choosenVariants = variantArr.filter(function(variant) {
+								    return variant === currentVariant;
+								});
 
-								if (
-									variantArr.indexOf(currentVariant) !== -1 &&
-									TRC.blockState === 0
-								) {
+								if (choosenVariants.length && TRC.blockState === 0) {
 									twoColFeed();
 								}
 							} catch (e) {
