@@ -233,7 +233,7 @@ TRC.feedTeaserSlider = function() {
 				'<div class="content-container">' +
 				'<div class="content">' +
 				'<div class="card-content">' +
-				'<div class="discover-card-label">Discover Articles Trending Right Now</div>' +
+				'<div class="discover-card-label">Discover Articles Trending Now</div>' +
 				'<div class="discover-card-btn">Jump to the Latest Posts<span class="arrow">' +
 				arrowSVG +
 				'</span></div>' +
@@ -302,8 +302,9 @@ TRC.feedTeaserSlider = function() {
 				'div',
 				'tbl-up-next',
 				'tbl-teaser-header',
-				'<span>Up Next</span><span class="arrow">' + arrowSVG + '</span>'
+				'<span>Up Next</span>'
 			);
+			var circleArrow = createElement('div', null, 'circle-arrow', '');
 			var closeBtn = createElement(
 				'div',
 				null,
@@ -326,6 +327,8 @@ TRC.feedTeaserSlider = function() {
 
 			innerTeaser.appendChild(discoverFeedDiv);
 			innerTeaser.appendChild(header);
+			circleArrow.appendChild(arrowIcon);
+			innerTeaser.appendChild(circleArrow);
 			// innerTeaser.appendChild(arrowIcon);
 			innerTeaser.appendChild(itemsContainer);
 			teaser.appendChild(innerTeaser);
@@ -371,9 +374,6 @@ TRC.feedTeaserSlider = function() {
 		}
 
 		function addEventsListners() {
-			// document
-			// 	.querySelector('#tbl-teaser-inner')
-			// 	.addEventListener('click', handleTeaserClick);
 			document
 				.querySelectorAll('#tbl-items-container li')
 				.forEach(function(item) {
@@ -773,6 +773,13 @@ TRC.feedTeaserSlider = function() {
 			if (cardsData.length && !feedInViewport) {
 				showTeaser(teaser);
 				playCarousel();
+			} else {
+				var reason =
+					cardsData.length < 1
+						? 'noCardsData'
+						: feedInViewport ? 'feedAlreadyInViewport' : 'unkownReason';
+				console.log('preventShowingTeaser', reason);
+				sendEvent('preventShowingTeaser', reason);
 			}
 		}, 0);
 
