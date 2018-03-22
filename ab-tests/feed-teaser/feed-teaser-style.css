@@ -249,8 +249,9 @@
 	transform: translateY(0);
 }
 .tbl-cards-teaser .item.tbl-discover-card .content-container {
-	width: calc(100% - 120px - 12px);
+	width: calc(100% - 120px - 10px);
 	padding-top: 0;
+	padding-left: 10px;
 	background: #ffffff;
 	font-size: 19px;
 }
