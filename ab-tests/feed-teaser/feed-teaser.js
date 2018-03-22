@@ -1,4 +1,6 @@
-// TRC.feedTeaserSlider = function() {
+var showTeaserAfterNumOfSeconds = 3000; // show entire teaser after number of seconds [AKA - X]
+loadCSSFile();
+
 function feedTeaser() {
 	if (TRC.feedTeaserExecuted) {
 		return;
@@ -6,9 +8,15 @@ function feedTeaser() {
 
 	var maxOrganicItems = 2,
 		maxSponsoredItems = 1,
-		variantConfig = ['organic', 'sponsored'], //organic or sponsored
-		variantConfigMobile = ['organic'], //organic or sponsored
-		teaserSidePosition = 'right', // options: right/left
+		replaceCarouselItemTime = 3500, // Number of seconds of appearence for each item in teaser [AKA - Y]
+		variantConfig = ['organic', 'sponsored'], // items types whcih show on new custom card on desktop - organic or sponsored [AKA - special feed]
+		variantConfigMobile = ['organic'], // items types whcih show on new custom card on desktop - organic or sponsored [AKA - special feed]
+		teaserSidePosition = 'right', // teaser position on desktop -  options: right/left
+		fixedPositionElementHeight = {
+			// set height of fixed position element so it won't cover the taboola feed logo after auto scroll to feed
+			mobile: 0,
+			desktop: 0
+		},
 		itemsTypesMap = {
 			organic: handleOrganicClick,
 			sponsored: handleSponsoredClick,
@@ -18,12 +26,10 @@ function feedTeaser() {
 		doneCarouseling = false,
 		// teaserVisibilityRemainingTime = 10000,
 		teaserVisibilityRemainingTime = null,
-		replaceCarouselItemTime = 3500,
 		countingDownStartTime = 0,
 		scrollDurationSpeed = 3000,
 		feedInViewport = false,
 		mobileScreenWidth = '812px',
-		fixedPositionElementHeight = 0, // set height of fixed position element so it won't cover the taboola feed logo after auto scroll to feed
 		carousel,
 		teaserVisibilityCountDown,
 		teaserAppearanceTime,
@@ -130,6 +136,7 @@ function feedTeaser() {
 		var cardsByRequestedType = [];
 		for (var card in allCards) {
 			if (
+				allCards[card].response.hasOwnProperty('feedPlacement') &&
 				allCards[card].itemsTypes &&
 				allCards[card].itemsTypes['is-' + cardType]
 			) {
@@ -195,7 +202,6 @@ function feedTeaser() {
 				')"></div>' +
 				'<div class="content-container">' +
 				'<div class="content">' +
-				'<span class="mobile-header">Up Next:&nbsp;</span>' +
 				'<span class="card-content">' +
 				card.content +
 				'</span>' +
@@ -212,17 +218,15 @@ function feedTeaser() {
 			cardsData.length +
 			';">' +
 			'<div class="img">' +
-			'<div class=img-shadow></div>' +
 			'<div class="mockup-feed-wrapper">' +
 			getMockupHTML(cardsData) +
 			'</div>' +
 			'</div>' +
 			'<div class="content-container">' +
 			'<div class="content">' +
-			'<span class="mobile-header">Up Next:&nbsp;</span>' +
 			'<div class="card-content">' +
-			'<div class="discover-card-label">Don\'t miss these articles</div>' +
-			'<div class="discover-card-btn">Jump to the latest posts<span class="arrow">' +
+			'<div class="discover-card-label">Discover Articles Trending Right Now</div>' +
+			'<div class="discover-card-btn">Jump to the Latest Posts<span class="arrow">' +
 			arrowSVG +
 			'</span></div>' +
 			'</div>' +
@@ -302,7 +306,7 @@ function feedTeaser() {
 			'div',
 			'discoverFeed',
 			'tbl-discover-feed-btn',
-			'Discover More <span class="arrow">' + arrowSVG + '</span>'
+			'Discover More Articles <span class="arrow">' + arrowSVG + '</span>'
 		);
 		var items = getItmesAsHtmlString(cardsData);
 		var itemsContainer = createElement(
@@ -623,7 +627,9 @@ function feedTeaser() {
 			'</div>' +
 			'</div>';
 
-		var firstCard = document.getElementById('taboola-container-pl1');
+		var firstCard = document.querySelector(
+			'.trc_related_container[data-card-index="1"]'
+		);
 		firstCard.parentNode.insertBefore(newCard, firstCard);
 	}
 
@@ -660,7 +666,10 @@ function feedTeaser() {
 	function scrollToFeed() {
 		var feed = getFeedElement();
 		var destination = getElementDestinationFromTopOfThePage(feed);
-		destination = destination - fixedPositionElementHeight; //remove Xpx from desitantion so if there is fixed header on the page, it won't cover up the taboola-feed logo
+		var fixPositionConfig = isMobileDevice()
+			? fixedPositionElementHeight.mobile
+			: fixedPositionElementHeight.desktop;
+		destination = destination - fixPositionConfig; //remove Xpx from desitantion so if there is fixed header on the page, it won't cover up the taboola-feed logo
 		scrollToDestination(destination, scrollDurationSpeed, 'easeInOutQuart');
 	}
 
@@ -760,6 +769,16 @@ function feedTeaser() {
 	TRC.feedTeaserExecuted = true;
 }
 
+function loadCSSFile() {
+	var link = document.createElement('link');
+	link.href =
+		'//s3.amazonaws.com/c3.taboola.com/ui-ab-tests/feed-teaser/feed-teaser-style.css';
+	link.type = 'text/css';
+	link.rel = 'stylesheet';
+
+	document.getElementsByTagName('body')[0].appendChild(link);
+}
+
 setTimeout(function() {
 	feedTeaser();
-}, 4000);
+}, showTeaserAfterNumOfSeconds);
