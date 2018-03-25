@@ -249,7 +249,7 @@
 	transform: translateY(0);
 }
 .tbl-cards-teaser .item.tbl-discover-card .content-container {
-	width: calc(100% - 120px - 10px);
+	width: calc(100% - 120px);
 	padding-top: 0;
 	padding-left: 10px;
 	background: #ffffff;
@@ -319,6 +319,7 @@
 	padding-top: 35px;
 	padding-left: 30px;
 	vertical-align: top;
+	box-sizing: border-box;
 	overflow: hidden;
 }
 .tbl-cards-teaser .content {
@@ -327,6 +328,8 @@
 	line-height: 1.27;
 	float: none;
 	width: auto;
+	font-family: Arial, Helvetica, sans-serif;
+	text-transform: initial;
 	transform: translateY(140px);
 	transition: transform 0.35s ease;
 }
@@ -399,11 +402,19 @@
 		width: 100vw;
 		height: 80px;
 		/* top: -300px; */
-		top: 0;
-		transform: translateY(-300px);
 		left: 0;
 		border-radius: 0px;
 		overflow: hidden;
+	}
+	.tbl-cards-teaser.tbl-teaser-mobile-position-bottom {
+		top: auto;
+		bottom: 0;
+		transform: translateY(300px);				
+	}
+	.tbl-cards-teaser.tbl-teaser-mobile-position-top {
+		top: 0;
+		bottom: auto;
+		transform: translateY(-300px);		
 	}
 	.tbl-cards-teaser .tbl-cards-teaser-inner {
 		border-radius: 0px;
@@ -430,7 +441,7 @@
 		padding-left: 23px;
 	}
 	.tbl-cards-teaser .item.tbl-discover-card .content-container {
-		width: calc(100% - 80px - 11px);
+		width: calc(100% - 80px);
 		padding-left: 11px;
 	}
 	.tbl-cards-teaser
