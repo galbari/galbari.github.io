@@ -6,29 +6,32 @@ function feedTeaser() {
 		return;
 	}
 
-	var maxOrganicItems = 2,
-		maxSponsoredItems = 1,
-		replaceCarouselItemTime = 3500, // Number of seconds of appearence for each item in teaser [AKA - Y]
-		variantConfig = ['organic', 'sponsored'], // items types whcih show on new custom card on desktop - organic or sponsored [AKA - special feed]
-		variantConfigMobile = ['organic'], // items types whcih show on new custom card on desktop - organic or sponsored [AKA - special feed]
-		teaserSidePosition = 'right', // teaser position on desktop -  options: right/left
-		fixedPositionElementHeight = {
+	var config = {
+		maxOrganicItems: 2,
+		maxSponsoredItems: 1,
+		replaceCarouselItemTime: 5000, // Number of seconds of appearence for each item in teaser [AKA - Y]
+		variantConfig: ['organic', 'sponsored'], // items types whcih show on new custom card on desktop - organic or sponsored [AKA - special feed]
+		variantConfigMobile: ['organic'], // items types whcih show on new custom card on desktop - organic or sponsored [AKA - special feed]
+		teaserSidePosition: 'right', // teaser position on desktop -  options: right/left
+		mobileVerticalPosition: 'bottom', //teaser position on mobile - options: top/bottom
+		fixedPositionElementHeight: {
 			// set height of fixed position element so it won't cover the taboola feed logo after auto scroll to feed
 			mobile: 0,
 			desktop: 0
 		},
-		itemsTypesMap = {
+		itemsTypesMap: {
 			organic: handleOrganicClick,
 			sponsored: handleSponsoredClick,
 			discover: handleDiscoverClick
 		},
-		teaserIsVisible = false,
+		scrollDurationSpeed: 3000 // scroll animation duration in miliseconds
+	};
+
+	var teaserIsVisible = false,
 		doneCarouseling = false,
-		// teaserVisibilityRemainingTime = 10000,
-		teaserVisibilityRemainingTime = null,
 		countingDownStartTime = 0,
-		scrollDurationSpeed = 3000,
 		feedInViewport = false,
+		teaserVisibilityRemainingTime = null, // counter when teaser should disappeare for the page e.g 10 (10 seconds after the last item appears the teaser will disappeare)
 		mobileScreenWidth = '812px',
 		carousel,
 		teaserVisibilityCountDown,
@@ -167,12 +170,12 @@ function feedTeaser() {
 		var sponsoredItems = getItemsByType('syndicated');
 
 		organicItems =
-			organicItems.length >= maxOrganicItems
-				? organicItems.slice(0, maxOrganicItems)
+			organicItems.length >= config.maxOrganicItems
+				? organicItems.slice(0, config.maxOrganicItems)
 				: organicItems;
 		sponsoredItems =
-			sponsoredItems.length >= maxSponsoredItems
-				? sponsoredItems.slice(0, maxSponsoredItems)
+			sponsoredItems.length >= config.maxSponsoredItems
+				? sponsoredItems.slice(0, config.maxSponsoredItems)
 				: sponsoredItems;
 
 		var teaserItems = organicItems.concat(sponsoredItems);
@@ -194,6 +197,8 @@ function feedTeaser() {
 				'"' +
 				'data-item-type=' +
 				dataType +
+				' teaser-item-index=' +
+				index +
 				' style="z-index:' +
 				index +
 				';">' +
@@ -282,7 +287,10 @@ function feedTeaser() {
 		var teaser = createElement(
 			'div',
 			'tbl-teaser',
-			'tbl-cards-teaser tbl-teaser-position-' + teaserSidePosition
+			'tbl-cards-teaser tbl-teaser-position-' +
+				config.teaserSidePosition +
+				' tbl-teaser-mobile-position-' +
+				config.mobileVerticalPosition
 		);
 		var innerTeaser = createElement(
 			'div',
@@ -296,7 +304,7 @@ function feedTeaser() {
 			'tbl-teaser-header',
 			'<span>Up Next</span>'
 		);
-		var circleArrow = createElement('div', null, 'circle-arrow', '')
+		var circleArrow = createElement('div', null, 'circle-arrow', '');
 		var closeBtn = createElement(
 			'div',
 			null,
@@ -365,7 +373,7 @@ function feedTeaser() {
 		});
 	}
 
-	function addEventsListners() {		
+	function addEventsListners() {
 		document
 			.querySelectorAll('#tbl-items-container li')
 			.forEach(function(item) {
@@ -451,13 +459,19 @@ function feedTeaser() {
 
 	function handleItemClick(e) {
 		e.preventDefault();
+		var clickedItem = e.currentTarget;
+		var clickedItemIndex = parseInt(clickedItem.getAttribute('teaser-item-index'), 10) + 1;
+		var clickItemType = clickedItem.getAttribute('data-item-type');
+		var clickedItemData = clickedItemIndex || clickItemType;
+		
+		sendEvent('teaserItemClick', clickedItemData);
 		hideTeaser();
-		var clickItemType = e.currentTarget.getAttribute('data-item-type');
-		itemsTypesMap[clickItemType](e.currentTarget);
+		config.itemsTypesMap[clickItemType](clickedItem);
 	}
 
 	function handleDiscoverFeedBtnClick(e) {
 		e.preventDefault();
+		sendEvent('discoverMoreArticlesBtnClick', 'click');		
 		handleDiscoverClick(e.currentTarget);
 	}
 
@@ -514,7 +528,9 @@ function feedTeaser() {
 
 	function getItemsIdsByVariantConfig(selectedItem) {
 		var itemsIdList = [];
-		var itemsConfig = isMobileDevice() ? variantConfigMobile : variantConfig;
+		var itemsConfig = isMobileDevice()
+			? config.variantConfigMobile
+			: config.variantConfig;
 		itemsConfig.forEach(function(type) {
 			if (
 				!itemsIdList.includes(selectedItem.id) &&
@@ -584,7 +600,7 @@ function feedTeaser() {
 	}
 
 	function renderCustomCardIntoFeed() {
-		var hasSponsoredClass = variantConfig.includes('sponsored')
+		var hasSponsoredClass = config.variantConfig.includes('sponsored')
 			? 'has-sponsored'
 			: '';
 
@@ -667,10 +683,14 @@ function feedTeaser() {
 		var feed = getFeedElement();
 		var destination = getElementDestinationFromTopOfThePage(feed);
 		var fixPositionConfig = isMobileDevice()
-			? fixedPositionElementHeight.mobile
-			: fixedPositionElementHeight.desktop;
+			? config.fixedPositionElementHeight.mobile
+			: config.fixedPositionElementHeight.desktop;
 		destination = destination - fixPositionConfig; //remove Xpx from desitantion so if there is fixed header on the page, it won't cover up the taboola-feed logo
-		scrollToDestination(destination, scrollDurationSpeed, 'easeInOutQuart');
+		scrollToDestination(
+			destination,
+			config.scrollDurationSpeed,
+			'easeInOutQuart'
+		);
 	}
 
 	function getElementDestinationFromTopOfThePage(element) {
@@ -711,7 +731,7 @@ function feedTeaser() {
 	}
 
 	function playCarousel() {
-		carousel = startTimer(shouldShowNextItem, replaceCarouselItemTime);
+		carousel = startTimer(shouldShowNextItem, config.replaceCarouselItemTime);
 	}
 
 	function stopCarousel() {
@@ -764,8 +784,11 @@ function feedTeaser() {
 			showTeaser(teaser);
 			playCarousel();
 		} else {
-			var reason = cardsData.length < 1 ? 'noCardsData' : feedInViewport ? 'feedAlreadyInViewport' : 'unkownReason';
-			console.log('preventShowingTeaser', reason);			
+			var reason =
+				cardsData.length < 1
+					? 'noCardsData'
+					: feedInViewport ? 'feedAlreadyInViewport' : 'unkownReason';
+			console.log('preventShowingTeaser', reason);
 			sendEvent('preventShowingTeaser', reason);
 		}
 	}, 0);
