@@ -1,15 +1,12 @@
 TRC.feedTeaserSlider = function() {
 	var options = {};
-	var jsSrc =
-		'//s3.amazonaws.com/c3.taboola.com/ui-ab-tests/feed-teaser/cdn-teaser.js';
-	var cssSrc =
-		'//s3.amazonaws.com/c3.taboola.com/ui-ab-tests/feed-teaser/feed-teaser-style.css';
-
-  //check the variant id func
-  loadTeaser(options)
-
+	//check the variant id func
+	loadTeaser(options);
 
 	function loadTeaser(options) {
+		var jsSrc = '//s3.amazonaws.com/c3.taboola.com/ui-ab-tests/feed-teaser/cdn-teaser.js';
+		var cssSrc = '//s3.amazonaws.com/c3.taboola.com/ui-ab-tests/feed-teaser/feed-teaser-style.css';
+      
 		function loadCSSFile() {
 			var link = document.createElement('link');
 			link.href = cssSrc;
