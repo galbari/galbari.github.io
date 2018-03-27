@@ -1,7 +1,7 @@
 TRC.executeFeedTeaser = function(options) {
 	options = options || {};
 	var config = {
-		showTeaserAfterNumOfSeconds: options.showTeaserAfterNumOfSeconds || 3000, // show entire teaser after number of seconds [AKA - X]
+		showTeaserAfterNumOfSeconds: options.showTeaserAfterNumOfSeconds || 2000, // show entire teaser after number of seconds [AKA - X]
 		maxOrganicItems: options.maxOrganicItems || 2,
 		maxSponsoredItems: options.maxSponsoredItems || 1,
 		replaceCarouselItemTime: options.replaceCarouselItemTime || 5000, // Number of seconds of appearence for each item in teaser [AKA - Y]
@@ -9,12 +9,16 @@ TRC.executeFeedTeaser = function(options) {
 		variantConfigMobile: options.variantConfigMobile || ['organic'], // items types whcih show on new custom card on desktop - organic or sponsored [AKA - special feed]
 		teaserSidePosition: options.teaserSidePosition || 'right', // teaser position on desktop -  options: right/left
 		mobileVerticalPosition: options.mobileVerticalPosition || 'bottom', //teaser position on mobile - options: top/bottom
-		scrollDurationSpeed: options.scrollDurationSpeed || 3000, // scroll animation duration in miliseconds
+		scrollDurationSpeed: options.scrollDurationSpeed || 2500, // scroll animation duration in miliseconds
 		fixedPositionElementHeight: options.fixedPositionElementHeight || {
 			// set height of fixed position element so it won't cover the taboola feed logo after auto scroll to feed
 			mobile: 0,
 			desktop: 0
-		}
+    },
+    discoverButtonText: options.discoverButtonText || 'Discover More Articles',
+    discoverCardLabel: options.discoverCardLabel || 'Discover Articles Trending Now',
+    discoverCardBlueButton: options.discoverCardBlueButton || 'Jump to the Latest Posts',
+    itemHeader: options.itemHeader || 'Up Next'
 	};
 
 	function feedTeaser() {
@@ -237,8 +241,8 @@ TRC.executeFeedTeaser = function(options) {
 				'<div class="content-container">' +
 				'<div class="content">' +
 				'<div class="card-content">' +
-				'<div class="discover-card-label">Discover Articles Trending Now</div>' +
-				'<div class="discover-card-btn">Jump to the Latest Posts<span class="arrow">' +
+				'<div class="discover-card-label">' + config.discoverCardLabel + '</div>' +
+				'<div class="discover-card-btn">' + config.discoverCardBlueButton + '<span class="arrow">' +
 				arrowSVG +
 				'</span></div>' +
 				'</div>' +
@@ -309,7 +313,7 @@ TRC.executeFeedTeaser = function(options) {
 				'div',
 				'tbl-up-next',
 				'tbl-teaser-header',
-				'<span>Up Next</span>'
+				'<span>' + config.itemHeader  + '</span>'
 			);
 			var circleArrow = createElement('div', null, 'circle-arrow', '');
 			var closeBtn = createElement(
@@ -322,7 +326,7 @@ TRC.executeFeedTeaser = function(options) {
 				'div',
 				'discoverFeed',
 				'tbl-discover-feed-btn',
-				'Discover More Articles <span class="arrow">' + arrowSVG + '</span>'
+				config.discoverButtonText + '<span class="arrow">' + arrowSVG + '</span>'
 			);
 			var items = getItmesAsHtmlString(cardsData);
 			var itemsContainer = createElement(
@@ -479,8 +483,8 @@ TRC.executeFeedTeaser = function(options) {
 
 		function handleDiscoverFeedBtnClick(e) {
 			e.preventDefault();
-      sendEvent('discoverMoreArticlesBtnClick', 'click');
-      hideTeaser();
+			sendEvent('discoverMoreArticlesBtnClick', 'click');
+			hideTeaser();
 			handleDiscoverClick(e.currentTarget);
 		}
 
@@ -797,6 +801,3 @@ TRC.executeFeedTeaser = function(options) {
 		feedTeaser();
 	}, config.showTeaserAfterNumOfSeconds);
 };
-
-
-// TRC.executeFeedTeaser();
