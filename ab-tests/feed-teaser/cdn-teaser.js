@@ -14,11 +14,11 @@ TRC.executeFeedTeaser = function(options) {
 			// set height of fixed position element so it won't cover the taboola feed logo after auto scroll to feed
 			mobile: 0,
 			desktop: 0
-    },
-    discoverButtonText: options.discoverButtonText || 'Discover More Articles',
-    discoverCardLabel: options.discoverCardLabel || 'Discover Articles Trending Now',
-    discoverCardBlueButton: options.discoverCardBlueButton || 'Jump to the Latest Posts',
-    itemHeader: options.itemHeader || 'Up Next'
+		},
+		discoverButtonText: options.discoverButtonText || 'Discover More Articles',
+		discoverCardLabel: options.discoverCardLabel || 'Discover Articles Trending Now',
+		discoverCardBlueButton:options.discoverCardBlueButton || 'Jump to the Latest Posts',
+		itemHeader: options.itemHeader || 'Up Next'
 	};
 
 	function feedTeaser() {
@@ -241,8 +241,12 @@ TRC.executeFeedTeaser = function(options) {
 				'<div class="content-container">' +
 				'<div class="content">' +
 				'<div class="card-content">' +
-				'<div class="discover-card-label">' + config.discoverCardLabel + '</div>' +
-				'<div class="discover-card-btn">' + config.discoverCardBlueButton + '<span class="arrow">' +
+				'<div class="discover-card-label">' +
+				config.discoverCardLabel +
+				'</div>' +
+				'<div class="discover-card-btn">' +
+				config.discoverCardBlueButton +
+				'<span class="arrow">' +
 				arrowSVG +
 				'</span></div>' +
 				'</div>' +
@@ -313,7 +317,7 @@ TRC.executeFeedTeaser = function(options) {
 				'div',
 				'tbl-up-next',
 				'tbl-teaser-header',
-				'<span>' + config.itemHeader  + '</span>'
+				'<span>' + config.itemHeader + '</span>'
 			);
 			var circleArrow = createElement('div', null, 'circle-arrow', '');
 			var closeBtn = createElement(
@@ -326,7 +330,10 @@ TRC.executeFeedTeaser = function(options) {
 				'div',
 				'discoverFeed',
 				'tbl-discover-feed-btn',
-				config.discoverButtonText + '<span class="arrow">' + arrowSVG + '</span>'
+				config.discoverButtonText +
+					'<span class="arrow">' +
+					arrowSVG +
+					'</span>'
 			);
 			var items = getItmesAsHtmlString(cardsData);
 			var itemsContainer = createElement(
