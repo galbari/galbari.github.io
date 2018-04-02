@@ -1,5 +1,5 @@
-var showTeaserAfterNumOfSeconds = 3000; // show entire teaser after number of seconds [AKA - X]
 // loadCSSFile();
+var showTeaserAfterNumOfSeconds = 3000; // show entire teaser after number of seconds [AKA - X]
 
 function feedTeaser() {
 	if (TRC.feedTeaserExecuted) {
@@ -24,7 +24,7 @@ function feedTeaser() {
 			sponsored: handleSponsoredClick,
 			discover: handleDiscoverClick
 		},
-		scrollDurationSpeed: 3000 // scroll animation duration in miliseconds
+		scrollDurationSpeed: 2500 // scroll animation duration in miliseconds
 	};
 
 	var teaserIsVisible = false,
@@ -349,8 +349,10 @@ function feedTeaser() {
 	}
 
 	function handleTextOverflow() {
-		var items = document.querySelectorAll(
-			'#tbl-items-container .item.card-holder .content'
+		var items = getArrayFrom(
+			document.querySelectorAll(
+				'#tbl-items-container .item.card-holder .content'
+			)
 		);
 		items.forEach(cutText);
 	}
@@ -373,12 +375,47 @@ function feedTeaser() {
 		});
 	}
 
+	function getBgUrl(el) {
+		var bg = '';
+		if (el.currentStyle) {
+			// IE
+			bg = el.currentStyle.backgroundImage;
+		} else if (document.defaultView && document.defaultView.getComputedStyle) {
+			// Firefox
+			bg = document.defaultView.getComputedStyle(el, '').backgroundImage;
+		} else {
+			// try and get inline style
+			bg = el.style.backgroundImage;
+		}
+		return bg.replace(/url\(['"]?(.*?)['"]?\)/i, '$1');
+	}
+
+	function listenToImgLoad(callback) {
+		var image = document.createElement('img');
+		var link = document.createElement('link');
+		var src = getBgUrl(document.querySelector('#tbl-items-container .img'));
+		if (src === 'none') {
+			startTeaserExperience();			
+		}
+
+		link.rel = 'preload';
+		link.href = src;
+		link.as = 'image';
+		document.getElementsByTagName('head')[0].appendChild(link);
+
+		image.src = src;
+		image.onload = function() {
+			startTeaserExperience();
+		};
+	}
+
 	function addEventsListners() {
-		document
-			.querySelectorAll('#tbl-items-container li')
-			.forEach(function(item) {
-				item.addEventListener('click', handleItemClick);
-			});
+		var teaserItems = getArrayFrom(
+			document.querySelectorAll('#tbl-items-container li')
+		);
+		teaserItems.forEach(function(item) {
+			item.addEventListener('click', handleItemClick);
+		});
 		document
 			.getElementById('discoverFeed')
 			.addEventListener('click', handleDiscoverFeedBtnClick);
@@ -460,10 +497,11 @@ function feedTeaser() {
 	function handleItemClick(e) {
 		e.preventDefault();
 		var clickedItem = e.currentTarget;
-		var clickedItemIndex = parseInt(clickedItem.getAttribute('teaser-item-index'), 10) + 1;
+		var clickedItemIndex =
+			parseInt(clickedItem.getAttribute('teaser-item-index'), 10) + 1;
 		var clickItemType = clickedItem.getAttribute('data-item-type');
 		var clickedItemData = clickedItemIndex || clickItemType;
-		
+
 		sendEvent('teaserItemClick', clickedItemData);
 		hideTeaser();
 		config.itemsTypesMap[clickItemType](clickedItem);
@@ -471,29 +509,64 @@ function feedTeaser() {
 
 	function handleDiscoverFeedBtnClick(e) {
 		e.preventDefault();
-		sendEvent('discoverMoreArticlesBtnClick', 'click');		
+		sendEvent('discoverMoreArticlesBtnClick', 'click');
+		hideTeaser();
 		handleDiscoverClick(e.currentTarget);
 	}
 
 	function handleOrganicClick(item) {
 		var itemId = item.getAttribute('data-item-id');
 		var clickedItemData = getItemFromCardsDataByItemId(itemId);
-		var newCardsIdList = getItemsIdsByVariantConfig(clickedItemData);
+		var chosenItemsIdList = getItemsIdsByVariantConfig(clickedItemData);
 		renderCustomCardIntoFeed();
-		var newItemsNodes = getClonedItemsFromFeed(newCardsIdList);
-		removeItemsFromOriginalCard(newCardsIdList);
-		newItemsNodes.forEach(appendNewNodeToNewCard);
+		var chosenItemsNodesList = chosenItemsIdList.map(getItemNodeByItemId);
+		chosenItemsNodesList.forEach(handelDomChangeOnItemNode);
 
 		hideTeaser();
 		scrollToFeed();
 	}
 
-	function appendNewNodeToNewCard(newNode) {
-		document
-			.querySelector(
-				'#taboola-teaser-card-container #internal_trc.items-wrapper'
-			)
-			.appendChild(newNode);
+	function getCardIdByItemId(itemId) {
+		var filterCardData = cardsData.filter(function(item) {
+			return item.id === itemId;
+		})[0];
+
+		return filterCardData.cardId;
+	}
+
+	function handelDomChangeOnItemNode(itemNode) {
+		isOrganicNode = itemNode.getAttribute('data-item-syndicated') === 'false';
+		if (isOrganicNode) {
+			moveTitleWithLogoSectionUnderTheTumbnailOfNode(itemNode);
+		}
+		var cardId = getCardIdByItemId(itemNode.getAttribute('data-item-id'));
+		var cardContainer = document.getElementById(cardId);
+		appendItemIntoNewCard(itemNode);
+		handleCardAfterItemMove(cardContainer);
+	}
+
+	function appendItemIntoNewCard(itemNode) {
+		var newCardSelector =
+			'#taboola-teaser-card-container #internal_trc.items-wrapper';
+		document.querySelector(newCardSelector).appendChild(itemNode);
+	}
+
+	function getArrayFrom(arrayWannaBe) {
+		return [].slice.call(arrayWannaBe);
+	}
+
+	function handleCardAfterItemMove(cardNode) {
+		var itemsList = getArrayFrom(cardNode.getElementsByClassName('videoCube'));
+		var numberOfItemsInCard = itemsList.length;
+		if (numberOfItemsInCard > 0) {
+			cardNode.classList.add('modify-items-container');
+			itemsList.forEach(function(nodeItem) {
+				nodeItem.classList.add('new-videoCube-items-' + itemsList.length);
+				updateImageWithNewDimenssions(nodeItem);
+			});
+		} else {
+			cardNode.remove();
+		}
 	}
 
 	function handleSponsoredClick(item) {
@@ -555,32 +628,8 @@ function feedTeaser() {
 		return itemsIdList;
 	}
 
-	function removeItemsFromOriginalCard(itemsIds) {
-		var removeableItems = itemsIds.map(getItemNodeByItemId);
-		removeableItems.forEach(function(item) {
-			var numberOfItemsInCard = item.parentNode.childElementCount;
-			if (numberOfItemsInCard > 1) {
-				removeItemFromCard(item, numberOfItemsInCard - 1);
-			} else {
-				removeCard(item);
-			}
-		});
-	}
-
 	function getItemNodeByItemId(itemId) {
 		return document.querySelector('[data-item-id="' + itemId + '"]');
-	}
-
-	function removeItemFromCard(item, numberOfSiblings) {
-		var itemsContainer = item.parentNode;
-		item.remove();
-		itemsContainer.childNodes;
-		//card wrapper add class of modify-card
-		itemsContainer.classList.add('modify-items-container');
-		itemsContainer.childNodes.forEach(function(nodeItem) {
-			nodeItem.classList.add('new-videoCube-items-' + numberOfSiblings);
-			updateImageWithNewDimenssions(nodeItem);
-		});
 	}
 
 	function updateImageWithNewDimenssions(videoCube) {
@@ -589,14 +638,6 @@ function feedTeaser() {
 			videoCube
 		);
 		getNewImage();
-	}
-
-	function removeCard(itemNode) {
-		var itemData = cardsData.filter(function(item) {
-			return itemNode.getAttribute('data-item-id') === item.id;
-		});
-		var cardId = itemData[0].cardId;
-		document.getElementById(cardId).remove();
 	}
 
 	function renderCustomCardIntoFeed() {
@@ -643,25 +684,8 @@ function feedTeaser() {
 			'</div>' +
 			'</div>';
 
-		var firstCard = document.querySelector(
-			'.trc_related_container[data-card-index="1"]'
-		);
+		var firstCard = document.querySelector('[data-card-index="1"]');
 		firstCard.parentNode.insertBefore(newCard, firstCard);
-	}
-
-	function getClonedItemsFromFeed(itemsIds) {
-		var clonedItems = itemsIds.map(function(itemId) {
-			var itemNode = getItemNodeByItemId(itemId);
-			var newNode = itemNode.cloneNode(true);
-			isOrganicNode = newNode.getAttribute('data-item-syndicated') === 'false';
-			if (isOrganicNode) {
-				moveTitleWithLogoSectionUnderTheTumbnailOfNode(newNode);
-			}
-
-			return newNode;
-		});
-
-		return clonedItems;
 	}
 
 	function moveTitleWithLogoSectionUnderTheTumbnailOfNode(organicNode) {
@@ -680,8 +704,10 @@ function feedTeaser() {
 	}
 
 	function scrollToFeed() {
+		var fixMarginTop = 10;
 		var feed = getFeedElement();
-		var destination = getElementDestinationFromTopOfThePage(feed);
+		var destination = feed.offsetTop - fixMarginTop;
+			// getElementDestinationFromTopOfThePage(feed) - fixMarginTop;
 		var fixPositionConfig = isMobileDevice()
 			? config.fixedPositionElementHeight.mobile
 			: config.fixedPositionElementHeight.desktop;
@@ -779,10 +805,16 @@ function feedTeaser() {
 	addEventsListners();
 	observeFeed(getFeedElement());
 
+	function startTeaserExperience() {
+		showTeaser(teaser);
+		playCarousel();
+	}
+
 	setTimeout(function() {
 		if (cardsData.length && !feedInViewport) {
-			showTeaser(teaser);
-			playCarousel();
+			listenToImgLoad();
+			// showTeaser(teaser);
+			// playCarousel();
 		} else {
 			var reason =
 				cardsData.length < 1
