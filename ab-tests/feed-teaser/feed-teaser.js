@@ -89,8 +89,10 @@ function feedTeaser() {
 				: destinationOffset
 		);
 
+
 		if ('requestAnimationFrame' in window === false) {
 			window.scroll(0, destinationOffsetToScroll);
+
 			if (callback) {
 				callback();
 			}
@@ -706,9 +708,8 @@ function feedTeaser() {
 	function scrollToFeed() {
 		var fixMarginTop = 10;
 		var feed = getFeedElement();
-				var destination = feed.offsetTop - fixMarginTop;
-
-		//var destination = getElementDestinationFromTopOfThePage(feed) - fixMarginTop;
+		// var destination = feed.offsetTop - fixMarginTop;
+		var destination = getElementDestinationFromTopOfThePage(feed) - fixMarginTop;
 		var fixPositionConfig = isMobileDevice()
 			? config.fixedPositionElementHeight.mobile
 			: config.fixedPositionElementHeight.desktop;
@@ -723,7 +724,8 @@ function feedTeaser() {
 	function getElementDestinationFromTopOfThePage(element) {
 		var yPosition = 0;
 		while (element) {
-			yPosition += element.offsetTop - element.scrollTop + element.clientTop;
+			// yPosition += element.offsetTop - element.scrollTop + element.clientTop;
+			yPosition += element.offsetTop;
 			element = element.offsetParent;
 		}
 
