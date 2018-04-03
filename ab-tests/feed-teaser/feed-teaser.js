@@ -706,7 +706,9 @@ function feedTeaser() {
 	function scrollToFeed() {
 		var fixMarginTop = 10;
 		var feed = getFeedElement();
-		var destination = getElementDestinationFromTopOfThePage(feed) - fixMarginTop;
+				var destination = feed.offsetTop - fixMarginTop;
+
+		//var destination = getElementDestinationFromTopOfThePage(feed) - fixMarginTop;
 		var fixPositionConfig = isMobileDevice()
 			? config.fixedPositionElementHeight.mobile
 			: config.fixedPositionElementHeight.desktop;
