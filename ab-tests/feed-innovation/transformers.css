@@ -1,0 +1,21 @@
+.tbl-transformer {
+  display: none;
+  background: #000;
+  /* height: 0px; */
+  /* height: 320px; */
+  opacity: 0;
+  transform: translateY(-200px);
+  visibility: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.tbl-transformer.show { 
+  display: block;
+}
+
+.tbl-transformer.fade-in {
+  opacity: 1;
+  transform: translateY(0px);
+  visibility: visible;
+  /* height: auto; */
+}
