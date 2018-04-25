@@ -1,11 +1,12 @@
 var tansformers = function() {
-  var config = {
-    headerClassName: 'blog-title',
-    imgClassName: 'img-fluid',
-    descriptionClassName: 'blog-description',
-    hiddenElementsClassNames: ['blog-masthead', 'blog-header', 'blog-post']
-  }
-  var feedObserver;
+	var config = {
+		headerClassName: 'blog-title',
+		imgClassName: 'img-fluid',
+		descriptionClassName: 'blog-description',
+    hiddenElementsClassNames: ['blog-masthead', 'blog-header', 'blog-post'],
+    closeButtonId: 'tblCloseBtn'
+	};
+	var feedObserver;
 
 	function getOrganicCard() {
 		var organicCardIndication = document.querySelector(
@@ -13,9 +14,9 @@ var tansformers = function() {
 		);
 		var organicCard = organicCardIndication
 			? findAncestor(organicCardIndication, 'tbl-feed-card')
-      : null;
-      
-    return organicCard;
+			: null;
+
+		return organicCard;
 	}
 
 	function findAncestor(el, className) {
@@ -24,8 +25,8 @@ var tansformers = function() {
 	}
 
 	function createCard() {
-    var el = document.createElement('div');
-    el.id = 'tbl-transformer-card';
+		var el = document.createElement('div');
+		el.id = 'tbl-transformer-card';
 		el.classList.add('tbl-transformer');
 		return el;
 	}
@@ -35,49 +36,80 @@ var tansformers = function() {
 			'.tbl-feed-container .tbl-feed-header'
 		);
 		feedHeader.parentNode.insertBefore(fakeCard, feedHeader.nextSibling);
-  }
+	}
 
-  function hideEntierPage(){
-    config.hiddenElementsClassNames.forEach(function(className) {
-      document.querySelector('.' + className).style.display = 'none';
-    });
-  }
+	function hideEntierPage() {
+    document.getElementById(config.closeButtonId).style.display = 'none';
+		config.hiddenElementsClassNames.forEach(function(className) {
+			document.querySelector('.' + className).style.display = 'none';
+		});
+	}
 
-  function handleFeedInViewport() {
-    console.log('OBSERVED 🚀');
-    var transformerCard = document.getElementById('tbl-transformer-card');
-    transformerCard.classList.add('show');
-    var height = transformerCard.offsetHeight; // force browser reflow so fade-in effect will take place smoothly 
-    transformerCard.classList.add('fade-in');    
-    hideEntierPage();
-    TRC.intersections.unobserve(feedObserver);
-  }
-  
-  function observeFeed(feed) {
+	function executeFeedTakeOver() {
+		console.log('OBSERVED 🚀');
+		var transformerCard = document.getElementById('tbl-transformer-card');
+		transformerCard.classList.add('show');
+		// if (window.scrollY !== 0) window.scroll(0, 0);
+		window.scrollY !== 0 ? window.scroll(0, 0) : transformerCard.offsetHeight;
+		// var height = transformerCard.offsetHeight; // force browser reflow so fade-in effect will take place smoothly
+		transformerCard.classList.add('fade-in');
+		hideEntierPage();
+		TRC.intersections.unobserve(feedObserver);
+	}
+
+	function observeFeed(feed) {
 		if (feed) {
 			var options = {
-        targetElement: feed,
-        threshold: isMobileDevice() ? [0.15] : [0.15],
-				onEnter: handleFeedInViewport
+				targetElement: feed,
+				threshold: isMobileDevice() ? [0.15] : [0.15],
+				onEnter: executeFeedTakeOver
 			};
 
 			feedObserver = TRC.intersections.observe(options);
 		}
-  }
+	}
 
-  function createTransformerCard() {
-    var organicCard = getOrganicCard();  
-    var newCard = organicCard.cloneNode(true);
-    newCard.id = 'tbl-transformer-card';
-    newCard.classList.add('tbl-transformer')
-    newCard.querySelector('.video-label.video-title').textContent = document.getElementsByClassName(config.headerClassName)[0].textContent;
-    newCard.querySelector('.thumbBlock_holder .thumbBlock').style.backgroundImage = 'url("' + document.getElementsByClassName(config.imgClassName)[0].src + '")'
-    newCard.querySelector('.video-label.video-description').textContent = document.getElementsByClassName(config.descriptionClassName)[0].textContent;
+	function createCloseButton() {
+		var closeButton = document.createElement('div');
+		closeButton.id = config.closeButtonId;
+		closeButton.classList = 'tbl-close-button';
+		closeButton.innerHTML =
+			'<div class="icon-wrap"></div>' +
+			'<svg class="icon icon--close icon--green-gradient " viewBox="0 0 20 20" version="1.1" aria-labelledby="title"><path d="M0,2.9h2.9V0H0V2.9z M2.9,5.7h2.9V2.9H2.9V5.7z M5.7,8.6h2.9V5.7H5.7V8.6z M8.6,11.4h2.9V8.6H8.6V11.4z M5.7,14.3h2.9v-2.9H5.7V14.3z M2.9,17.1h2.9v-2.9H2.9V17.1z M0,20h2.9v-2.9H0V20z M11.4,14.3h2.9v-2.9h-2.9V14.3z M14.3,17.1h2.9v-2.9h-2.9V17.1zM17.1,20H20v-2.9h-2.9V20z M11.4,8.6h2.9V5.7h-2.9V8.6z M14.3,5.7h2.9V2.9h-2.9V5.7z M17.1,2.9H20V0h-2.9V2.9z"></path></svg>' +
+			'<div class="progress-wrap">' +
+			'<svg viewBox="0 0 50 50"><circle class="progress-circle" cx="25" cy="25" r="22" style="stroke-dasharray: 137.4; stroke-dashoffset: 133.003;"></circle></svg>' +
+			'</div>';
+		closeButton.onclick = executeFeedTakeOver;
 
-    return newCard;
-  }
-  
-  function isMobileDevice() {
+		return closeButton;
+	}
+
+	function createTransformerCard() {
+		var organicCard = getOrganicCard();
+		var newCard = organicCard.cloneNode(true);
+		newCard.id = 'tbl-transformer-card';
+		newCard.classList.add('tbl-transformer');
+		newCard.querySelector(
+			'.video-label.video-title'
+		).textContent = document.getElementsByClassName(
+			config.headerClassName
+		)[0].textContent;
+		newCard.querySelector(
+			'.thumbBlock_holder .thumbBlock'
+		).style.backgroundImage =
+			'url("' +
+			document.getElementsByClassName(config.imgClassName)[0].src +
+			'")';
+		newCard.querySelector(
+			'.video-label.video-description'
+		).textContent = document.getElementsByClassName(
+			config.descriptionClassName
+		)[0].textContent;
+
+		return newCard;
+	}
+
+	function isMobileDevice() {
 		var isMobile = false;
 		(function(a) {
 			if (
@@ -94,10 +126,12 @@ var tansformers = function() {
 	}
 
 	// var fakeCard = createCard();
-  // appendFakeCardToFeed(fakeCard);
-  var transformerCard = createTransformerCard();
-  appendFakeCardToFeed(transformerCard);   
-  observeFeed(document.querySelector('.tbl-feed-container'))
+	// appendFakeCardToFeed(fakeCard);
+	var transformerCard = createTransformerCard();
+	var closeButton = createCloseButton();
+	document.getElementsByTagName('body')[0].appendChild(closeButton);
+	appendFakeCardToFeed(transformerCard);
+	observeFeed(document.querySelector('.tbl-feed-container'));
 };
 setTimeout(function() {
 	tansformers();
