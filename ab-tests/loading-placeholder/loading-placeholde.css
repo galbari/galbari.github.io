@@ -1,0 +1,129 @@
+.tbl-loading-spinner.tbl-loading-placeholder-wrapper {
+	background: transparent;
+	background-size: 100%;
+  height: auto;
+  margin-top: 40px;
+}
+
+.tbl-placeholder-card {
+	margin-bottom: 48px;
+}
+
+.tbl-placeholder-card {
+	background: #f6f7f9;
+	height: 125px;
+	overflow: hidden;
+	position: relative;
+}
+
+.tbl-placeholder-card::before {
+	background-color: #f6f7f8;
+	background-image: url(//s3.amazonaws.com/c3.taboola.com/ui-ab-tests/img/loader-animation.gif);
+	background-repeat: repeat-y;
+	background-size: 100% 1px;
+	content: ' ';
+	display: block;
+	height: 100%;
+}
+
+.tbl-img-placeholder.tbl-masker:before {
+	position: absolute;
+	content: '';
+	display: block;
+	width: 540px;
+	height: 252px;
+	background: #fff;
+	top: -251px;
+	right: 0;
+	opacity: 0;
+}
+
+.tbl-masker {
+	position: absolute;
+	background-color: #fff;
+}
+
+.tbl-img-text-margin {
+	top: 0px;
+	left: 125px;
+	width: 25px;
+	height: 100%;
+}
+
+.tbl-first-row-top-margin {
+	top: 0;
+	left: 150px;
+	width: 100%;
+	height: 20px;
+}
+
+.tbl-first-row-bottom-margin {
+	top: 41px;
+	left: 150px;
+	width: 100%;
+	height: 18px;
+}
+
+.tbl-second-row-bottom-margin {
+	top: 70px;
+	left: 150px;
+	width: 100%;
+	height: 18px;
+}
+
+.tbl-third-row-bottom-margin {
+	top: 99px;
+	left: 150px;
+	width: 100%;
+	height: 26px;
+}
+
+.tbl-first-row-right-padding {
+	top: 20px;
+	left: calc(30% + 130px);
+	width: 100%;
+	height: 21px;
+}
+
+.tbl-first-row-pl {
+	width: 30%;
+	height: 41px;
+	border-radius: 20px;
+	background-color: transparent;
+	top: 10px;
+	left: 140px;
+	border: 10px solid #fff;
+	z-index: 1;
+	/* border-color: yellow; */
+	/* background-color: red; */
+}
+
+.tbl-second-row-pl {
+	width: calc(100% - 130px);
+	height: 30px;
+	border-radius: 20px;
+	background-color: transparent;
+	top: 49px;
+	left: 140px;
+	border: 10px solid #fff;
+	z-index: 1;
+	/* border-color: yellow; */
+	/* background-color: red; */
+}
+
+.tbl-third-row-pl {
+	width: calc(100% - 130px);
+	height: 30px;
+	border-radius: 20px;
+	background-color: transparent;
+	top: 78px;
+	left: 140px;
+	border: 10px solid #fff;
+	z-index: 1;
+	/* border-color: yellow; */
+	/* background-color: red; */
+}
+
+/* .tbl-hidden {
+	display: block !important;
+} */
