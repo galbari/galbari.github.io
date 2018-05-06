@@ -6,14 +6,11 @@
 }
 
 .tbl-placeholder-card {
-	margin-bottom: 48px;
-}
-
-.tbl-placeholder-card {
 	background: #f6f7f9;
 	height: 125px;
 	overflow: hidden;
 	position: relative;
+	margin-bottom: 48px;	
 }
 
 .tbl-placeholder-card::before {
@@ -41,6 +38,7 @@
 .tbl-masker {
 	position: absolute;
 	background-color: #fff;
+	box-sizing: border-box;
 }
 
 .tbl-img-text-margin {
@@ -124,6 +122,15 @@
 	/* background-color: red; */
 }
 
-/* .tbl-hidden {
-	display: block !important;
-} */
+.thumbBlock {
+	opacity: 0;
+	transition: opacity 0.75s;
+}
+
+.thumbBlock[style*="background-image"] {
+	opacity: 1;
+}
+
+.tbl-img-fade-in {
+	opacity: 1;
+}

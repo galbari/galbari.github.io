@@ -1,20 +1,8 @@
 function startHook() {
 	// put everything inside this function so it will work in the hook
 	// TRC.aspect.after(TRC.Feed.prototype, 'createLoadingSpinner', function() {
-	//   var that = this;
-	//   console.log(this);
+	//   MY FUNC HERE
 	// }, true);
-
-	TRC.aspect.after(
-		TRC.InfiniteScrollEngine.prototype,
-		'hideLoadingSpinner',
-		function() {
-			console.log('😎😎😎😎😎😎😎😎');      
-			var that = this;
-			console.log(this);
-		},
-		true
-	);
 
 	function createElement(node, classNamesArray) {
 		var el = document.createElement(node);
@@ -26,61 +14,81 @@ function startHook() {
 	}
 
 	function getPlaceholderElement() {
+    if (document.getElementById('tbl-loader-placeholder')) return false;
 		var placeholderElement = document.createElement('div');
-		placeholderElement.id = 'loader-placeholder';
+		placeholderElement.id = 'tbl-loader-placeholder';
 
 		for (let i = 0; i < 3; i++) {
 			placeholderElement.appendChild(createPlaceholderNode());
 		}
 
 		return placeholderElement;
-	}
+  }
+  
+  function loadDummyImg() {
+    var dummyImg = createElement('img', ['dummy-img']);
+    dummyImg.width = '1px';
+    dummyImg.height = '1px';
+    dummyImg.style.visibility= 'hidden';
+    dummyImg.src = '//s3.amazonaws.com/c3.taboola.com/ui-ab-tests/img/loader-animation.gif';
+    dummyImg.onload = function() {
+      this.remove();
+    }
+
+    document.getElementsByTagName('body')[0].appendChild(dummyImg);
+    // document.querySelector('.tbl-feed-container').insertBefore(dummyImg, document.querySelector('.tbl-feed-header'));
+    
+  }
 
 	function createPlaceholderNode() {
+    loadDummyImg()
+    
 		var pl = createElement('div', ['tbl-placeholder-card']);
-		var imgPl = createElement('div', ['tbl-img-text-margin', 'tbl-masker']);
-		var titlePl = createElement('div', [
+		var imgTxtMargin = createElement('div', ['tbl-img-text-margin', 'tbl-masker']);
+		var firstRowTopMargin = createElement('div', [
 			'tbl-first-row-top-margin',
 			'tbl-masker'
 		]);
 		var firstRow = createElement('div', ['tbl-first-row-pl', 'tbl-masker']);
 		var secondRow = createElement('div', ['tbl-second-row-pl', 'tbl-masker']);
 		var thirdRow = createElement('div', ['tbl-third-row-pl', 'tbl-masker']);
-		var descPl = createElement('div', [
+		var firstRowBottomMargin = createElement('div', [
 			'tbl-first-row-bottom-margin',
 			'tbl-masker'
 		]);
-		var descPl4 = createElement('div', [
+		var firstRowRightPadding = createElement('div', [
 			'tbl-first-row-right-padding',
 			'tbl-masker'
 		]);
-		var descPl2 = createElement('div', [
+		var secondRowBottomMargin = createElement('div', [
 			'tbl-second-row-bottom-margin',
 			'tbl-masker'
 		]);
-		var descPl3 = createElement('div', [
+		var thirdRowBottomMargin = createElement('div', [
 			'tbl-third-row-bottom-margin',
 			'tbl-masker'
-		]);
+    ]);
+    
 
-		pl.appendChild(imgPl);
-		pl.appendChild(titlePl);
+		pl.appendChild(imgTxtMargin);
+		pl.appendChild(firstRowTopMargin);
 		pl.appendChild(firstRow);
 		pl.appendChild(secondRow);
 		pl.appendChild(thirdRow);
-		pl.appendChild(descPl);
-		pl.appendChild(descPl2);
-		pl.appendChild(descPl3);
-		pl.appendChild(descPl4);
+		pl.appendChild(firstRowBottomMargin);
+		pl.appendChild(secondRowBottomMargin);
+		pl.appendChild(thirdRowBottomMargin);
+		pl.appendChild(firstRowRightPadding);
 
 		return pl;
 	}
 
 	var loader = document.querySelector('.tbl-loading-spinner');
-	// loader.classList.remove('tbl-loading-spinner');
 	loader.classList.add('tbl-loading-placeholder-wrapper');
-	placeholderNode = getPlaceholderElement();
-	loader.appendChild(placeholderNode);
+  placeholderNode = getPlaceholderElement();
+  if (placeholderNode) {
+	  loader.appendChild(placeholderNode);    
+  }
 }
 
 setTimeout(function() {
