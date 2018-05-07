@@ -122,15 +122,12 @@
 	/* background-color: red; */
 }
 
-.thumbBlock {
+.tbl-feed-container .thumbBlock {
 	opacity: 0;
 	transition: opacity 0.75s;
 }
 
-.thumbBlock[style*="background-image"] {
+.tbl-feed-container .thumbBlock[style*="background-image"] {
 	opacity: 1;
 }
 
-.tbl-img-fade-in {
-	opacity: 1;
-}
