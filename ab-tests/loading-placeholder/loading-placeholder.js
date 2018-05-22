@@ -6,7 +6,7 @@ function startHook() {
 
 	function createElement(node, classNamesArray) {
 		var el = document.createElement(node);
-		classNamesArray.forEach(function(className) {
+		classNamesArray.forEach(function (className) {
 			el.classList.add(className);
 		});
 
@@ -14,7 +14,7 @@ function startHook() {
 	}
 
 	function getPlaceholderElement() {
-    if (document.getElementById('tbl-loader-placeholder')) return false;
+		if (document.getElementById('tbl-loader-placeholder')) return false;
 		var placeholderElement = document.createElement('div');
 		placeholderElement.id = 'tbl-loader-placeholder';
 
@@ -23,26 +23,26 @@ function startHook() {
 		}
 
 		return placeholderElement;
-  }
-  
-  function loadDummyImg() {
-    var dummyImg = createElement('img', ['dummy-img']);
-    dummyImg.width = '1px';
-    dummyImg.height = '1px';
-    dummyImg.style.visibility= 'hidden';
-    dummyImg.src = '//s3.amazonaws.com/c3.taboola.com/ui-ab-tests/img/loader-animation.gif';
-    dummyImg.onload = function() {
-      this.remove();
-    }
+	}
 
-    document.getElementsByTagName('body')[0].appendChild(dummyImg);
-    // document.querySelector('.tbl-feed-container').insertBefore(dummyImg, document.querySelector('.tbl-feed-header'));
-    
-  }
+	function loadDummyImg() {
+		var dummyImg = createElement('img', ['dummy-img']);
+		dummyImg.width = '1px';
+		dummyImg.height = '1px';
+		dummyImg.style.visibility = 'hidden';
+		dummyImg.src = '//s3.amazonaws.com/c3.taboola.com/ui-ab-tests/img/loader-animation.gif';
+		dummyImg.onload = function () {
+			this.remove();
+		}
+
+		document.getElementsByTagName('body')[0].appendChild(dummyImg);
+		// document.querySelector('.tbl-feed-container').insertBefore(dummyImg, document.querySelector('.tbl-feed-header'));
+
+	}
 
 	function createPlaceholderNode() {
-    loadDummyImg()
-    
+		loadDummyImg()
+
 		var pl = createElement('div', ['tbl-placeholder-card']);
 		var imgTxtMargin = createElement('div', ['tbl-img-text-margin', 'tbl-masker']);
 		var firstRowTopMargin = createElement('div', [
@@ -67,8 +67,8 @@ function startHook() {
 		var thirdRowBottomMargin = createElement('div', [
 			'tbl-third-row-bottom-margin',
 			'tbl-masker'
-    ]);
-    
+		]);
+
 
 		pl.appendChild(imgTxtMargin);
 		pl.appendChild(firstRowTopMargin);
@@ -84,13 +84,19 @@ function startHook() {
 	}
 
 	var loader = document.querySelector('.tbl-loading-spinner');
-	loader.classList.add('tbl-loading-placeholder-wrapper');
-  placeholderNode = getPlaceholderElement();
-  if (placeholderNode) {
-	  loader.appendChild(placeholderNode);    
-  }
+	var feedContainer = document.querySelector('.tbl-feed-container');
+	if (loader) {
+		loader.classList.add('tbl-loading-placeholder-wrapper');
+		placeholderNode = getPlaceholderElement();
+		if (placeholderNode) {
+			loader.appendChild(placeholderNode);
+			if (feedContainer) {
+				feedContainer.classList.add('render-late');
+			}
+		}
+	}
 }
 
-setTimeout(function() {
+setTimeout(function () {
 	startHook();
 }, 3000);

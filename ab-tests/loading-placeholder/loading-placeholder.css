@@ -1,3 +1,9 @@
+
+
+
+/*********************************************
+START OF ITEM RENDER LATE TEST
+**********************************************/
 .tbl-loading-spinner.tbl-loading-placeholder-wrapper {
 	background: transparent;
 	background-size: 100%;
@@ -15,7 +21,7 @@
 
 .tbl-placeholder-card::before {
 	background-color: #f6f7f8;
-	background-image: url(//s3.amazonaws.com/c3.taboola.com/ui-ab-tests/img/loader-animation.gif);
+	background-image: url(//cdn.taboola.com/static/91/9117a6d9-cbf1-4ea6-8caa-7461ce6554bc.gif);
 	background-repeat: repeat-y;
 	background-size: 100% 1px;
 	content: ' ';
@@ -122,12 +128,15 @@
 	/* background-color: red; */
 }
 
-.tbl-feed-container .thumbBlock {
+.render-late.tbl-feed-container .thumbBlock {
 	opacity: 0;
 	transition: opacity 0.75s;
 }
 
-.tbl-feed-container .thumbBlock[style*="background-image"] {
+.render-late.tbl-feed-container .thumbBlock[style*="background-image"] {
 	opacity: 1;
 }
 
+/*********************************************
+END OF ITEM RENDER LATE TEST
+**********************************************/
